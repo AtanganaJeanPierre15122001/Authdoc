@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/AUTHDOC/app" isTestSource="false" packagePrefix="App\" />
+      <sourceFolder url="file://$MODULE_DIR$/AUTHDOC/database/factories" isTestSource="false" packagePrefix="Database\Factories\" />
+      <sourceFolder url="file://$MODULE_DIR$/AUTHDOC/database/seeders" isTestSource="false" packagePrefix="Database\Seeders\" />
+      <sourceFolder url="file://$MODULE_DIR$/AUTHDOC/tests" isTestSource="true" packagePrefix="Tests\" />
+      <sourceFolder url="file://$MODULE_DIR$/AUTHDOC/tests/Feature" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/AUTHDOC/tests/Unit" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/brick/math" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/dflydev/dot-access-data" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/doctrine/inflector" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/doctrine/lexer" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/dragonmantank/cron-expression" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/egulias/email-validator" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/fakerphp/faker" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/filp/whoops" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/fruitcake/php-cors" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/graham-campbell/result-type" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/guzzlehttp/guzzle" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/guzzlehttp/promises" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/guzzlehttp/psr7" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/guzzlehttp/uri-template" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/hamcrest/hamcrest-php" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/laravel/framework" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/laravel/pint" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/laravel/prompts" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/laravel/sail" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/laravel/sanctum" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/laravel/serializable-closure" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/laravel/tinker" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/league/commonmark" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/league/config" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/league/flysystem" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/league/flysystem-local" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/league/mime-type-detection" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/mockery/mockery" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/monolog/monolog" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/myclabs/deep-copy" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/nesbot/carbon" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/nette/schema" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/nette/utils" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/nikic/php-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/nunomaduro/collision" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/nunomaduro/termwind" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/phar-io/manifest" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/phar-io/version" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/phpoption/phpoption" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/phpunit/php-code-coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/phpunit/php-file-iterator" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/phpunit/php-invoker" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/phpunit/php-text-template" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/phpunit/php-timer" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/phpunit/phpunit" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/psr/clock" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/psr/container" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/psr/event-dispatcher" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/psr/http-client" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/psr/http-factory" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/psr/http-message" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/psr/log" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/psr/simple-cache" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/psy/psysh" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/ralouphie/getallheaders" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/ramsey/collection" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/ramsey/uuid" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/sebastian/cli-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/sebastian/code-unit" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/sebastian/code-unit-reverse-lookup" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/sebastian/comparator" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/sebastian/complexity" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/sebastian/diff" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/sebastian/environment" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/sebastian/exporter" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/sebastian/global-state" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/sebastian/lines-of-code" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/sebastian/object-enumerator" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/sebastian/object-reflector" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/sebastian/recursion-context" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/sebastian/type" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/sebastian/version" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/spatie/backtrace" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/spatie/flare-client-php" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/spatie/ignition" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/spatie/laravel-ignition" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/console" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/css-selector" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/deprecation-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/error-handler" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/event-dispatcher" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/event-dispatcher-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/finder" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/http-foundation" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/http-kernel" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/mailer" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/mime" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/polyfill-ctype" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/polyfill-intl-grapheme" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/polyfill-intl-idn" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/polyfill-intl-normalizer" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/polyfill-mbstring" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/polyfill-php72" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/polyfill-php80" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/polyfill-php83" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/polyfill-uuid" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/process" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/routing" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/service-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/string" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/translation" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/translation-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/uid" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/var-dumper" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/symfony/yaml" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/theseer/tokenizer" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/tijsverkoyen/css-to-inline-styles" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/vlucas/phpdotenv" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/voku/portable-ascii" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/webmozart/assert" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/barryvdh/laravel-debugbar" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/maximebf/debugbar" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
