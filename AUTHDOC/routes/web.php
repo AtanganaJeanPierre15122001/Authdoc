@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {return view('Home/home');});
-Route::get('/auth/login',[\App\Http\Controllers\Authcontroller::class, 'login'])->name('login');
-Route::get('/auth/signup',[\App\Http\Controllers\Authcontroller::class, 'signup'])->name('signup');
+Route::get('/login',[\App\Http\Controllers\Authcontroller::class, 'login'])->name('auth.login');
+Route::get('/signup',[\App\Http\Controllers\Authcontroller::class, 'signup'])->name('auth.signup');
+Route::post('/signup',[\App\Http\Controllers\Authcontroller::class, 'signupPost']);
 
 
