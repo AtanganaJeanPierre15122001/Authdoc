@@ -71,7 +71,7 @@
                 <h1>A better solution for your authentification</h1>
                 <h2>AuthDoc the future of the authentification</h2>
                 <div class="d-flex justify-content-center justify-content-lg-start">
-                    <a href="{{route('login')}}" class="btn-get-started scrollto">Get Started</a>
+                    <a href="{{route('auth.login')}}" class="btn-get-started scrollto">Get Started</a>
 
                 </div>
             </div>
