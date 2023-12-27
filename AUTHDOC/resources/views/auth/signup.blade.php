@@ -16,20 +16,41 @@
                                 <h4>Register</h4>
                             </div>
                             <div class="card-body">
-                                <form method="POST">
+                                @if(Session::has('success'))
+                                    <div class=" alert alert-success" role="alert">
+                                        {{Session::get('success')}}
+                                    </div>
+                                @endif
+                                <form method="POST" action="{{route('auth.signup')}}">
+                                    @csrf
                                     <div class="row">
                                         <div class="form-group col-6">
-                                            <label for="frist_name">First Name</label>
-                                            <input id="frist_name" type="text" class="form-control" name="frist_name" autofocus>
+                                            <label for="first_name">First Name</label>
+                                            <input id="first_name" type="text" class="form-control" value="{{old('first_name')}}" name="first_name" autofocus>
+                                            <div style="color: red">
+                                                @error('first_name')
+                                                {{$message}}
+                                                @enderror
+                                            </div>
                                         </div>
                                         <div class="form-group col-6">
                                             <label for="last_name">Last Name</label>
-                                            <input id="last_name" type="text" class="form-control" name="last_name">
+                                            <input id="last_name" type="text" class="form-control" value="{{old('last_name')}}" name="last_name">
+                                            <div style="color: red">
+                                                @error('last_name')
+                                                {{$message}}
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input id="email" type="email" class="form-control" name="email">
+                                        <input id="email" type="email" value="{{old('email')}}" class="form-control" name="email">
+                                        <div style="color: red">
+                                            @error('email')
+                                            {{$message}}
+                                            @enderror
+                                        </div>
                                         <div class="invalid-feedback">
                                         </div>
                                     </div>
@@ -62,7 +83,7 @@
                                 </form>
                             </div>
                             <div class="mb-4 text-muted text-center">
-                                Already Registered? <a href="{{route('login')}}">Login</a>
+                                Already Registered? <a href="{{route('auth.login')}}">Login</a>
                             </div>
                         </div>
                     </div>

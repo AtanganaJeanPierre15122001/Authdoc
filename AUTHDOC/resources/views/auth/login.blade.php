@@ -17,6 +17,7 @@
                         </div>
                         <div class="card-body">
                             <form method="POST" action="#" class="needs-validation" novalidate="">
+                                @csrf
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
@@ -68,7 +69,7 @@
                         </div>
                     </div>
                     <div class="mt-5 text-muted text-center">
-                        Don't have an account? <a href="{{route('signup')}}">Create One</a>
+                        Don't have an account? <a href="{{route('auth.signup')}}">Create One</a>
                     </div>
                 </div>
             </div>
