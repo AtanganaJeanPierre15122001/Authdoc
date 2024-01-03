@@ -16,13 +16,20 @@
                             <h4>Login</h4>
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="#" class="needs-validation" novalidate="">
+                            @if(Session::has('error'))
+                                <div class="alert alert-danger" role="alert">
+                                    {{Session::get('error')}}
+                                </div>
+                            @endif
+                            <form method="POST" action="{{route('auth.login')}}" class="needs-validation" novalidate="">
                                 @csrf
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
-                                    <div class="invalid-feedback">
-                                        Please fill in your email
+                                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required value="{{ @old('email') }}" autofocus>
+                                    <div style="color: red">
+                                        @error('email')
+                                        {{$message}}
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -34,9 +41,11 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
-                                    <div class="invalid-feedback">
-                                        please fill in your password
+                                    <input id="password" type="password" class="form-control" name="password" required tabindex="2" >
+                                    <div style="color: red">
+                                        @error('password')
+                                        {{$message}}
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-group">
