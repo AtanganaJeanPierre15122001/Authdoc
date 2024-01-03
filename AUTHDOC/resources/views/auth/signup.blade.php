@@ -59,14 +59,24 @@
                                             <label for="password" class="d-block">Password</label>
                                             <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator"
                                                    name="password">
+                                            <div style="color: red">
+                                                @error('password')
+                                                {{$message}}
+                                                @enderror
+                                            </div>
                                             <div id="pwindicator" class="pwindicator">
                                                 <div class="bar"></div>
                                                 <div class="label"></div>
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
-                                            <label for="password2" class="d-block">Password Confirmation</label>
-                                            <input id="password2" type="password" class="form-control" name="password-confirm">
+                                            <label for="password_confirm" class="d-block">Password Confirmation</label>
+                                            <input id="password_confirm" type="password" class="form-control" name="password_confirm">
+                                            <div style="color: red">
+                                                @error('password_confirm')
+                                                {{$message}}
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">

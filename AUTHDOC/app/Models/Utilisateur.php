@@ -20,6 +20,7 @@ class Utilisateur extends Model
 
     protected $hidden = [
         'password',
+
     ];
 
     use HasFactory;
