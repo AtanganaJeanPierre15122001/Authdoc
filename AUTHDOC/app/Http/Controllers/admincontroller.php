@@ -2,12 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\signuprequest;
+use App\Models\Utilisateur;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class admincontroller extends Controller
 {
     public function admin()
     {
-        return view('admin.main');
+        $response['utilisateurs']=Utilisateur::all();
+        return view('admin.main')->with($response);
+    }
+
+    public function adminPost(signuprequest $request)
+    {
+        $request1 = $request->validated();
+
+        $utilisateur = new Utilisateur();
+        $utilisateur->nom = $request1['first_name'];
+        $utilisateur->prenom = $request1['last_name'];
+        $utilisateur->email = $request1['email'];
+        $utilisateur->password = Hash::make($request1['password']);
+        $utilisateur->fonction = 'adm';
+
+        $utilisateur->save();
+
+        return to_route('admin.main')->with('success','administrateur ajouté');
     }
 }

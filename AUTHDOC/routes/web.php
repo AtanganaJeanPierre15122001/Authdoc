@@ -20,5 +20,7 @@ Route::get('/signup',[\App\Http\Controllers\Authcontroller::class, 'signup'])->n
 Route::post('/signup',[\App\Http\Controllers\Authcontroller::class, 'signupPost']);
 Route::post('/login',[\App\Http\Controllers\Authcontroller::class, 'loginPost']);
 Route::get('/admin',[\App\Http\Controllers\admincontroller::class, 'admin'])->name('admin.main');
+Route::post('/admin',[\App\Http\Controllers\admincontroller::class, 'adminPost']);
 Route::get('/user',[\App\Http\Controllers\usercontroller::class, 'user'])->name('user.main');
+
 
