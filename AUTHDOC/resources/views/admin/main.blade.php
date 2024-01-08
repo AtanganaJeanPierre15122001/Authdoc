@@ -47,6 +47,9 @@
                         </a>
                     </div>
                     <ul class="sidebar-menu">
+                    <li class="dropdown">
+                            <a href="{{route('Home.home')}}" class="nav-link"><i data-feather="monitor"></i><span>home</span></a>
+                        </li> 
                         <li class="menu-header">Gestion admin</li>
                         <li class="dropdown active">
                             <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>liste admin</span></a>
@@ -63,8 +66,8 @@
                         <li class="menu-header">Gestion releve</li>
                         <li class="dropdown">
 
-                        </li>
-                        <li><a class="nav-link" href="blank.html"><i data-feather="file"></i><span>Ajout des info du releve</span></a></li>
+                        <li><a class="nav-link" href="blank.html"><i data-feather="file"></i><span>Ajouter un Releve</span></a></li>
+                        <li><a class="nav-link" href="blank.html"><i data-feather="file"></i><span>Authentifier un Releve</span></a></li>
 
 
                     </ul>
@@ -75,7 +78,7 @@
                 <section class="section">
                     <div class="section-body">
                         <div class="row">
-                            <div class="col-12 col-md-6 col-lg-6 ">
+                            <div class="col-12 col-md-6 col-lg-6 c 0 ">
                                 <div class="card">
                                     <div class="card-header">
                                         <h4>Liste des administrateurs</h4>
@@ -87,7 +90,7 @@
                                             </div>
                                         @endif
 
-                                        <div class="table-responsive">
+                                        <div class="table-responsive ">
                                             <table class="table table-striped table-md">
                                                 <tr>
 
@@ -96,7 +99,7 @@
                                                     <th>Email</th>
                                                     <th>Update</th>
                                                     <th>Delete</th>
-                                                </tr>
+                                                </tr>n,
                                                 @foreach($utilisateurs as $key => $utilisateur)
                                                     <tr>
 

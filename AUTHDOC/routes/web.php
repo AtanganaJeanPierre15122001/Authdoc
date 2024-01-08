@@ -22,5 +22,6 @@ Route::post('/login',[\App\Http\Controllers\Authcontroller::class, 'loginPost'])
 Route::get('/admin',[\App\Http\Controllers\admincontroller::class, 'admin'])->name('admin.main');
 Route::post('/admin',[\App\Http\Controllers\admincontroller::class, 'adminPost']);
 Route::get('/user',[\App\Http\Controllers\usercontroller::class, 'user'])->name('user.main');
+Route::get('/home',[\App\Http\Controllers\Authcontroller::class, 'home'])->name('Home.home');
 
 

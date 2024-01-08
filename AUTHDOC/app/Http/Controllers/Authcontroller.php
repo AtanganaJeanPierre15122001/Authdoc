@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Hash;
 
 class Authcontroller extends Controller
 {
+        public function home()
+        {
+        return view('Home.home');
+        }
 
         public function login()
         {
