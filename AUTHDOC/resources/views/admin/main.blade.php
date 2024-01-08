@@ -103,7 +103,7 @@
                                                         <td>{{$utilisateur->nom}}</td>
                                                         <td>{{$utilisateur->prenom}}</td>
                                                         <td>{{$utilisateur->email}}</td>
-                                                        <td><a href="#" class="btn btn-info">Update</a></td>
+                                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-admin-id="{{$utilisateur->id}}" data-target="#exampleModal">Update</button></td>
                                                         <td><a href="#" class="btn btn-danger">Delete</a></td>
                                                     </tr>
                                                 @endforeach
@@ -140,6 +140,8 @@
                     </div>
 
                     </div>
+
+
                     <div class="row">
                         <div class="card">
                             <div class="card-header">
@@ -214,6 +216,64 @@
                         </div>
                     </div>
                 </section>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="formModal">Modifier les infos</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="">
+                                    <div class="form-group">
+                                        <label>Nom</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="fas fa-lock"></i>
+                                                </div>
+                                            </div>
+                                            <input type="text" class="form-control" value="{{$utilisateur->nom}}" placeholder="Nom" name="first_name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Prenom</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="fas fa-lock"></i>
+                                                </div>
+                                            </div>
+                                            <input type="text" class="form-control" value="{{$utilisateur->prenom}}" placeholder="last_name" name="last_name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="fas fa-envelope"></i>
+                                                </div>
+                                            </div>
+                                            <input type="text" class="form-control" value="{{$utilisateur->email}}" placeholder="Email" name="email">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-0">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" name="remember" class="custom-control-input" id="remember-me">
+                                            <label class="custom-control-label" for="remember-me">Remember Me</label>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary m-t-15 waves-effect" data-admin-id="{{$utilisateur->id}}">Update</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
             </div>
