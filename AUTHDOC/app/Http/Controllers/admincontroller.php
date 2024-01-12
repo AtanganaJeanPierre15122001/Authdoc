@@ -31,18 +31,18 @@ class admincontroller extends Controller
         return to_route('admin.main')->with('success','administrateur ajouté');
     }
 
-    public function adminUpdate(Request $request, string $id)
-    {
-        $utilisateur = Utilisateur::findOrFail($id);
+    // public function adminUpdate(Request $request, string $id)
+    // {
+    //     $utilisateur = Utilisateur::findOrFail($id);
 
-        $utilisateur->nom  = $request->first_name;
-        $utilisateur->prenom  = $request->last_name;
-        $utilisateur->email  = $request->email;
+    //     $utilisateur->nom  = $request->first_name;
+    //     $utilisateur->prenom  = $request->last_name;
+    //     $utilisateur->email  = $request->email;
 
-        $utilisateur->save();
+    //     $utilisateur->save();
 
 
-        return to_route('admin.main')->with('success','administrateur mis a jour');
+        // return to_route('admin.main')->with('success','administrateur mis a jour');
 
-    }
+    // }
 }

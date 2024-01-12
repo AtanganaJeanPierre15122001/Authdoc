@@ -49,7 +49,7 @@
                     <ul class="sidebar-menu">
                         <li class="menu-header">Gestion admin</li>
                         <li class="dropdown active">
-                            <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>liste admin</span></a>
+                            <a href="{{route('admin.main')}}" class="nav-link"><i data-feather="monitor"></i><span>liste admin</span></a>
                         </li>
 {{--                        <li class="dropdown">--}}
 {{--                            <a href="#" class="menu-toggle nav-link has-dropdown"><i--}}
@@ -64,9 +64,10 @@
                         <li class="dropdown">
 
                         </li>
-                        <li><a class="nav-link" href="blank.html"><i data-feather="file"></i><span>Ajout des info du releve</span></a></li>
-
-
+                        <li><a class="nav-link" href="{{route('admin.ajoutreleve')}}"><i data-feather="file"></i><span>Ajout d'un releve</span></a></li>
+                        <li><a class="nav-link" href="blank.html"><i data-feather="file"></i><span>Ajout QR code a un Releve</span></a></li>
+                        <li><a class="nav-link" href="blank.html"><i data-feather="file"></i><span>Ajout OCR a un releve</span></a></li>
+                        <li><a class="nav-link" href="blank.html"><i data-feather="file"></i><span>Tout les Releves</span></a></li>
                     </ul>
                 </aside>
             </div>
@@ -95,7 +96,7 @@
                                                     <th>Prenom</th>
                                                     <th>Email</th>
                                                     <th>Update</th>
-                                                    <th>Delete</th>
+                                                   
                                                 </tr>
                                                 @foreach($utilisateurs as $key => $utilisateur)
                                                     <tr>
@@ -104,7 +105,7 @@
                                                         <td>{{$utilisateur->prenom}}</td>
                                                         <td>{{$utilisateur->email}}</td>
                                                         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-admin-id="{{$utilisateur->id}}" data-target="#exampleModal">Update</button></td>
-                                                        <td><a href="#" class="btn btn-danger">Delete</a></td>
+
                                                     </tr>
                                                 @endforeach
                                             </table>
@@ -132,17 +133,18 @@
                             </div>
 
 
-                        </div>
+                        
 
 
 
 
                     </div>
 
-                    </div>
+                    
 
 
-                    <div class="row">
+                    
+              <div class="col-12 col-md-6 col-lg-6">
                         <div class="card">
                             <div class="card-header">
                                 <h4>Ajouter un administrateur</h4>
@@ -215,6 +217,7 @@
                         </div>
                         </div>
                     </div>
+                </div>   
                 </section>
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
                      aria-hidden="true">

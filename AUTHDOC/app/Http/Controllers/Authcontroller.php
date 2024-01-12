@@ -23,6 +23,11 @@ class Authcontroller extends Controller
         {
             return view('auth.signup');
         }
+        public function ajoutreleve()
+        {
+            return view('admin.ajoutreleve');
+        }
+
 
         public function signupPost(signuprequest $request)
         {
