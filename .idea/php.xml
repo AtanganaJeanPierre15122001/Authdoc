@@ -125,6 +125,9 @@
       <path value="$PROJECT_DIR$/AUTHDOC/vendor/league/flysystem-local" />
       <path value="$PROJECT_DIR$/AUTHDOC/vendor/barryvdh/laravel-debugbar" />
       <path value="$PROJECT_DIR$/AUTHDOC/vendor/maximebf/debugbar" />
+      <path value="$PROJECT_DIR$/AUTHDOC/vendor/simplesoftwareio/simple-qrcode" />
+      <path value="$PROJECT_DIR$/AUTHDOC/vendor/bacon/bacon-qr-code" />
+      <path value="$PROJECT_DIR$/AUTHDOC/vendor/dasprid/enum" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />

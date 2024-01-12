@@ -45,4 +45,6 @@ class admincontroller extends Controller
         return to_route('admin.main')->with('success','administrateur mis a jour');
 
     }
+
+
 }

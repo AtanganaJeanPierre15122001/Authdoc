@@ -21,7 +21,9 @@ Route::post('/signup',[\App\Http\Controllers\Authcontroller::class, 'signupPost'
 Route::post('/login',[\App\Http\Controllers\Authcontroller::class, 'loginPost']);
 Route::get('/admin',[\App\Http\Controllers\admincontroller::class, 'admin'])->name('admin.main');
 Route::post('/admin',[\App\Http\Controllers\admincontroller::class, 'adminPost']);
-Route::post('/admin',[\App\Http\Controllers\admincontroller::class, 'adminUpdate']);
+//Route::post('/admin',[\App\Http\Controllers\admincontroller::class, 'adminUpdate'])->name('admin.main.update');
+Route::get('/releve',[\App\Http\Controllers\Relevecontroller::class, 'releve'])->name('admin.releve');
+Route::post('/view_releve',[\App\Http\Controllers\Relevecontroller::class, 'view_releve'])->name('admin.view_releve');
 
 Route::get('/user',[\App\Http\Controllers\usercontroller::class, 'user'])->name('user.main');
 

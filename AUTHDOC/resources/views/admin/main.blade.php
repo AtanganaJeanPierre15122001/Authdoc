@@ -20,7 +20,7 @@
                 <ul class="navbar-nav navbar-right">
 
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
-                                            class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="assets_admin/img/user.png"
+                                            class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="  "
                                                                                                              class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
                         <div class="dropdown-menu dropdown-menu-right pullDown">
                             <div class="dropdown-title">Hello Sarah Smith</div>
@@ -64,7 +64,7 @@
                         <li class="dropdown">
 
                         </li>
-                        <li><a class="nav-link" href="blank.html"><i data-feather="file"></i><span>Ajout des info du releve</span></a></li>
+                        <li><a class="nav-link" href="{{route('admin.releve')}}"><i data-feather="file"></i><span>Generer le relevé</span></a></li>
 
 
                     </ul>
@@ -75,7 +75,7 @@
                 <section class="section">
                     <div class="section-body">
                         <div class="row">
-                            <div class="col-12 col-md-6 col-lg-6 ">
+                            <div class="col-12  ">
                                 <div class="card">
                                     <div class="card-header">
                                         <h4>Liste des administrateurs</h4>
@@ -223,7 +223,7 @@
                             <div class="modal-header">
                                 <h5 class="modal-title" id="formModal">Modifier les infos</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
+                                    <span aria-hid;den="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
@@ -236,7 +236,7 @@
                                                     <i class="fas fa-lock"></i>
                                                 </div>
                                             </div>
-                                            <input type="text" class="form-control" value="{{$utilisateur->nom}}" placeholder="Nom" name="first_name">
+                                            <input type="text" class="form-control" value ="{{$utilisateur->nom}}" placeholder="Nom" name="first_name">
                                         </div>
                                     </div>
                                     <div class="form-group">
