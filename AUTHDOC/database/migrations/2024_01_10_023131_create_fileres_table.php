@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('fileres', function (Blueprint $table) {
             $table->string('id_filiere')->primary();
             $table->string('nom_filiere');
+            $table->string('nb_matieres');
+
             $table->timestamps();
         });
     }

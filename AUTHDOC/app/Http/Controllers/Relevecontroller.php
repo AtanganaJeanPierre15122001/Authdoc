@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\appartenir;
 use App\Models\etudiant;
+use App\Models\niveau;
 use App\Models\releve;
 use Illuminate\Http\Request;
 
-class Relevecontroller extends Controller
+class   Relevecontroller extends Controller
 {
 
     public function releve()
@@ -32,6 +33,13 @@ class Relevecontroller extends Controller
             ->select('appartenirs.ue', 'ues.nom_ue', 'ues.credit', 'ues.semestre', 'notes.moyenne','notes.mention','notes.decision_note')
             ->where('appartenirs.matricule', $matricule)
             ->get();
+        $niv = niveau::select('niveaux.nom_niveau')
+            ->join('regroupes', 'niveaux.id_niveau', '=', 'regroupes.niveau')
+            ->join('fileres', 'regroupes.filiere', '=', 'fileres.id_filiere')
+            ->join('releves', 'fileres.id_filiere', '=', 'releves.filiere')
+            ->join('etudiants', 'releves.matricule', '=', 'etudiants.matricule')
+            ->where('etudiants.matricule', $matricule)
+            ->first();
 
 
         $etudiant=etudiant::where(['matricule'=>$matricule])->first();
@@ -44,7 +52,7 @@ class Relevecontroller extends Controller
             $hmacInfo = base64_encode(trim($encryptedData));
 
 
-            return view('admin.releve', compact('hmacInfo',  'method','resultats','releve','etudiant'));
+            return view('admin.releve', compact('hmacInfo',  'method','resultats','releve','etudiant','niv'));
 
 
 

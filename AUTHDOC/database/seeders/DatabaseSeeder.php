@@ -13,6 +13,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        etudiant::factory()->count(10)->create();
+//        etudiant::factory()->count(10)->create();
+        $this->call([
+            EtudiantSeeder::class,
+            UtilisateurSeeder::class,
+            FilereSeeder::class,
+            SemestreSeeder::class,
+            NiveauSeeder::class,
+            NoteSeeder::class,
+            ReleveSeeder::class,
+            UeSeeder::class,
+            AppartenirSeeder::class,
+            RegroupeSeeder::class,
+        ]);
     }
 }

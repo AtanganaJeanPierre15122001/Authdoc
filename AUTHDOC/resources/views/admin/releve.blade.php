@@ -312,7 +312,7 @@
                                                     <div
                                                         class="form-value ps-4 pt-1 text-uppercase">
                                                         {{-- {{$releve->niveau}} --}}
-                                                        {{ isset($releve) ? $releve->niveau : '' }}
+                                                        {{ isset($releve) ? $niv->nom_niveau : '' }}
                                                     </div>
                                                 </div>
 
@@ -342,6 +342,7 @@
                                                     </div>
                                                     <div
                                                         class="form-value ps-4 pt-1 text-uppercase">
+                                                        {{ isset($releve) ? $etudiant->specialite : '' }}
                                                     </div>
                                                 </div>
                                                 <div class="d-flex form-item">

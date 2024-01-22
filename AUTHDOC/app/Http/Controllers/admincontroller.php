@@ -11,7 +11,7 @@ class admincontroller extends Controller
 {
     public function admin()
     {
-        $response['utilisateurs']=Utilisateur::all();
+        $response['utilisateurs']=Utilisateur::where(['fonction'=>'adm'])->get();
         return view('admin.main')->with($response);
     }
 
