@@ -24,6 +24,8 @@ class Authcontroller extends Controller
             return view('auth.signup');
         }
 
+        
+
         public function signupPost(signuprequest $request)
         {
             $request1 = $request->validated();

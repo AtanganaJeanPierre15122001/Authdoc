@@ -20,6 +20,10 @@ Route::get('/signup',[\App\Http\Controllers\Authcontroller::class, 'signup'])->n
 Route::post('/signup',[\App\Http\Controllers\Authcontroller::class, 'signupPost']);
 Route::post('/login',[\App\Http\Controllers\Authcontroller::class, 'loginPost']);
 Route::get('/admin',[\App\Http\Controllers\admincontroller::class, 'admin'])->name('admin.main');
+Route::get('/ajout_manuel',[\App\Http\Controllers\admincontroller::class, 'ajout_manuel'])->name('admin.ajout_manuel');
+Route::get('/ajout_excel',[\App\Http\Controllers\admincontroller::class, 'ajout_excel'])->name('admin.ajout_excel');
+Route::get('/rempli',[\App\Http\Controllers\admincontroller::class, 'rempli'])->name('admin.rempli');
+Route::post('/import_excel',[ReleveController::class, 'import_excel'])->name('import_excel');
 Route::post('/admin',[\App\Http\Controllers\admincontroller::class, 'adminPost']);
 //Route::post('/admin',[\App\Http\Controllers\admincontroller::class, 'adminUpdate'])->name('admin.main.update');
 Route::get('/releve',[\App\Http\Controllers\Relevecontroller::class, 'releve'])->name('admin.releve');

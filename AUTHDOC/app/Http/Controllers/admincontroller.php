@@ -46,5 +46,19 @@ class admincontroller extends Controller
 
     }
 
+    public function ajout_manuel()
+        {
+            return view('admin.ajout_manuel');
+        }
+        public function ajout_excel()
+        {
+            return view('admin.ajout_excel');
+        }
+        public function rempli()
+        {
+            return view('admin.rempli');
+        }
+
+
 
 }
