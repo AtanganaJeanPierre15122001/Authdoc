@@ -75,7 +75,7 @@
                 <section class="section">
                     <div class="section-body">
                         <div class="row">
-                            <div class="col-12 ">
+                            <div class="col-12">
                                 @if($method==null)
                                 <div class="card">
                                     <div class="card-header">
@@ -90,12 +90,12 @@
                                         @endif
 
                                             <div class="card-body bootstrap-select-1">
-                                                <p>Chercher le matricule dont vous voulez afficher le releve</p>
+                                                <p>Chercher le matricule pour afficher le releve</p>
                                                 <form method="POST" action="{{route('admin.view_releve')}}">
                                                     @csrf
                                                     <div class="row">
                                                         <div class="col-md-3">
-                                                            <label class="mb-3">Filiere</label>
+                                                            <label class="mb-3">Matricule</label>
                                                             <select id="matricule" name="matricule"
                                                                     class="select2 form-control mb-3 custom-select"
                                                                     style="width: 100%; height:36px;" required>
@@ -105,45 +105,36 @@
 
                                                             </select>
                                                         </div>
-{{--                                                        <div class="col-md-3">--}}
-{{--                                                            <label class="mb-3" for="niveau">Level</label>--}}
-{{--                                                            <select id="niveau" name="niveau"--}}
-{{--                                                                    class="select2 form-control mb-3 custom-select"--}}
-{{--                                                                    style="width: 100%; height:36px;" required>--}}
-{{--                                                                <option value="L1"> L1</option>--}}
-{{--                                                                <option value="L2"> L2</option>--}}
-{{--                                                                <option value="L3"> L3</option>--}}
-{{--                                                            </select>--}}
-{{--                                                        </div>--}}
+                                                        <div class="col-md-3">
+                                                            <label class="mb-3"></label>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label class="mb-3">Ajouter un releve via fichier excel</label>
+                                                            <a href="{{route('admin.ajout_excel')}}"  class="btn btn-primary mb-3">Excel</a>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label class="mb-3">Ajouter un releve manuellement</label>
+                                                            <a href="{{route('admin.ajout_manuel')}}" class="btn btn-primary mb-3">Manuel</a>
+                                                        </div>
 
-{{--                                                        <div class="col-md-3">--}}
-{{--                                                            <label class="mb-3" for="anneeAcademique">Academic year</label>--}}
-{{--                                                            <input type="text" class="form-control" id="anneeAcademique"--}}
-{{--                                                                   name="anneeAcademique" placeholder=" Exemple : 2020/2022">--}}
-
-{{--                                                        </div> <!-- end col -->--}}
-{{--                                                        <div class="col-md-3">--}}
-{{--                                                            <label class="mb-3">Addition Method</label>--}}
-{{--                                                            <div class="radio-group">--}}
-{{--                                                                <input type="radio" id="radio1" name="radio"--}}
-{{--                                                                       value="Excel">--}}
-{{--                                                                <label for="radio1">Excel</label>--}}
-{{--                                                                <input type="radio" id="radio2" name="radio"--}}
-{{--                                                                       value="Manuel">--}}
-{{--                                                                <label for="radio2">Manual</label>--}}
-{{--                                                            </div>--}}
-{{--                                                        </div>--}}
 
                                                     </div><!-- end row -->
                                                     <button id="eltb" class="btn btn-primary mb-3" type="submit">
                                                         validate</button>
                                                 </form>
 
-                                            </div>
-                        </div>
-                    </div>
-                        @endif
+
+                                                </div>
+
+                                    </div>
+                                </div>
+
+
+
                             </div>
+
+                        @endif
+
                             @if($method=='afficherel')
                                 <div class="d-flex   container-lg flex-column py-5 px-5 default_option">
                                     <header class="w-100 d-flex fle x-column">
@@ -690,6 +681,8 @@
 
 
         </div>
+                    </div>
+
                 </section>
             </div>
         </div>
