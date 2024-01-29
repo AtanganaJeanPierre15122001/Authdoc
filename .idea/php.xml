@@ -128,6 +128,20 @@
       <path value="$PROJECT_DIR$/AUTHDOC/vendor/simplesoftwareio/simple-qrcode" />
       <path value="$PROJECT_DIR$/AUTHDOC/vendor/bacon/bacon-qr-code" />
       <path value="$PROJECT_DIR$/AUTHDOC/vendor/dasprid/enum" />
+      <path value="$PROJECT_DIR$/AUTHDOC/vendor/barryvdh/laravel-dompdf" />
+      <path value="$PROJECT_DIR$/AUTHDOC/vendor/masterminds/html5" />
+      <path value="$PROJECT_DIR$/AUTHDOC/vendor/phenx/php-svg-lib" />
+      <path value="$PROJECT_DIR$/AUTHDOC/vendor/phenx/php-font-lib" />
+      <path value="$PROJECT_DIR$/AUTHDOC/vendor/sabberworm/php-css-parser" />
+      <path value="$PROJECT_DIR$/AUTHDOC/vendor/dompdf/dompdf" />
+      <path value="$PROJECT_DIR$/AUTHDOC/vendor/knplabs/knp-snappy" />
+      <path value="$PROJECT_DIR$/AUTHDOC/vendor/barryvdh/laravel-snappy" />
+      <path value="$PROJECT_DIR$/AUTHDOC/vendor/phpoffice/phpspreadsheet" />
+      <path value="$PROJECT_DIR$/AUTHDOC/vendor/myclabs/php-enum" />
+      <path value="$PROJECT_DIR$/AUTHDOC/vendor/ezyang/htmlpurifier" />
+      <path value="$PROJECT_DIR$/AUTHDOC/vendor/maennchen/zipstream-php" />
+      <path value="$PROJECT_DIR$/AUTHDOC/vendor/markbaker/complex" />
+      <path value="$PROJECT_DIR$/AUTHDOC/vendor/markbaker/matrix" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />

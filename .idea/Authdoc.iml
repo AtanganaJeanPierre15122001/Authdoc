@@ -126,6 +126,20 @@
       <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/bacon/bacon-qr-code" />
       <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/dasprid/enum" />
       <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/simplesoftwareio/simple-qrcode" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/barryvdh/laravel-dompdf" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/barryvdh/laravel-snappy" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/dompdf/dompdf" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/ezyang/htmlpurifier" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/knplabs/knp-snappy" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/maennchen/zipstream-php" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/markbaker/complex" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/markbaker/matrix" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/masterminds/html5" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/myclabs/php-enum" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/phenx/php-font-lib" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/phenx/php-svg-lib" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/phpoffice/phpspreadsheet" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/sabberworm/php-css-parser" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

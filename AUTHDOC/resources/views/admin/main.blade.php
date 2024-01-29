@@ -288,6 +288,6 @@
 
 
 
-    @section('content')
+    @endsection('content')
 
 

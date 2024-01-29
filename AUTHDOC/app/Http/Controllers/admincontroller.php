@@ -64,7 +64,8 @@ class admincontroller extends Controller
 
     public function ajout_excel()
     {
-        return view('admin.ajout_excel');
+        $filieres = filere::all();
+        return view('admin.ajout_excel')->with(['filieres' => $filieres]);
     }
 
 

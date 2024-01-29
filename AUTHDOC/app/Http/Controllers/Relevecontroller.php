@@ -29,6 +29,10 @@ class   Relevecontroller extends Controller
 
         $matricule =   $request->input('matricule');
 
+        session()->put('matricule',$matricule);
+
+
+
         $releve=releve::where(['matricule'=>$matricule])->first();
         $resultats = appartenir::join('ues', 'appartenirs.ue', '=', 'ues.id_ue')
             ->join('notes', 'appartenirs.id_note', '=', 'notes.id')
@@ -52,6 +56,10 @@ class   Relevecontroller extends Controller
             $hmac = hash_hmac('sha256', $datacont, $hmackey);
             $encryptedData = $hmac . '?' . $matricule;
             $hmacInfo = base64_encode(trim($encryptedData));
+            session()->put('hmacInfo',$hmacInfo);
+
+            session()->put('hm',$hmacInfo);
+            session()->put('rs',$resultats);
 
 
             return view('admin.releve', compact('hmacInfo',  'method','resultats','releve','etudiant','niv'));
@@ -69,7 +77,7 @@ class   Relevecontroller extends Controller
 
         $hmackey=env('HMAC_KEY');
         $method='afficherel';
-        ;
+
 
         $matricule =  session()->get('matricule') ;
 
@@ -110,3 +118,4 @@ class   Relevecontroller extends Controller
 
 
 }
+

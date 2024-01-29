@@ -264,4 +264,4 @@
     </div>
 
     </body>
-    @section('content')
+    @endsection('content')

@@ -50,7 +50,14 @@
                         <li >
                             <a href="{{route('admin.main')}}" class="nav-link"><i data-feather="monitor"></i><span>liste admin</span></a>
                         </li>
-
+                        {{--                        <li class="dropdown">--}}
+                        {{--                            <a href="#" class="menu-toggle nav-link has-dropdown"><i--}}
+                        {{--                                    data-feather="briefcase"></i><span>Widgets</span></a>--}}
+                        {{--                            <ul class="dropdown-menu">--}}
+                        {{--                                <li><a class="nav-link" href="widget-chart.html">Chart Widgets</a></li>--}}
+                        {{--                                <li><a class="nav-link" href="widget-data.html">Data Widgets</a></li>--}}
+                        {{--                            </ul>--}}
+                        {{--                        </li>--}}
 
                         <li class="menu-header">Gestion releve</li>
                         <li class="dropdown">
@@ -64,169 +71,184 @@
             </div>
             <!-- Main Content -->
             <div class="main-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Informations Basiques de l'etudiant</h4>
+                        <p class="text-muted mb-0"> <code
+                                class="highlighter-rouge"></code>
+                        </p>
+                    </div>
+                    <!--end card-header-->
+                    <div class="card-body bootstrap-select-1">
 
-                <div class="col-lg-12" id="excel-form">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Soumetre Via Excel</h4>
-                            <!-- <p class="text-muted mb-0">Vous pouvez Soumetre Le(s) Etudiant(s) en utilisant<code class="highlighter-rouge"></code>
-                                <code class="highlighter-rouge">Excel. </code>Mais d abord charger ces <code class="highlighter-rouge">informations du formulaire</code>.
-                            </p> -->
-                        </div>
-                        <!--end card-header-->
-                        <div class="card-body">
-                            <form id="eltb" method="POST" action="{{ route('import_excel') }}"
-                                  enctype="multipart/form-data">
-                                @csrf
-                                <div class="row">
+                        <form id="hidden_form" method="POST"
+                              action="{{route('admin.import_excel')}}">
+                            @csrf
 
-
-                                    <div class="col-md-3">
-
-
-                                        <label for="dynamicCombo">Matricule</label>
-                                        <input list="dynamicOptions" id="dynamicCombo" class="form-control">
-                                        <datalist id="dynamicOptions">
-                                            <option value="1023">
-                                            <option value="1064">
-                                        </datalist>
-
-                                        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-                                        <script>
-                                            document.getElementById('dynamicCombo').addEventListener('change', function() {
-                                                var currentValue = this.value;
-                                                var optionExists = false;
-                                                var options = document.getElementById('dynamicOptions').getElementsByTagName('option');
-                                                for (var i = 0; i < options.length; i++) {
-                                                    if (options[i].value === currentValue) {
-                                                        optionExists = true;
-                                                        break;
-                                                    }
-                                                }
-                                                if (!optionExists) {
-                                                    var newOption = document.createElement('option');
-                                                    newOption.value = currentValue;
-                                                    document.getElementById('dynamicOptions').appendChild(newOption);
-                                                }
-                                            });
-                                        </script>
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom01">Nom</label>
+                                    <input type="text" class="form-control"
+                                           id="validationCustom01" name="firstName"
+                                           placeholder="First name" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
                                     </div>
-                                    <div class="col-md-2">
-                                        <label for="dynamicCombo">Filiere:</label>
-                                        <input list="dynamicOptions" id="dynamicCombo" class="form-control">
-                                        <datalist id="dynamicOptions">
-                                            <option value="ICT4D">
-                                            <option value="CHIMIE">
-                                        </datalist>
-                                        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-                                        <script>
-                                            document.getElementById('dynamicCombo').addEventListener('change', function() {
-                                                var currentValue = this.value;
-                                                var optionExists = false;
-                                                var options = document.getElementById('dynamicOptions').getElementsByTagName('option');
-                                                for (var i = 0; i < options.length; i++) {
-                                                    if (options[i].value === currentValue) {
-                                                        optionExists = true;
-                                                        break;
-                                                    }
-                                                }
-                                                if (!optionExists) {
-                                                    var newOption = document.createElement('option');
-                                                    newOption.value = currentValue;
-                                                    document.getElementById('dynamicOptions').appendChild(newOption);
-                                                }
-                                            });
-                                        </script>
-
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom02">Prenom</label>
+                                    <input type="text" class="form-control"
+                                           id="validationCustom02" name="lastName"
+                                           placeholder="Last name" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
                                     </div>
-                                    <div class="col-md-2">
-                                        <label for="dynamicCombo">Nom</label>
-                                        <input list="dynamicOptions" id="dynamicCombo" class="form-control">
-                                        <datalist id="dynamicOptions">
-                                            <option value="Mataga Emma">
-                                            <option value="Atangana Jp">
-                                        </datalist>
-                                        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-                                        <script>
-                                            document.getElementById('dynamicCombo').addEventListener('change', function() {
-                                                var currentValue = this.value;
-                                                var optionExists = false;
-                                                var options = document.getElementById('dynamicOptions').getElementsByTagName('option');
-                                                for (var i = 0; i < options.length; i++) {
-                                                    if (options[i].value === currentValue) {
-                                                        optionExists = true;
-                                                        break;
-                                                    }
-                                                }
-                                                if (!optionExists) {
-                                                    var newOption = document.createElement('option');
-                                                    newOption.value = currentValue;
-                                                    document.getElementById('dynamicOptions').appendChild(newOption);
-                                                }
-                                            });
-                                        </script>
-
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustomUsername">Matricule</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                                                <span class="input-group-text"
+                                                                      id="inputGroupPrepend">#00A</span>
+                                        </div>
+                                        <input name="matricule" type="text"
+                                               class="form-control" id="validationCustomUsername"
+                                               placeholder="Matricule"
+                                               aria-describedby="inputGroupPrepend" required>
+                                        <div class="invalid-feedback">
+                                            Please choose a Matricule.
+                                        </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <label for="dynamicCombo">Prenom</label>
-                                        <input list="dynamicOptions" id="dynamicCombo" class="form-control">
-                                        <datalist id="dynamicOptions">
-                                            <option value="Mataga Emma">
-                                            <option value="Atangana Jp">
-                                        </datalist>
-                                        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-                                        <script>
-                                            document.getElementById('dynamicCombo').addEventListener('change', function() {
-                                                var currentValue = this.value;
-                                                var optionExists = false;
-                                                var options = document.getElementById('dynamicOptions').getElementsByTagName('option');
-                                                for (var i = 0; i < options.length; i++) {
-                                                    if (options[i].value === currentValue) {
-                                                        optionExists = true;
-                                                        break;
-                                                    }
-                                                }
-                                                if (!optionExists) {
-                                                    var newOption = document.createElement('option');
-                                                    newOption.value = currentValue;
-                                                    document.getElementById('dynamicOptions').appendChild(newOption);
-                                                }
-                                            });
-                                        </script>
-
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <!--end form-row-->
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom01">Date de naisssance</label>
+                                    <input name="date_nais" type="date" class="form-control"
+                                           id="date_naissance" placeholder="04/04/2003"
+                                           value="" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
                                     </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom02">Lieu de naissance</label>
+                                    <input name="lieu_nais" type="text" class="form-control"
+                                           id="lieu_naissance" placeholder="Doula" value=""
+                                           required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom02">Domaine</label>
+                                    <input name="domaine" type="text" class="form-control"
+                                           id="domaine" placeholder="Sciences et technologies" value=""
+                                           required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom01">Niveau</label>
+                                    <select class="custom-select" id="inputGroupSelect05" name="niveau" required>
+                                        <option value="L1">Licence 1</option>
+                                        <option value="L2">Licence 2</option>
+                                        <option value="L3">Licence 3</option>
+                                    </select>
+
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom02">Specialite(facultatif)</label>
+                                    <input type="text" class="form-control"
+                                           id="validationCustom02" name="specialite"
+                                           placeholder="specialite" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustomUsername">Annee academique</label>
+                                    <div class="input-group">
+
+                                        <input name="annee" type="text"
+                                               class="form-control" id="validationCustomUsername"
+                                               placeholder="2021/2022"
+                                               aria-describedby="inputGroupPrepend" required>
+                                        <div class="invalid-feedback">
+                                            Please choose a year.
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <!--end form-row-->
+                            <div class="form-row">
+                                <div class="col-md-2 mb-2">
+                                    <label for="dynamicCombo">Filiere:</label>
+                                    <input list="dynamicOptions" id="dynamicCombo" name="filiere" class="form-control">
+                                    <datalist id="dynamicOptions">
+                                        @foreach($filieres as $key => $filiere )
+                                            <option value="{{$filiere->id_filiere}}">
+                                                {{$filiere->id_filiere}}
+                                            </option>
+                                        @endforeach
 
 
-                                    <div class="col-md-2">
-                                        <label for="dynamicCombo">Nombre UEs</label>
-                                        <input list="dynamicOptions" id="dynamicCombo" class="form-control">
-                                        <datalist id="dynamicOptions">
-                                            <option value="L1">
-                                            <option value="L2">
-                                        </datalist>
-                                        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-                                        <script>
-                                            document.getElementById('dynamicCombo').addEventListener('change', function() {
-                                                var currentValue = this.value;
-                                                var optionExists = false;
-                                                var options = document.getElementById('dynamicOptions').getElementsByTagName('option');
-                                                for (var i = 0; i < options.length; i++) {
-                                                    if (options[i].value === currentValue) {
-                                                        optionExists = true;
-                                                        break;
-                                                    }
-                                                }
-                                                if (!optionExists) {
-                                                    var newOption = document.createElement('option');
-                                                    newOption.value = currentValue;
-                                                    document.getElementById('dynamicOptions').appendChild(newOption);
-                                                }
-                                            });
-                                        </script>
+                                    </datalist>
+                                    {{--                                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>--}}
 
+                                    <div class="invalid-feedback">
+                                        Please provide a valid state.
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-3 mb-3">
+                                    <label for="validationCustom05">Nom filiere</label>
+                                    <input list="dynamicOptions1" id="dynamicCombo1" name="nom_filiere" class="form-control">
+                                    <datalist id="dynamicOptions1">
+                                        @foreach($filieres as $key => $filiere )
+                                            <option value="{{$filiere->nom_filiere}}">
+                                                {{$filiere->nom_filiere}}
+                                            </option>
+                                        @endforeach
+                                    </datalist>
+                                    <div class="invalid-feedback">
+                                        Please provide a valid number.
                                     </div>
 
                                 </div>
+                                <!--end col-->
+
+                                <div class="col-md-3 mb-3">
+                                    <label for="validationCustom05">Nombre d'UEs</label>
+                                    <input type="numerics" class="form-control"
+                                           id="validationCustom05" placeholder="12"
+                                           name="nbUe" required
+                                           style="font-weight: bold;">
+                                    <div class="invalid-feedback">
+                                        Please provide a valid number.
+                                    </div>
+                                </div>
+                                <!--end col-->
+
+
+
+                                <!--end col-->
                                 <div style="margin-top: 30px;">
                                     <input class="btn btn-sm btn-soft-primary " value="Import Fichier Excel"
                                            type="file" accept=".xlsx, .xls" name="excel_file"
@@ -234,17 +256,19 @@
                                     &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
                                     <button class="btn btn-primary" type="submit"
                                             id="submit_btn">Upload/.xlsx, .xls</button>
-                                </div>
-                                <!-- Code HTML du formulaire -->
-                            </form>
-                        </div>
-                        <!--end card-body-->
+                                </div>0
+                            </div>
+                            <!--end form-row-->
+                        </form>
+
+                        <!--end form-->
+
+
                     </div>
-                    <!--end card-->
                 </div>
             </div>
         </div>
     </div>
 
     </body>
-    @section('content')
+@endsection('content')

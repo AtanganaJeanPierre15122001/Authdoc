@@ -129,14 +129,208 @@
                                     </div>
                                 </div>
 
-
-
                             </div>
 
                         @endif
 
-                            @if($method=='afficherel')
+                                @if($method=='afficherel')
                                 <div class="d-flex   container-lg flex-column py-5 px-5 default_option">
+                                    <div class="contents">
+                                    <style>
+
+                                        .Qrcode{
+                                            margin-top: 50px;
+                                            margin-left: -100px;
+                                        }
+                                        #downloadButton {
+                                            border: 1px solid blue;
+                                            /* Ajoute un bord de 1 pixel avec la couleur bleue */
+                                            padding: 5px 10px;
+                                            /* Ajuste le rembourrage intérieur du bouton */
+                                            background-color: white;
+                                            /* Définit la couleur de fond du bouton */
+                                            color: blue;
+
+                                        }
+
+                                        .col-sm-4 {
+                                            margin-bottom: 2%;
+                                        }
+
+                                        #downloadButton:hover {
+                                            background-color: blue;
+                                            /* Définit la couleur de fond du bouton au survol */
+                                            color: white;
+                                            /* Définit la couleur du texte du bouton au survol */
+                                        }
+                                        * {
+                                            position: relative;
+                                        }
+
+                                        .bloc {
+                                            display: inline-block;
+                                            margin-right: 20px;
+                                        }
+
+                                        .fs-2 {
+                                            color: #000000;
+                                            font-size: 43px;
+                                            font-weight: bold;
+                                        }
+
+                                        .default_option {
+                                            font-size: 14px;
+                                            margin: 0 !important;
+                                        }
+
+                                        .bold_part {
+                                            font-size: 17px !important;
+                                        }
+
+                                        .english_subtitle {
+                                            font-style: italic;
+                                            font-size: 13px;
+                                            margin-top: -5px;
+                                        }
+
+                                        .content-uy1-logo {
+                                            height: 100px;
+                                            width: 80px;
+                                        }
+
+                                        .content-state-data span:nth-child(1),
+                                        .content-state-data span:nth-child(4) {
+                                            font-weight: bold;
+                                        }
+
+                                        table {
+                                            border-top: 2px solid #000000 !important;
+                                            border-right: 2px solid #000000 !important;
+                                        }
+
+                                        table th span {
+                                            display: flex;
+                                            justify-content: center;
+                                            align-items: center;
+                                            height: 30px;
+                                            text-transform: capitalize;
+                                        }
+
+                                        table th,
+                                        table td:not(:nth-child(2)) {
+                                            text-align: center;
+                                        }
+
+                                        table thead,
+                                        table tbody {
+                                            border: none !important;
+                                            border-bottom: 3px solid #000000 !important;
+                                        }
+
+                                        table tr {
+                                            border-bottom: 1px solid #000000 !important;
+                                        }
+
+                                        table tr td,
+                                        table tr th {
+                                            border-left: 3px solid #000000 !important;
+                                        }
+
+                                        .content-recap {
+                                            max-width: 650px;
+                                        }
+
+                                        [rowspan] span {
+                                            position: absolute;
+                                            height: 100%;
+                                            width: 100%;
+                                            left: 0px;
+                                            top: 0px;
+                                            display: flex;
+                                            justify-content: center;
+                                            align-items: center;
+                                        }
+
+                                        .content-recap table {
+                                            font-size: 0.85em;
+                                            width: 380px !important;
+                                        }
+
+                                        .content-recap table td,
+                                        .content-recap table th {
+                                            /* height: 14px !important; */
+                                            padding: 0px !important;
+                                            margin: 0px !important;
+                                        }
+
+                                        .content-recap table th span {
+                                            height: 29px !important;
+                                        }
+
+                                        .bottom-left {
+                                            position: relative;
+                                            top: 0;
+                                            right: 0;
+
+                                        }
+
+                                        .app-search-topbar.active {}
+
+
+
+                                        .top-search:focus {
+                                            outline: none;
+                                        }
+
+                                        .app-search-topbar {
+                                            padding: -23px;
+                                            border-radius: 700px;
+                                        }
+
+                                        .hide-phone {
+                                            padding-top: 10px;
+                                            margin-bottom: 10px;
+
+
+                                        }
+
+                                        .app-search-topbar {
+                                            padding-left: 4px;
+                                            padding-right: 8px;
+                                            border-radius: 100px;
+                                        }
+
+                                        .topbar {
+                                            padding-bottom: 12px;
+                                            padding-left: 12px;
+                                            padding-top: 12px;
+                                        }
+
+                                        body {
+                                            margin: 0;
+                                            padding: 0;
+                                        }
+
+                                        table {
+                                            margin-bottom: 10px;
+                                        }
+
+                                        .div-suivante {
+                                            margin-top: 10px;
+                                        }
+                                        .print-table {
+                                            font-size: 12px; /* Taille de police réduite */
+                                        }
+                                        .print-table th,
+                                        .print-table td {
+                                            padding: 5px; /* Espacement réduit entre les cellules */
+                                        }
+                                        .print-table1 td {
+                                            padding: 3px; /* Espacement réduit entre les cellules */
+                                        }
+
+                                    </style>
+
                                     <header class="w-100 d-flex fle x-column">
                                         <section
                                             class="w-100 d-flex align-items-center justify-content-between">
@@ -664,273 +858,81 @@
                                         </section>
                                     </main>
                                     <br>
-
+                                    </div>
 
 
                                     <div class="col-sm-4">
 
-                                        <button id="downloadButton">Télécharger le PDF</button>
+                                        <button id="downloadButton" onclick=""><a href="{{route('generatepdf')}}">downloadButton</a></button>
                                     </div>
                                 </div>
 
                             @endif
+                            </div>
 
-
-            </div>
-
-
-
-        </div>
                     </div>
-
                 </section>
             </div>
+
+
+            </div>
         </div>
-    </div>
-
-    <style>
-
-        .Qrcode{
-            margin-top: 50px;
-            margin-left: -100px;
-        }
-        #downloadButton {
-            border: 1px solid blue;
-            /* Ajoute un bord de 1 pixel avec la couleur bleue */
-            padding: 5px 10px;
-            /* Ajuste le rembourrage intérieur du bouton */
-            background-color: white;
-            /* Définit la couleur de fond du bouton */
-            color: blue;
-
-        }
-
-        .col-sm-4 {
-            margin-bottom: 2%;
-        }
-
-        #downloadButton:hover {
-            background-color: blue;
-            /* Définit la couleur de fond du bouton au survol */
-            color: white;
-            /* Définit la couleur du texte du bouton au survol */
-        }
-        * {
-            position: relative;
-        }
-
-        .bloc {
-            display: inline-block;
-            margin-right: 20px;
-        }
-
-        .fs-2 {
-            color: #000000;
-            font-size: 43px;
-            font-weight: bold;
-        }
-
-        .default_option {
-            font-size: 14px;
-            margin: 0 !important;
-        }
-
-        .bold_part {
-            font-size: 17px !important;
-        }
-
-        .english_subtitle {
-            font-style: italic;
-            font-size: 13px;
-            margin-top: -5px;
-        }
-
-        .content-uy1-logo {
-            height: 100px;
-            width: 80px;
-        }
-
-        .content-state-data span:nth-child(1),
-        .content-state-data span:nth-child(4) {
-            font-weight: bold;
-        }
-
-        table {
-            border-top: 2px solid #000000 !important;
-            border-right: 2px solid #000000 !important;
-        }
-
-        table th span {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 30px;
-            text-transform: capitalize;
-        }
-
-        table th,
-        table td:not(:nth-child(2)) {
-            text-align: center;
-        }
-
-        table thead,
-        table tbody {
-            border: none !important;
-            border-bottom: 3px solid #000000 !important;
-        }
-
-        table tr {
-            border-bottom: 1px solid #000000 !important;
-        }
-
-        table tr td,
-        table tr th {
-            border-left: 3px solid #000000 !important;
-        }
-
-        .content-recap {
-            max-width: 650px;
-        }
-
-        [rowspan] span {
-            position: absolute;
-            height: 100%;
-            width: 100%;
-            left: 0px;
-            top: 0px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .content-recap table {
-            font-size: 0.85em;
-            width: 380px !important;
-        }
-
-        .content-recap table td,
-        .content-recap table th {
-            /* height: 14px !important; */
-            padding: 0px !important;
-            margin: 0px !important;
-        }
-
-        .content-recap table th span {
-            height: 29px !important;
-        }
-
-        .bottom-left {
-            position: relative;
-            top: 0;
-            right: 0;
-
-        }
-
-        .app-search-topbar.active {}
 
 
 
-        .top-search:focus {
-            outline: none;
-        }
-
-        .app-search-topbar {
-            padding: -23px;
-            border-radius: 700px;
-        }
-
-        .hide-phone {
-            padding-top: 10px;
-            margin-bottom: 10px;
 
 
-        }
+{{--    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>--}}
+{{--    <script>--}}
 
-        .app-search-topbar {
-            padding-left: 4px;
-            padding-right: 8px;
-            border-radius: 100px;
-        }
+{{--        $(document).ready(function() {--}}
+{{--            $('#downloadButton').click(function() {--}}
+{{--                var content = $('.contents').html();--}}
 
-        .topbar {
-            padding-bottom: 12px;
-            padding-left: 12px;
-            padding-top: 12px;
-        }
+{{--                var printWindow = window.open('', 'Auth.doc');--}}
+{{--                printWindow.document.write('<html><head><title>Auth.doc</title>');--}}
+{{--                printWindow.document.write(--}}
+{{--                    '<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />');--}}
+{{--                printWindow.document.write(--}}
+{{--                    '<link href="assets/css/card.css" rel="stylesheet" type="text/css" />');--}}
+{{--                printWindow.document.write(--}}
+{{--                    '<style> @page { size: A4; margin: 0; } body { margin: 1cm; }</style>');--}}
+{{--                printWindow.document.write('</head><body>');--}}
+{{--                printWindow.document.write('<div class="print-page">' + content + '</div>');--}}
+{{--                printWindow.document.write('</body></html>');--}}
 
-        body {
-            margin: 0;
-            padding: 0;
-        }
+{{--                printWindow.document.close();--}}
 
-        table {
-            margin-bottom: 10px;
-        }
+{{--                // Attendre que le contenu soit chargé dans la fenêtre d'impression--}}
+{{--                printWindow.onload = function() {--}}
+{{--                    var printDocument = printWindow.document.documentElement;--}}
+{{--                    var printPage = printDocument.querySelector('.print-page');--}}
 
-        .div-suivante {
-            margin-top: 10px;
-        }
-        .print-table {
-            font-size: 12px; /* Taille de police réduite */
-        }
-        .print-table th,
-        .print-table td {
-            padding: 5px; /* Espacement réduit entre les cellules */
-        }
-        .print-table1 td {
-            padding: 3px; /* Espacement réduit entre les cellules */
-        }
+{{--                    // Calculer la hauteur maximale d'une page A4--}}
+{{--                    var pageHeight = 11.7 * 96; // Hauteur en pixels--}}
 
-    </style>
-    <script>
-        $(document).ready(function() {
-            $('#downloadButton').click(function() {
-                var content = $('.contents').html();
+{{--                    // Réduire la hauteur des éléments pour s'adapter à une seule page--}}
+{{--                    var elements = printPage.querySelectorAll('*');--}}
+{{--                    for (var i = 0; i < elements.length; i++) {--}}
+{{--                        var element = elements[i];--}}
+{{--                        var elementHeight = element.offsetHeight;--}}
+{{--                        if (elementHeight > pageHeight) {--}}
+{{--                            element.style.height = pageHeight + 'px';--}}
+{{--                        }--}}
+{{--                    }--}}
 
-                var printWindow = window.open('', 'Auth.doc');
-                printWindow.document.write('<html><head><title>Auth.doc</title>');
-                printWindow.document.write(
-                    '<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />');
-                printWindow.document.write(
-                    '<link href="assets/css/card.css" rel="stylesheet" type="text/css" />');
-                printWindow.document.write(
-                    '<style> @page { size: A4; margin: 0; } body { margin: 1cm; }</style>');
-                printWindow.document.write('</head><body>');
-                printWindow.document.write('<div class="print-page">' + content + '</div>');
-                printWindow.document.write('</body></html>');
-
-                printWindow.document.close();
-
-                // Attendre que le contenu soit chargé dans la fenêtre d'impression
-                printWindow.onload = function() {
-                    var printDocument = printWindow.document.documentElement;
-                    var printPage = printDocument.querySelector('.print-page');
-
-                    // Calculer la hauteur maximale d'une page A4
-                    var pageHeight = 11.7 * 96; // Hauteur en pixels
-
-                    // Réduire la hauteur des éléments pour s'adapter à une seule page
-                    var elements = printPage.querySelectorAll('*');
-                    for (var i = 0; i < elements.length; i++) {
-                        var element = elements[i];
-                        var elementHeight = element.offsetHeight;
-                        if (elementHeight > pageHeight) {
-                            element.style.height = pageHeight + 'px';
-                        }
-                    }
-
-                    // Appeler la fonction d'impression de la fenêtre d'impression
-                    printWindow.print();
-                };
-            });
-        });
-    </script>
+{{--                    // Appeler la fonction d'impression de la fenêtre d'impression--}}
+{{--                    printWindow.print();--}}
+{{--                };--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
 
     </body>
 
 
 
 
-    @section('content')
+    @endsection('content')
 
 
