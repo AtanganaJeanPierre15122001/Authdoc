@@ -44,10 +44,9 @@ class pdfController extends Controller
 
 
         $datacont = trim($releve->id_releve) . '?' . trim($etudiant->nom) . '?' . trim($etudiant->prenom) . '?' . trim($niv->nom_niveau) . '?' . trim($releve->decision_rel) . '?' . trim($releve->filiere) . '?' . trim($releve->moy_gen_pon);
-        $hmac = hash_hmac('sha256', $datacont, $hmackey);
-        $encryptedData = $hmac . '?' . $matricule;
-        $hmacInfo = base64_encode(trim($encryptedData));
-        session()->put('hmacInfo',$hmacInfo);
+//        $hmac = hash_hmac('sha256', $datacont, $hmackey);
+        $encryptedData =$datacont . '?' . $hmackey . '?' . $matricule;
+        $hmacInfo = trim($encryptedData);
 
 
 

@@ -26,7 +26,7 @@ Route::get('/ajout_excel',[\App\Http\Controllers\admincontroller::class, 'ajout_
 
 Route::post('/rempli',[\App\Http\Controllers\admincontroller::class, 'rempli'])->name('admin.rempli');
 Route::post('/remplir_releve',[\App\Http\Controllers\admincontroller::class, 'remplirReleve'])->name('admin.remplir_releve');
-Route::post('/import_excel',[ReleveController::class, 'import_excel'])->name('admin.import_excel');
+Route::post('/import_excel',[\App\Http\Controllers\admincontroller::class, 'import_excel'])->name('admin.import_excel');
 //Route::post('/admin',[\App\Http\Controllers\admincontroller::class, 'adminUpdate'])->name('admin.main.update');
 Route::get('/releve',[\App\Http\Controllers\Relevecontroller::class, 'releve'])->name('admin.releve');
 Route::post('/view_releve',[\App\Http\Controllers\Relevecontroller::class, 'view_releve'])->name('admin.view_releve');
