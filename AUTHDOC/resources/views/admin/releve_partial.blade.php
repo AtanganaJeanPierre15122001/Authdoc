@@ -178,6 +178,8 @@
         body {
             margin: 0;
             padding: 0;
+            max-width: 100%;
+            overflow-x: hidden; /* Empêcher le débordement horizontal */
         }
 
         table {
@@ -258,6 +260,7 @@
 
         table, th, td{
             border: 1px solid black;
+            width: 100%;
         }
 
         #contentDiv7{
@@ -736,7 +739,7 @@
                             <tr>
                                 <td><30</td>
                                 <td>F</td>
-                                
+
                             </tr>
                             </tbody>
                         </table>

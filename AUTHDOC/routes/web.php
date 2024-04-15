@@ -36,3 +36,6 @@ Route::get('/downloadpdf',[\App\Http\Controllers\pdfController::class,'genererPD
 Route::get('/user',[\App\Http\Controllers\usercontroller::class, 'user'])->name('user.main');
 
 
+Route::get('/scanqr',[\App\Http\Controllers\admincontroller::class, 'scanqr'])->name('admin.scanqr');
+Route::get('/scanocr',[\App\Http\Controllers\admincontroller::class, 'scanocr'])->name('admin.scanocr');
+

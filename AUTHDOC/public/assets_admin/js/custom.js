@@ -86,6 +86,149 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// $('#result').val('test');
+function onScanSuccess(decodedText, decodedResult) {
+    // alert(decodedText);
+    $('#result').val(decodedText);
+    let id = decodedText;
+    console.log(decodedText);
+    html5QrcodeScanner.clear().then(_ => {
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            url: "{{ route('store') }}",
+            method: 'POST',
+            data: {
+                _token: "{{ csrf_token() }}",
+                data: id // Utilisation de "data" au lieu de "qr_code"
+            },
+            success: function(response) {
+                console.log(' Donnees recues: '+response);
+                if (response.status == 200) {
+                    document.getElementById("info-etu").style.display = "block";
+                    let etudiant = response.data.etudiant;
+                    let releve = response.data.releve;
+                    console.log(etudiant[0]);
+                    const nom = document.getElementById("nom");
+                    const prenom = document.getElementById("pre");
+                    const matricule = document.getElementById("mat");
+                    const niveau = document.getElementById("niv");
+                    const filiere = document.getElementById("fil");
+                    const mgp = document.getElementById("mgp");
+                    const decision = document.getElementById("dec");
+                    const numero = document.getElementById("num");
+                    nom.innerHTML = "<strong>Last Name :</strong> " + etudiant.nom;
+                    prenom.innerHTML = "<strong>First Name:</strong> " + etudiant.prenom;
+                    matricule.innerHTML = "<strong>Registration:</strong> " + etudiant.matricule;
+                    niveau.innerHTML = "<strong>Level :</strong> " + releve.niveau;
+                    filiere.innerHTML = "<strong>Discipline :</strong> " + releve.filiere;
+                    numero.innerHTML = "<strong>Document number  :</strong> " + releve.id_releve;
+                    mgp.innerHTML = "<strong>Mgp :</strong> " + releve.mgp;
+                    decision.innerHTML = "<strong>" + releve.decision + "</strong>";
+                    let id_releve = document.getElementById("id_releve");
+                    let niveau_ = document.getElementById("niveau");
+                    let matri = document.getElementById("matricule");
+                    document.getElementById("type").value = response.type;
+                    id_releve.value = releve.id_releve;
+
+                    niveau_.value = releve.niveau;
+
+                    matri.value = releve.etudiant;
+
+                    let message = document.getElementById("message");
+                    // message.textContent = "Authentic document"
+                    // message.style.color = 'green';
+                    $('#modalAuthentique').modal('show');
+                    document.getElementById("mon-formulaire").style.display = "block";
+
+                } else if (response.status == 400) {
+                    let message = document.getElementById("message");
+                    // message.style.color = 'red';
+                    // message.textContent = "Document non authentique"
+                    // Trouver la fenêtre modale par son ID
+                    var modal = document.getElementById('exampleModal');
+
+                    // Créer un nouvel objet Modal à partir de la fenêtre modale
+                    var modalInstance = new bootstrap.Modal(modal);
+
+                    // Ouvrir la fenêtre modale
+                    modalInstance.show();
+                    document.getElementById("mon-formulaire").style.display = "none";
+                } else if (response.status == 402) {
+                    // alert('Impossible de dechiffrer les informations contenues dans le Qr code!');
+                    let message = document.getElementById("message");
+                    message.style.color = 'red';
+                    message.textContent = "Impossible to decipher the information contained in the Qr code!"
+                    document.getElementById("mon-formulaire").style.display = "none";
+                }
+
+            }
+        });
+    }).catch(error => {
+        alert('something wrong');
+    });
+
+}
+
+function onScanFailure(error) {
+    // handle scan failure, usually better to ignore and keep scanning.
+    // for example:
+    // console.warn(`Code scan error = ${error}`);
+}
+
+function fermerFenetreModale() {
+    // Fermer la fenêtre modale en utilisant la méthode 'modal' de Bootstrap avec l'argument 'hide'
+    $('#exampleModal').modal('hide');
+}
+
+function fermerFenetreModaleAuthentique() {
+    // Fermer la fenêtre modale en utilisant la méthode 'modal' de Bootstrap avec l'argument 'hide'
+    $('#modalAuthentique').modal('hide');
+}
+
+let html5QrcodeScanner = new Html5QrcodeScanner(
+    "reader", {
+        fps: 10,
+        qrbox: {
+            width: 250,
+            height: 250
+        }
+    },
+    /* verbose= */
+    false);
+html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+
+function scanner() {
+    // document.getElementById("mon-formulaire").style.display = "none";
+    let html5QrcodeScanner = new Html5QrcodeScanner(
+        "reader", {
+            fps: 10,
+            qrbox: {
+                width: 250,
+                height: 250
+            }
+        },
+        /* verbose= */
+        false);
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+    let message = document.getElementById("message");
+    message.textContent = ""
+    document.getElementById('info-etu').style.display = "none";
+}
+
+
+pdfcrowd.enableLinks(false); // Optionnel : désactiver les liens dans le PDF
+pdfcrowd.setApiToken('YOUR_API_KEY');
+
+var htmlContent = '<html><body><h1>Exemple de Document PDF</h1><p>Ceci est un exemple de contenu HTML converti en PDF avec PDFcrowd.</p></body></html>';
+
+pdfcrowd.convertHtml(htmlContent, {filename: 'exemple.pdf'}, function(pdfStream) {
+    var blob = new Blob([pdfStream], {type: 'application/pdf'});
+    var url = URL.createObjectURL(blob);
+    window.open(url);
+});
+
+
+
 
 
 

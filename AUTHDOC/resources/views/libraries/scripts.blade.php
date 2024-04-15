@@ -7,4 +7,13 @@
 <!-- Custom JS File -->
 <script src="{{asset('assets_admin/js/custom.js')}}"></script>
 
+{{--<script src="https://pdfcrowd.com/api/js/pdfcrowd.js"></script>--}}
+
+
+
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/htmlqrcodescanner"></script>
+
+
 @stack('js')

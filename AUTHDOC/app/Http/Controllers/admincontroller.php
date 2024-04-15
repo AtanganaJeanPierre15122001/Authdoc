@@ -488,6 +488,15 @@ class admincontroller extends Controller
     }
 
 
+    public function scanqr(){
+        return view('admin.scanqr');
+    }
+
+
+    public function scanocr(){
+        return view('admin.scanocr');
+    }
+
 
 
 
