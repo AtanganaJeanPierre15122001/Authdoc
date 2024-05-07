@@ -77,7 +77,7 @@
 
         .fs-2 {
             color: #000000;
-            font-size: 43px;
+            font-size: 30px;
             font-weight: bold;
         }
 
