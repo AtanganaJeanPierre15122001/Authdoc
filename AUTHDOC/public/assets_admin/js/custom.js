@@ -92,83 +92,59 @@ function onScanSuccess(decodedText, decodedResult) {
     $('#result').val(decodedText);
     let id = decodedText;
     console.log(decodedText);
-    html5QrcodeScanner.clear().then(_ => {
+
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        $.ajax({
-            url: "{{ route('store') }}",
-            method: 'POST',
-            data: {
-                _token: "{{ csrf_token() }}",
-                data: id // Utilisation de "data" au lieu de "qr_code"
-            },
-            success: function(response) {
-                console.log(' Donnees recues: '+response);
-                if (response.status == 200) {
-                    document.getElementById("info-etu").style.display = "block";
-                    let etudiant = response.data.etudiant;
-                    let releve = response.data.releve;
-                    console.log(etudiant[0]);
-                    const nom = document.getElementById("nom");
-                    const prenom = document.getElementById("pre");
-                    const matricule = document.getElementById("mat");
-                    const niveau = document.getElementById("niv");
-                    const filiere = document.getElementById("fil");
-                    const mgp = document.getElementById("mgp");
-                    const decision = document.getElementById("dec");
-                    const numero = document.getElementById("num");
-                    nom.innerHTML = "<strong>Last Name :</strong> " + etudiant.nom;
-                    prenom.innerHTML = "<strong>First Name:</strong> " + etudiant.prenom;
-                    matricule.innerHTML = "<strong>Registration:</strong> " + etudiant.matricule;
-                    niveau.innerHTML = "<strong>Level :</strong> " + releve.niveau;
-                    filiere.innerHTML = "<strong>Discipline :</strong> " + releve.filiere;
-                    numero.innerHTML = "<strong>Document number  :</strong> " + releve.id_releve;
-                    mgp.innerHTML = "<strong>Mgp :</strong> " + releve.mgp;
-                    decision.innerHTML = "<strong>" + releve.decision + "</strong>";
-                    let id_releve = document.getElementById("id_releve");
-                    let niveau_ = document.getElementById("niveau");
-                    let matri = document.getElementById("matricule");
-                    document.getElementById("type").value = response.type;
-                    id_releve.value = releve.id_releve;
 
-                    niveau_.value = releve.niveau;
-
-                    matri.value = releve.etudiant;
-
-                    let message = document.getElementById("message");
-                    // message.textContent = "Authentic document"
-                    // message.style.color = 'green';
-                    $('#modalAuthentique').modal('show');
-                    document.getElementById("mon-formulaire").style.display = "block";
-
-                } else if (response.status == 400) {
-                    let message = document.getElementById("message");
-                    // message.style.color = 'red';
-                    // message.textContent = "Document non authentique"
-                    // Trouver la fenêtre modale par son ID
-                    var modal = document.getElementById('exampleModal');
-
-                    // Créer un nouvel objet Modal à partir de la fenêtre modale
-                    var modalInstance = new bootstrap.Modal(modal);
-
-                    // Ouvrir la fenêtre modale
-                    modalInstance.show();
-                    document.getElementById("mon-formulaire").style.display = "none";
-                } else if (response.status == 402) {
-                    // alert('Impossible de dechiffrer les informations contenues dans le Qr code!');
-                    let message = document.getElementById("message");
-                    message.style.color = 'red';
-                    message.textContent = "Impossible to decipher the information contained in the Qr code!"
-                    document.getElementById("mon-formulaire").style.display = "none";
-                }
-
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-    }).catch(error => {
-        alert('something wrong');
-    });
+        $.ajax({
+            url: "/qr",
+            method: "POST",
+            dataType: 'json',
+            data: {
+                data: id
+            },
+            success: function(response) {
+                console.log(' Donnees recues: ' + response['statut']);
+                if (response['statut'] === 200) {
+                    swal({
+                        title: "QR Code Scanné avec Succès releve authentique!",
+                        text: `Id releve: ${response.data.releve.id_releve}\nNom: ${response.data.etudiant.nom}\nPrénom: ${response.data.etudiant.prenom}\nMatricule: ${response.data.matricule}\nNiveau: ${response.data.niv.nom_niveau}\nMgp: ${response.data.releve.moy_gen_pon}\nFiliere: ${response.data.releve.filiere}\nDecision releve: ${response.data.releve.decision_rel}  `,
+                        icon: "success",
+                        buttons: {
+                            confirm: {
+                                text: "OK",
+                                value: true,
+                                visible: true,
+                                className: "btn btn-primary"
+                            }
+                        }
+                    });
+
+                } else if (response['statut'] === 400) {
+                    // Affichage d'un message d'erreur dans une SweetAlert
+                    swal("Erreur", "Format du QR code invalide", "error");
+                }else if (response['statut'] === 408) {
+                    // Affichage d'un message d'erreur dans une SweetAlert
+                    swal("Erreur", "Informations du QR non valide");
+                }
+                else {
+                    // Affichage d'un message d'erreur dans une SweetAlert
+                    swal("Erreur", "Une erreur s'est produite lors du traitement du QR code.", "error");
+                }
+            },
+                error: function(xhr, status, error) {
+                    swal("Erreur", "Une erreur s'est produite lors du traitement du QR code.", "error");
+                }
+
+        });
+
+
 
 }
-
 function onScanFailure(error) {
     // handle scan failure, usually better to ignore and keep scanning.
     // for example:
@@ -221,11 +197,11 @@ pdfcrowd.setApiToken('YOUR_API_KEY');
 
 var htmlContent = '<html><body><h1>Exemple de Document PDF</h1><p>Ceci est un exemple de contenu HTML converti en PDF avec PDFcrowd.</p></body></html>';
 
-pdfcrowd.convertHtml(htmlContent, {filename: 'exemple.pdf'}, function(pdfStream) {
-    var blob = new Blob([pdfStream], {type: 'application/pdf'});
-    var url = URL.createObjectURL(blob);
-    window.open(url);
-});
+// pdfcrowd.convertHtml(htmlContent, {filename: 'exemple.pdf'}, function(pdfStream) {
+//     var blob = new Blob([pdfStream], {type: 'application/pdf'});
+//     var url = URL.createObjectURL(blob);
+//     window.open(url);
+// });
 
 
 

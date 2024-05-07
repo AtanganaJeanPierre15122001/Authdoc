@@ -51,12 +51,13 @@ class pdfController extends Controller
 
 
 
-
+//
 //        $pdf = SnappyPdf::loadView('admin.releve_partial', compact('hmacInfo',  'resultats','releve','etudiant','niv'));
 //
 //
 //        return $pdf->download('resultats.pdf');
 
-       return Pdf::loadView('admin.releve_partial',compact('hmacInfo',  'resultats','releve','etudiant','niv') )->setPaper('A4','portrait')->download('releve.pdf');
+
+    return Pdf::loadView('admin.releve_partial',compact('hmacInfo',  'resultats','releve','etudiant','niv') )->download('releve.pdf');
     }
 }

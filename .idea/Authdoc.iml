@@ -141,6 +141,24 @@
       <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/phpoffice/phpspreadsheet" />
       <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/sabberworm/php-css-parser" />
       <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/thiagoalessio/tesseract_ocr" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/pdfcrowd/pdfcrowd" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/firebase/php-jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/google/auth" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/google/cloud-core" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/google/cloud-vision" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/google/common-protos" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/google/gax" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/google/grpc-gcp" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/google/longrunning" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/google/protobuf" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/grpc/grpc" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/psr/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/rize/uri-template" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/aws/aws-crt-php" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/aws/aws-sdk-php" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/mtdowling/jmespath.php" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/smalot/pdfparser" />
+      <excludeFolder url="file://$MODULE_DIR$/AUTHDOC/vendor/spatie/pdf-to-text" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

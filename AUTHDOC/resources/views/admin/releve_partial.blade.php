@@ -7,10 +7,58 @@
     <title>releve</title>
     <style>
 
-        .Qrcode{
-            margin-top: 50px;
-            margin-left: -100px;
+
+        table th:nth-child(2) {
+            width: 300px; /* Ajustez la valeur selon vos besoins */
+            min-width: 300px; /* Ajustez la valeur selon vos besoins */
         }
+        .content-recap table th:nth-child(2) {
+            /* Laissez cette colonne avec la larg
+            eur par défaut */
+            width: 20px; /* Ajustez la valeur selon vos besoins */
+            min-width: 20px;
+        }
+
+        .content-recap table th:nth-child(1) {
+            /* Laissez cette colonne avec la larg
+            eur par défaut */
+            width: 25px; /* Ajustez la valeur selon vos besoins */
+            min-width: 25px;
+        }
+        .content-recap table th:nth-child(3) {
+            /* Laissez cette colonne avec la larg
+            eur par défaut */
+            width: 25px; /* Ajustez la valeur selon vos besoins */
+            min-width: 25px;
+        }
+        .content-recap table th:nth-child(4) {
+            /* Laissez cette colonne avec la larg
+            eur par défaut */
+            width: 45px; /* Ajustez la valeur selon vos besoins */
+            min-width: 45px;
+        }
+
+
+        header{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo{
+            position: absolute;
+            width:50%;
+            height: auto;
+            left: 45%;
+            right: 50%;
+            top: -25px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
         #downloadButton {
             border: 1px solid blue;
             /* Ajoute un bord de 1 pixel avec la couleur bleue */
@@ -122,7 +170,9 @@
 
         .content-recap table {
             font-size: 0.85em;
-            width: 380px !important;
+            width: 250px ;
+            height:100px
+
         }
 
         .content-recap table td,
@@ -179,7 +229,8 @@
             margin: 0;
             padding: 0;
             max-width: 100%;
-            overflow-x: hidden; /* Empêcher le débordement horizontal */
+            overflow-x: hidden;
+
         }
 
         table {
@@ -203,7 +254,7 @@
 
         #contentDiv {
             position: absolute;
-            top: 10px; /* Adjust as needed */
+            top: -30px; /* Adjust as needed */
             right: 20px; /* Adjust as needed */
         }
 
@@ -213,14 +264,14 @@
             right: 220px; /* Adjust as needed */
         }
         #contentDiv3 {
-
-            /* Adjust as needed */
-            left: 20px;
-            top: 10px;/* Adjust as needed */
+            top: -30px;
+            right:0px;
+            text-align:right;
         }
         #section1 {
 
             left: 20px; /* Adjust as needed */
+            line-height: 13px;
         }
         #contentDiv1 {
             position: absolute;
@@ -232,26 +283,36 @@
         #contentDiv4{
             position: absolute;
             top: 0px; /* Adjust as needed */
+            right:28em;
 
-            left :25em;
+
+        }
+        #contentDiv10{
+            position: absolute;
+            top: -5px; /* Adjust as needed */
+            right: 6em; /* Adjust as needed */
+            /* left :550px; */
         }
 
         #contentDiv5{
             position: absolute;
             top: -5px; /* Adjust as needed */
-            right: 25em; /* Adjust as needed */
+            right: 2em; /* Adjust as needed */
             /* left :550px; */
         }
         #contentDiv6 {
             position: absolute;
             top: -10px; /* Adjust as needed */
-            right: 300px;
+            right: 2em;
             /* Adjust as needed */
         }
         .print-table {
             width: 80%; /* occuper 80% de la page */
             margin: 0 auto; /* pour centrer la table */
+
+
         }
+
 
         table {
             border-collapse: collapse;
@@ -261,6 +322,7 @@
         table, th, td{
             border: 1px solid black;
             width: 100%;
+            height: 5px;
         }
 
         #contentDiv7{
@@ -269,18 +331,16 @@
             right: 90px; /* Adjust as needed */
             left :600px;
         }
-        #contentDiv8{
+
+        #contentDiv8 img {
             position: absolute;
-            top: 100px; /* Adjust as needed */
-            right: 90px; /* Adjust as needed */
-            left :1050px;
+            margin-bottom: 200px;
+            right: 20px;
         }
-        #contentDiv8{
-            position: absolute;
-            top: 150px; /* Adjust as needed */
-            right: 100px; /* Adjust as needed */
-            left :1050px;
-        }
+
+
+
+
 
 
 
@@ -293,29 +353,29 @@
     <div class="contents">
 
 
-        <header class="w-100 d-flex fle x-column">
+        <header class="w-100 d-flex fle x-column header">
             <section
                 class="w-100 d-flex align-items-center justify-content-between">
                 <div id="contentDiv3"
                      class="d-flex content-state-data flex-column align-items-center">
                     <span> REPUBLIQUE DU CAMEROUN <br> </span>
                     <span> Paix - Travail - Patrie <br></span>
-                    <span> ------------------------- <br> </span>
+                    <span> ---------------------------<br> </span>
                     <span> UNIVERSITE YAOUNDE 1 </span>
                 </div>
-{{--                <div--}}
-{{--                    class="d-flex content-uy1-logo d-flex justify-content-center align-items-center">--}}
-{{--                    <img src="assets_admin/img/UyLogo.png"--}}
-{{--                         alt="university of yaounde 1"--}}
-{{--                         class="img-fluid" />--}}
+                <div
+                    class="d-flex logo content-uy1-logo d-flex justify-content-center align-items-center">
+                    <img src="assets_admin/img/UyLogo.png"
+                         alt="university of yaounde 1"
+                         class="img-fluid" />
 
-{{--                </div>--}}
+                </div>
 
                 <div
                     id="contentDiv" class="d-flex content-state-data flex-column align-items-center">
                     <span> REPUBLIC OF CAMEROON <br> </span>
                     <span> Peace - Work - Fatherland <br> </span>
-                    <span> ------------------------- <br> </span>
+                    <span> --------------------------- <br> </span>
                     <span> UNIVERSITY OF YAOUNDE 1 </span>
                 </div>
             </section>
@@ -323,46 +383,20 @@
         <section
             class="w-100 d-flex flex-column align-items-center py-4"
             style="padding-bottom: 0px !important">
-            <h2 style="text-align: center; font-weight: normal; margin-bottom: 0;"> FACULTE DES SCIENCES</h2>
+            <h3 style="text-align: center; font-weight: normal; margin-bottom: 0;"> FACULTE DES SCIENCES</h3>
             <p style="text-align: center;">
                 PB/P.O. Box 812 Yaoundé CAMEROUN : Tel: 222-234-496
                 /
                 Email:
                 diplome@facsiences.uy1.cm
-                </b> <br>
+                <br>
 
                 <span class="fs-2"> RELEVE DE NOTES/TRANSCRIPT
-                                                                </span>\
+                                                                </span>
             </p>
 
         </section>
-        <div class="bottom-left">
-            <div class="form-value ps-4 pt-1 text-uppercase">
-                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
-                &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp; &nbsp;
-                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp; &nbsp;
-                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp; &nbsp;
-                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp; &nbsp;
-                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp; &nbsp;
-                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp; &nbsp;
-                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp; &nbsp;
-                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp; &nbsp;
 
-
-                N° : {{ isset($releve) ? $releve->id_releve : '' }}
-            </div>
-            <!--to change dans la table releve-->
-        </div>
         <main class="w-100 d-flex flex-column align-items-center">
 
             <section id="section1"  class="w-100">
@@ -370,77 +404,71 @@
                 <section
                     class="w-100 d-flex align-items-center justify-content-between">
 
+
                     <div class="d-flex form-item">
 
                         <div class="d-flex flex-column">
-                                                                                <span class="fs-5 fw-bolder bold_part">
+                        <span class="fs-5 fw-bolder bold_part">
+                                                                                   <strong>N° : </strong>
+                                                                                   {{ isset($releve) ? $releve->id_releve : '' }}
+                                                                                   </span><br>
+
+                            <span class="fs-5 fw-bolder bold_part">
                                                                                    <strong> Noms et Prénoms: </strong>{{ isset($etudiant) ? $etudiant->nom : '' }}
-                                                                                    {{ isset($etudiant) ? $etudiant->prenom : '' }}</span><br>
+                                {{ isset($etudiant) ? $etudiant->prenom : '' }}</span><br>
                             <span class="english_subtitle"> Surname
                                                                                     and
                                                                                     Name </span> <br>
 
-                        </div>
-
-                        <div
-                            class="form-value ps-4 pt-1 text-uppercase">
-
 
                         </div>
-
-                    </div>
-
-                    <div class="d-flex form-item">
-
-                        <div class="d-flex flex-column">
-                            <div id="contentDiv2" class="form-value ps-4 pt-1 text-uppercase">N°: 00097/EDG/L2/Ict/20212022 &nbsp; &nbsp;</div>
-                            <div id="contentDiv1" class="form-value ps-4 pt-1 text-uppercase">
-                                 <span class="fs-5 fw-bolder bold_part">
+                        <div id="contentDiv5" class="form-value ps-4 pt-1 text-uppercase">
+                        <span class="fs-5 fw-bolder bold_part">
                                                                                    <strong> Matricule: </strong>{{ isset($etudiant) ? $etudiant->matricule : '' }}</span> <br>
-                                <span class="english_subtitle">
+                            <span class="english_subtitle">
                                                                                     Registration N° </span> <br>
-                            </div>
 
-                        </div>
-                        <div class="form-value ps-4 pt-1">
-
-                        </div>
-                    </div>
-                </section>
-                <section
-                    class="w-100 d-flex align-items-center justify-content-start">
-                    <div class="d-flex form-item me-5 pe-5">
-                        <div class="d-flex flex-column">
-                                                                                <span class="fs-5 fw-bolder bold_part">
-                                                                                   <strong> Né(e) le: </strong>{{ isset($etudiant) ? $etudiant->date_naissance : '' }}</span> <br>
-                            <span class="english_subtitle"> Born on
-                                                                                </span> <br>
                             <div
                                 class="form-value ps-4 pt-1 text-uppercase">
-                                {{-- {{ $etudiant->date_naissance }} --}}
+
 
                             </div>
 
-                            <div id="contentDiv4" class="form-value ps-4 pt-1 text-uppercase">
-                                                                                    <span class="fs-5 fw-bolder bold_part">
+                        </div>
+                    </div>
+
+
+                </section>
+                <div class="d-flex form-item">
+
+                    <div class="d-flex flex-column">
+                        <span class="fs-5 fw-bolder bold_part">
+                                                                                   <strong> Né(e) le: </strong>{{ isset($etudiant) ? $etudiant->date_naissance : '' }}</span> <br>
+                        <span class="english_subtitle"> Born on
+                                                                                </span> <br>
+                        <div
+                            class="form-value ps-4 pt-1 text-uppercase">
+                            {{-- {{ $etudiant->date_naissance }} --}}
+
+                        </div>
+
+                    </div>
+                    <div id="contentDiv4" class="form-value ps-4 pt-1 text-uppercase">
+                        <span class="fs-5 fw-bolder bold_part">
+
+
+
+
+                            <span class="fs-5 fw-bolder bold_part">
                                                                                                                                        A: </span> {{ isset($etudiant) ? $etudiant->lieu_naissance : '' }}<br>
                                 <span class="english_subtitle">
+                                </span>
 
                                                                                                                                        At</span> <br>
-                            </div>
-                            <div
-                                class="form-value ps-4 pt-1 text-uppercase">
-
-
-                            </div>
-                        </div>
-                        <div
-                            class="form-value ps-4 pt-1 text-uppercase">
-
-                        </div>
                     </div>
 
-                </section>
+                </div>
+
                 <section
                     class="w-100 d-flex align-items-center justify-content-start">
                     <div class="d-flex form-item">
@@ -473,7 +501,7 @@
                         </div>
                     </div>
 
-                    <div id="contentDiv5" class="form-value ps-4 pt-1 text-uppercase">
+                    <div id="contentDiv10" class="form-value ps-4 pt-1 text-uppercase">
                             <span class="fs-5 fw-bolder bold_part">
                                                                               <strong> Filiere: </strong></span>{{ isset($releve) ? $releve->filiere : '' }} <br>
                         <span class="english_subtitle">
@@ -508,10 +536,10 @@
 
                                 <!--to change dans la table releve-->
                             </div>
-                                                                            Academic Year</span> <br>
+                                                                            Academic Year</span>
                     </div>
                 </section>
-            </section> <br><br>
+            </section>
             <section class="w-100 mt-2">
                 <table class="w-100 table print-table">
                     <thead>
@@ -587,9 +615,9 @@
 
                     </tbody>
                 </table>
-            </section><br><br> <br>
-            <section id="contentDiv7"
-                     class="w-100 d-flex flex-column align-items-center">
+            </section>
+            <section
+                class=" w-100 d-flex flex-column align-items-center"style="text-align:center;">
                                                                     <span
                                                                         class="w-100 decision-data d-flex flex-column w-auto">
                                                                         <span> Crédit Capitalisés: <b>60/60 (100.00%)</b>
@@ -604,14 +632,12 @@
                                                                         <!--to change-->
                                                                     </span>
             </section>
-            <br>
+
             <section id="section1" class="w-100 d-flex flex-column"
                      style="font-size: 10px;">
                 <div class="d-flex">
                     <div><u> Légende: </u></div>
-
                     <div class="d-flex flex-column">
-                        <br />
                         <span> CA: Capitalisé </span><br>
                         <span> CANT: Capitalisé Non transferable
                                                                             </span><br>
@@ -620,7 +646,7 @@
                 </div>
 
                 <div class="d-flex ">
-                    <div class="content-recap w-100 mt-3 bloc">
+                    <div class="content-recap w-100 mt-2 bloc">
                         <table class="table table-sm w-100">
                             <thead>
                             <th>
@@ -744,100 +770,31 @@
                             </tbody>
                         </table>
 
-                        <br><br><br>
-                        <div style="font-size: medium;">Le President du Jury</div>
-                        <div   style="font-size: medium;">The President of the Jury</div>
+                        <br><br>
+                        <div style="font-size: medium;"></div>
+                        <div   style="font-size: medium;"></div>
 
                     </div>
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                    &nbsp;&nbsp;
-
 
                     <div id="contentDiv8"
                          class="Qrcode" >
-                        {{\SimpleSoftwareIO\QrCode\Facades\QrCode::size(150)->generate($hmacInfo)}}
+                        <img src="data:image/png;base64,{{ base64_encode(\SimpleSoftwareIO\QrCode\Facades\QrCode::size(150)->generate($hmacInfo)) }}" alt="QR Code">
                     </div>
                 </div>
 
-{{--                <div id="contentDiv8">--}}
-{{--                    <div>Yaounde le ..................</div><br>--}}
-{{--                    <div>Le Chef de Departement</div>--}}
-{{--                    <div>The Head of Departement</div>--}}
-{{--                </div>--}}
-                <br><br>
-{{--                <div style="font-size: medium;text-align: center;">NB:il n'est delivre qu'un seulexemplaire de releve de notes.Le titulaire peut etablir et faire certifier des copies conformes <br>Only one transcriptshall be delivered.It is the owner's interest to make certified true copies</div>--}}
+                {{--                <div id="contentDiv8">--}}
+                {{--                    <div>Yaounde le ..................</div><br>--}}
+                {{--                    <div>Le Chef de Departement</div>--}}
+                {{--                    <div>The Head of Departement</div>--}}
+                {{--                </div>--}}
+
+
+                {{--                <div style="font-size: medium;text-align: center;">NB:il n'est delivre qu'un seulexemplaire de releve de notes.Le titulaire peut etablir et faire certifier des copies conformes <br>Only one transcriptshall be delivered.It is the owner's interest to make certified true copies</div>--}}
 
 
             </section>
         </main>
-        <br>
+
     </div>
 </div>
 </body>

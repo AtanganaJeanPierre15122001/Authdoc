@@ -88,7 +88,7 @@
                                     <div class="card-header">
                                         <h4>Liste des administrateurs</h4>
                                     </div>
-                                    <div class="card-body">
+                                        <div class="card-body">
                                         @if(Session::has('success'))
                                             <div class=" alert alert-success" role="alert">
                                                 {{Session::get('success')}}

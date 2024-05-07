@@ -83,6 +83,11 @@
             <div class="main-content">
                 <section class="section">
                     <div class="section-body">
+                        @if(Session::has('error'))
+                            <div class="alert alert-danger" role="alert">
+                                {{Session::get('error')}}
+                            </div>
+                        @endif
                         <div class="row" style="justify-content: center;">
                             <div class="col-lg-6">
                                 <div class="card">
@@ -95,35 +100,99 @@
                                     <div class="card-body">
                                         <div class="description wow fadeInLeft">
                                             <div name="reader" id="reader" width="600px"></div>
-                                            <form action="" method="post" id="formQr">
+                                            <form action="{{route('admin.qr')}}" method="post" id="formQr">
                                                 @csrf
                                                 <input type="hidden" name="data" id="data">
+                                                <br />
+{{--                                                <input name="ok">--}}
+
+                                                <button class="btn btn-primary" type="button" id="scanButton" onclick="scanner()">Scanner le document</button>
+
                                             </form>
                                         </div>
+                                        <div id = "result"></div>
 
-                                        <br />
-                                        <button class="btn btn-primary" type="button" id="scanButton" onclick="scanner()">Scanner le document</button>
-                                        <input type="hidden" name="image" class="image-tag">
+
+{{--                                        <input type="hidden" name="image" class="image-tag">--}}
 
 
                                     </div>
 
                                 </div>
                         </div>
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <form action="{{route('admin.ocr')}}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="card-header">
+                                            <h4 class="card-title">choisir une image </h4>
+                                        </br>
+                                            <input type="file" class="form-control-file" name="image" id="image"  required>
+                                            <br />
+                                            <button class="btn btn-primary" type="submit" >Upload</button>
+
+
+                                            <span class="text-muted mb-0"></span>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <form action="{{route('admin.ocr2')}}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="card-header">
+                                                <h4 class="card-title">choisir un pdf</h4>
+                                                </br>
+                                                <input type="file" class="form-control-file" name="file" id="file" required>
+                                                <br />
+                                                <button class="btn btn-primary" type="submit" >Upload</button>
+
+
+
+
+                                                <span class="text-muted mb-0"></span>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                            </div>
+                                <div class="col-lg-12">
+                                    <div class="card">
+
+{{--                                        @if(session()->get('extractedText'))--}}
+{{--                                            <h2>Texte extrait :</h2>--}}
+{{--                                            <p>{{ session()->get('extractedText') }}</p>--}}
+{{--                                        @endif--}}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
                     </div>
+                    </div>
+                </section>
+                <section class="section">
+                    <div class="section-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card-body">
+                                    @if(session()->get('extractedText'))
+                                        <h2>Texte extrait :</h2>
+                                        {!! nl2br(e(session()->get('extractedText'))) !!}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
                     </div>
                 </section>
             </div>
         </div>
     </div>
 
-
-    <script>
-
-
-
-
-    </script>
 
 
 

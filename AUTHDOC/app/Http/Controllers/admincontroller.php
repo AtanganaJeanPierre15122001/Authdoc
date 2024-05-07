@@ -2,18 +2,29 @@
 
 namespace App\Http\Controllers;
 
+//require '../vendor/autoload.php';
+
 use App\Http\Requests\signuprequest;
 use App\Models\appartenir;
 use App\Models\etudiant;
 use App\Models\filere;
+use App\Models\niveau;
 use App\Models\note;
 use App\Models\regroupe;
 use App\Models\releve;
 use App\Models\ue;
 use App\Models\Utilisateur;
+use Aws\Textract\TextractClient;
+use Google\Cloud\Vision\V1\ImageAnnotatorClient;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Smalot\PdfParser\Parser;
+use Spatie\PdfToText\Pdf;
+use thiagoalessio\TesseractOCR\TesseractOCR;
 
 class admincontroller extends Controller
 {
@@ -491,6 +502,206 @@ class admincontroller extends Controller
     public function scanqr(){
         return view('admin.scanqr');
     }
+
+    public function qr(Request $request){
+        $hmacKey = env('HMAC_KEY');
+        $requestData = $request->all();
+
+
+        $encodedData = $requestData['data'];
+
+//        $encryptedData = base64_decode(trim($encodedData));
+
+        $datas=explode("?",$encodedData);
+
+//        if(count($datas)<4){
+//            return response()->json(['statut'=>402,'message'=>'Error']);
+//        }
+//       $hmac1=$datas[0];
+
+        $id_rel=$datas[0];
+        $nom=$datas[1];
+        $prenom=$datas[2];
+        $niveau=$datas[3];
+        $decision=$datas[4];
+        $filiere=$datas[5];
+        $mgp=$datas[6];
+        $matricule=$datas[8];
+
+        $rel = releve::where(['id_releve'=>$id_rel]);
+        $name = etudiant::where(['nom'=>$nom]);
+        $surname = etudiant::where(['prenom'=>$prenom]);
+        $level = niveau::where(['nom_niveau'=>$niveau]);
+        $dec = releve::where(['decision_rel'=>$decision]);
+        $fil = releve::where(['id_filiere'=>$filiere]);
+        $moy = releve::where(['moy_gen_pon'=>$mgp]);
+        $mat = etudiant::where(['matricule'=>$matricule]);
+
+        if ($rel && $name && $surname && $level && $dec && $fil && $moy && $mat){
+
+                if (!empty($id_rel)&&!empty($nom)&&!empty($prenom)&&!empty($niveau)&&!empty($decision)&&!empty($filiere)&&!empty($mgp)&&!empty($matricule)){
+
+                    $releve=releve::where(['matricule'=>$matricule])->first();
+                    $resultats = appartenir::join('ues', 'appartenirs.ue', '=', 'ues.id_ue')
+                        ->join('notes', 'appartenirs.id_note', '=', 'notes.id')
+                        ->select('appartenirs.ue', 'ues.nom_ue', 'ues.credit', 'ues.semestre', 'notes.moyenne','notes.mention','notes.decision_note')
+                        ->where('appartenirs.matricule', $matricule)
+                        ->get();
+                    $niv = niveau::select('niveaux.nom_niveau')
+                        ->join('regroupes', 'niveaux.id_niveau', '=', 'regroupes.niveau')
+                        ->join('fileres', 'regroupes.filiere', '=', 'fileres.id_filiere')
+                        ->join('releves', 'fileres.id_filiere', '=', 'releves.filiere')
+                        ->join('etudiants', 'releves.matricule', '=', 'etudiants.matricule')
+                        ->where('etudiants.matricule', $matricule)
+                        ->first();
+
+
+                    $etudiant=etudiant::where(['matricule'=>$matricule])->first();
+
+                    $DataSend=(['niv'=>$niv,'resultats'=>$resultats,'etudiant'=>$etudiant,'releve'=>$releve,'matricule'=>$matricule]);
+
+
+
+
+                    return response()->json(['statut' => 200, 'message' => 'Success', 'data' => $DataSend]);
+                }
+                else{
+                    return response()->json(['statut'=>400,'message'=>'Mauvais format du QR code']);
+                }
+
+        }
+        else{
+            return response()->json(['statut'=>408,'message'=>'Informations du QR non valide']);
+        }
+    }
+
+
+    /**
+     * @throws GuzzleException
+     */
+    public function ocr(Request $request)
+    {
+        // Vérifier si un fichier image a été téléchargé
+//        if ($request->hasFile('image')) {
+//            $image = $request->file('image');
+//
+//
+//            // Déplacer le fichier vers le répertoire 'uploads'
+//            $uploadPath = public_path('uploads'); // Chemin du répertoire 'uploads' dans le dossier public
+//            $fileName = uniqid() . '_' . time() . '.' . $image->getClientOriginalExtension(); // Générer un nom de fichier unique
+//
+//            // Déplacer le fichier téléchargé vers le répertoire de destination avec le nom généré
+//            $image->move($uploadPath, $fileName);
+//
+//            // Chemin complet du fichier téléchargé
+//            $imagePath = $uploadPath . '/' . $fileName;
+//
+//            // Utiliser TesseractOCR pour lire le texte de l'image
+//            try {
+//                $fileRead = (new TesseractOCR($imagePath))
+//                    ->run();
+//                dd($fileRead);
+//
+//
+//            } catch (Exception $e) {
+//                return redirect()->route('admin.scanqr')->with('error', 'Erreur lors de la reconnaissance OCR : ' . $e->getMessage());
+//            }
+//
+//            return redirect()->route('admin.scanqr', compact('fileRead'));
+//        }
+//
+//        return redirect()->route('admin.scanqr')->with('error', 'Aucune image téléchargée. Veuillez sélectionner une image.');
+//
+
+
+        // Récupérer le fichier image du formulaire
+        $image = $request->file('image');
+
+        // Vérifiez si une image a été téléchargée
+        if (!$image) {
+            return redirect()->back()->with('error', 'Veuillez sélectionner une image.');
+        }
+
+        $filePath = $image->path();
+
+        // Configuration du client Textract
+        $textract = new TextractClient([
+            'version' => 'latest',
+            'region' => env('AWS_REGION'),
+            'credentials' => [
+                'key' => env('AWS_ACCESS_KEY_ID'),
+                'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            ],
+        ]);
+
+        // Lire le contenu de l'image
+        $fileContent = file_get_contents($filePath);
+
+        try {
+            // Appel à Textract pour extraire le texte de l'image
+            $result = $textract->detectDocumentText([
+                'Document' => [
+                    'Bytes' => $fileContent,
+                ],
+            ]);
+
+            // Récupérer le texte extrait
+            $extractedText = '';
+            foreach ($result['Blocks'] as $block) {
+                if ($block['BlockType'] == 'LINE') {
+                    $extractedText .= $block['Text'] . PHP_EOL;
+                }
+            }
+//            dd($extractedText);
+            session()->put('extractedText', $extractedText);
+
+            // Afficher le texte extrait
+            return view('admin.scanqr')->with($extractedText);
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Une erreur s\'est produite lors de l\'extraction du texte ' . $e->getMessage());
+        }
+    }
+
+    public function ocr2( Request $request)
+    {
+        $file = $request->file('file');
+
+        if ($file) {
+
+
+            try {
+                $mimeType = $file->getMimeType();
+                if ($mimeType === 'application/pdf') {
+                    $parser = new Parser();
+
+                    // Extraire le texte du fichier PDF
+                    $pdf = $parser->parseFile($file->path());
+
+                    // Récupérer le texte extrait
+                    $extractedText = $pdf->getText();
+                    $hello = 'hello';
+
+//                    dd($extractedText);
+                    session()->put('extractedText', $extractedText);
+
+                    return view('admin.scanqr')->with($extractedText);
+
+                } else {
+                    return redirect()->back()->with('error', 'Le fichier doit etre sous format pdf');
+                }
+
+            } catch (\Exception $e) {
+                return redirect()->back()->with('error', 'Une erreur s\'est produite lors de l\'extraction du texte ' . $e->getMessage());
+            }
+        }else {
+            return redirect()->back()->with('error', 'choisissez le fichier');
+        }
+    }
+
+
+
+
 
 
     public function scanocr(){
