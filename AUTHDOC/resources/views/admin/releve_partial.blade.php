@@ -294,7 +294,7 @@ line-height: 12px;
         }
         #contentDiv10{
             position: absolute;
-            top: -5px; /* Adjust as needed */
+            top: -15px; /* Adjust as needed */
             right: 6em; /* Adjust as needed */
             /* left :550px; */
         }
