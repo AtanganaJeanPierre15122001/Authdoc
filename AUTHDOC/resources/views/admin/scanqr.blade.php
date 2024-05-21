@@ -48,7 +48,7 @@
                     </div>
                     <ul class="sidebar-menu">
                         <li class="menu-header">Gestion admin</li>
-                        <li class="dropdown active">
+                        <li >
                             <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>liste admin</span></a>
                         </li>
                         {{--                        <li class="dropdown">--}}
@@ -65,10 +65,10 @@
 
                         </li>
                         <li><a class="nav-link" href="{{route('admin.releve')}}"><i data-feather="file"></i><span>Generer le relevé</span></a></li>
-                        <li class="dropdown">
+                        <li class="dropdown active"  >
                             <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Scan releve`</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="{{route('admin.scanqr')}}">Avec Qr code</a></li>
+                                <li class="dropdown active"><a class="nav-link" href="{{route('admin.scan')}}">Avec Qr code</a></li>
                                 <li><a class="nav-link" href="{{route('admin.scanocr')}}">Avec OCR</a></li>
 
                             </ul>
@@ -178,13 +178,59 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="card-body">
-                                    @if(session()->get('extractedText'))
+{{--                                    @isset($extractedText)--}}
                                         <h2>Texte extrait :</h2>
-                                        {!! nl2br(e(session()->get('extractedText'))) !!}
-                                    @endif
+{{--                                        {!! nl2br($extractedText) !!}--}}
+{{--                                    @php--}}
+{{--                                        $studentInfo[]=session()->get('studentInfo');--}}
+{{--//                                        echo $studentInfo['nom_prenom'];--}}
+{{--//                                        echo $studentInfo['matieres']['matieres'];--}}
+{{--//                                        echo $studentInfo['matieres']['note'];--}}
+{{--//                                        echo$studentInfo['matieres']['credit'];--}}
+
+{{--                                     @endphp--}}
+                                    @isset($studentInfo)
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h4>Invert</h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    <table class="table table-dark">
+                                                        <thead>
+                                                        <tr>
+                                                            <th scope="col">Nom et prenoms</th>
+                                                            <th scope="col">Id releve</th>
+                                                            <th scope="col">Matricule</th>
+                                                            <th scope="col">Date de Naissance</th>
+                                                            <th scope="col">Filiere</th>
+                                                            <th scope="col">Specialité</th>
+                                                            <th scope="col">MGP</th>
+                                                            <th scope="col">Decision</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                        <tr>
+                                                            <td>{{$studentInfo['nom_prenom']}}</td>
+                                                            <td>{{$studentInfo['Id_releve']}}</td>
+                                                            <td>{{$studentInfo['matricule']}}</td>
+                                                            <td>{{$studentInfo['Date_de_naissance']}}</td>
+                                                            <td>{{$studentInfo['Filiere']}}</td>
+                                                            <td>{{$studentInfo['Specialite']}}</td>
+                                                            <td>{{$studentInfo['mgp']}}</td>
+                                                            <td>{{$studentInfo['decision']}}</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                    @endisset
                                 </div>
                             </div>
                         </div>
+                    </div>
                     </div>
                 </section>
                     </div>

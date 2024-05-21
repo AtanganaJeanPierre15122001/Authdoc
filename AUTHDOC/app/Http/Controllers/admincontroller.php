@@ -500,7 +500,9 @@ class admincontroller extends Controller
 
 
     public function scanqr(){
-        return view('admin.scanqr');
+
+            return view('admin.scanqr');
+
     }
 
     public function qr(Request $request){
@@ -581,37 +583,7 @@ class admincontroller extends Controller
      */
     public function ocr(Request $request)
     {
-        // Vérifier si un fichier image a été téléchargé
-//        if ($request->hasFile('image')) {
-//            $image = $request->file('image');
-//
-//
-//            // Déplacer le fichier vers le répertoire 'uploads'
-//            $uploadPath = public_path('uploads'); // Chemin du répertoire 'uploads' dans le dossier public
-//            $fileName = uniqid() . '_' . time() . '.' . $image->getClientOriginalExtension(); // Générer un nom de fichier unique
-//
-//            // Déplacer le fichier téléchargé vers le répertoire de destination avec le nom généré
-//            $image->move($uploadPath, $fileName);
-//
-//            // Chemin complet du fichier téléchargé
-//            $imagePath = $uploadPath . '/' . $fileName;
-//
-//            // Utiliser TesseractOCR pour lire le texte de l'image
-//            try {
-//                $fileRead = (new TesseractOCR($imagePath))
-//                    ->run();
-//                dd($fileRead);
-//
-//
-//            } catch (Exception $e) {
-//                return redirect()->route('admin.scanqr')->with('error', 'Erreur lors de la reconnaissance OCR : ' . $e->getMessage());
-//            }
-//
-//            return redirect()->route('admin.scanqr', compact('fileRead'));
-//        }
-//
-//        return redirect()->route('admin.scanqr')->with('error', 'Aucune image téléchargée. Veuillez sélectionner une image.');
-//
+
 
 
         // Récupérer le fichier image du formulaire
@@ -653,14 +625,87 @@ class admincontroller extends Controller
                 }
             }
 //            dd($extractedText);
-            session()->put('extractedText', $extractedText);
+//            session()->put('extractedText', $extractedText);
+
+
+//            session()->put('extractedText', $extractedText);
+            $studentInfo = [];
+
+
+            if (preg_match('/Noms et Prénoms:\s*(.*?)\s*Matricule/', $extractedText, $matches) ){
+                $studentInfo['nom_prenom'] = trim($matches[1]);
+
+            }
+
+
+
+            if (preg_match('/N° :\s*(.*?)\s*Noms et Prénoms:/', $extractedText, $matches) ){
+                $studentInfo['Id_releve'] = trim($matches[1]);
+            }
+
+            if (preg_match('/Matricule: \s*(.*?)\s*Surname and Name/', $extractedText, $matches) ){
+                $studentInfo['matricule'] = trim($matches[1]);
+            }
+
+            if (preg_match('/le: \s*(.*?)\s* A:/', $extractedText, $matches) ){
+                $studentInfo['Date_de_naissance'] = trim($matches[1]);
+            }
+
+            if (preg_match('/Filiere:\s*(.*?)\s*Niveau :/', $extractedText, $matches) ){
+                $studentInfo['Filiere'] = trim($matches[1]);
+            }
+
+            if (preg_match('/Spécialité: \s*(.*?)\s*Academic Year/', $extractedText, $matches) ){
+                $studentInfo['Specialite'] = trim($matches[1]);
+            }
+
+            if (preg_match('/: \s*(.*?)\s*Decision:/', $extractedText, $matches) ){
+                $studentInfo['mgp'] = trim($matches[1]);
+            }
+
+            if (preg_match('/Decision:\s*(.*?)\s*Yaounde le/', $extractedText, $matches) ){
+                $studentInfo['decision'] = trim($matches[1]);
+            }
+
+
+            $pattern = '/Noms et Prénoms:\s*([\w\s-]+)\s+Matricule:\s*([\w\d]+)\s+Filiere:\s*([\w\s-]+)\s+Niveau\s*:\s*(\w+\s*\d+)\s+Annee Academic:\s*([\d\/]+)\s+Spécialité:\s*([\w\s-]+)\s+Code UE\s+Intitulé De L\'UE \/ UE Title\s+Crédit\s+Moy\s+Mention\s+Semestre\s+Année\s+Décision\s+Credit\s*\/\s*100\s+Grade\s+Semester\s+Year\s+Decision:\s*([\w\s]+)\s*Crédit\s+Capitalisés:\s*[\d\/]+\s+\(([\d.]+)%\)/s';
+            preg_match_all($pattern, $extractedText, $matches, PREG_SET_ORDER);
+
+            $studentInfo['info'] = [];
+
+            foreach ($matches as $match) {
+                $studentInfo['info'][] = [
+                    'discipline' => trim($match[1]),
+                    'niveau' => trim($match[2]),
+                    'code_ue' => trim($match[3]),
+                    'intitule_ue' => trim($match[14]),
+                    'credit' => trim($match[5]),
+                    'moyenne' => $match[6],
+                    'mention' => $match[7],
+                    'semestre' => $match[8],
+                    'annee' => $match[9],
+                    'decision' => $match[10],
+                ];
+            }
+
+
+            //session()->put('extractedText', $extractedText);
+           //dd($studentInfo);
+
+            if ($studentInfo['nom_prenom'] && $studentInfo['Id_releve'] && $studentInfo['matricule'] && $studentInfo['Date_de_naissance'] && $studentInfo['Filiere'] && $studentInfo['Specialite'] && $studentInfo['mgp'] && $studentInfo['decision'] ){
+                return view('admin.scanqr',compact('studentInfo'));
+            }
 
             // Afficher le texte extrait
-            return view('admin.scanqr')->with($extractedText);
+
 
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Une erreur s\'est produite lors de l\'extraction du texte ' . $e->getMessage());
+            return view('admin.scanqr')->with('error', 'Une erreur s\'est produite lors de l\'extraction du texte Cela peut etre Due a cause de la mauvaise qualité de l\'image ou d\'un mauvais fichier entré en paramètre ' );
         }
+    }
+
+    public function getreleve(){
+        return view('admin.scanqr');
     }
 
     public function ocr2( Request $request)
@@ -678,17 +723,51 @@ class admincontroller extends Controller
                     // Extraire le texte du fichier PDF
                     $pdf = $parser->parseFile($file->path());
 
+
+
                     // Récupérer le texte extrait
                     $extractedText = $pdf->getText();
                     $hello = 'hello';
 
 //                    dd($extractedText);
                     session()->put('extractedText', $extractedText);
+                    $studentInfo = [];
 
-                    return view('admin.scanqr')->with($extractedText);
+
+                    if (preg_match('/Noms et Prénoms:\s*(.*?)\s*Matricule/', $extractedText, $matches)) {
+                        $studentInfo['nom_prenom'] = trim($matches[1]);
+//                $studentInfo['matiere'] = trim($matches[2]);
+                    }
+
+
+                    $pattern = '/^([\w\s]+)\s+Licence (\d)\s+Niveau :\s*[\w\s]+Filiere:\s*[\w\s]+\s*(\w{6}\d{3})\s+([\w\s]+)\s+(\d)\s+([\d.]+)\s+([A-Z+-]+)\s+(S\d)\s+(\d{4})\s+(CA|CANT)\s*$/m';
+                    preg_match_all($pattern, $extractedText, $matches, PREG_SET_ORDER);
+
+                    $studentInfo['info'] = [];
+
+                    foreach ($matches as $match) {
+                        $studentInfo['info'][] = [
+                            'discipline' => trim($match[1]),
+                            'niveau' => trim($match[2]),
+                            'code_ue' => trim($match[3]),
+                            'intitule_ue' => trim($match[14]),
+                            'credit' => trim($match[5]),
+                            'moyenne' => $match[6],
+                            'mention' => $match[7],
+                            'semestre' => $match[8],
+                            'annee' => $match[9],
+                            'decision' => $match[10],
+                        ];
+                    }
+
+
+                    session()->put('extractedText', $extractedText);
+//                    dd($studentInfo);
+
+                    return view ('admin.scanqr', compact('extractedText'));
 
                 } else {
-                    return redirect()->back()->with('error', 'Le fichier doit etre sous format pdf');
+                    return redirect()->route('admin.scan')->with('error', 'Le fichier doit etre sous format pdf');
                 }
 
             } catch (\Exception $e) {
@@ -704,8 +783,12 @@ class admincontroller extends Controller
 
 
 
-    public function scanocr(){
-        return view('admin.scanocr');
+    public function scan(){
+
+
+            return view('admin.scanqr');
+
+
     }
 
 

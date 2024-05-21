@@ -68,7 +68,7 @@
                         <li class="dropdown">
                             <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Scan releve`</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="{{route('admin.scanqr')}}">Avec Qr code</a></li>
+                                <li><a class="nav-link" href="{{route('admin.scan')}}">Avec Qr code</a></li>
                                 <li><a class="nav-link" href="{{route('admin.scanocr')}}">Avec OCR</a></li>
 
                             </ul>

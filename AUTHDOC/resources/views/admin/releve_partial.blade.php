@@ -91,7 +91,7 @@
 
         .fs-2 {
             color: #000000;
-            font-size: 43px;
+            font-size: 30px;
             font-weight: bold;
         }
 
@@ -273,6 +273,11 @@
             left: 20px; /* Adjust as needed */
             line-height: 13px;
         }
+        #section 0 {
+
+        /* Adjust as needed */
+            line-height: 12px;
+        }
         #contentDiv1 {
             position: absolute;
             top: -55px; /* Adjust as needed */
@@ -289,7 +294,7 @@
         }
         #contentDiv10{
             position: absolute;
-            top: -5px; /* Adjust as needed */
+            top: -15px; /* Adjust as needed */
             right: 6em; /* Adjust as needed */
             /* left :550px; */
         }
@@ -300,6 +305,8 @@
             right: 2em; /* Adjust as needed */
             /* left :550px; */
         }
+
+
         #contentDiv6 {
             position: absolute;
             top: -10px; /* Adjust as needed */
@@ -334,9 +341,19 @@
 
         #contentDiv8 img {
             position: absolute;
-            margin-bottom: 200px;
-            right: 20px;
+            margin-bottom: 300px;
+
+            left: 500px;
+            bottom: 10px;
         }
+        #con {
+            position: fixed;
+            margin-bottom: 300px;
+
+            left: 500px;
+            bottom: -5px;
+        }
+
 
 
 
@@ -380,10 +397,10 @@
                 </div>
             </section>
         </header>
-        <section
-            class="w-100 d-flex flex-column align-items-center py-4"
-            style="padding-bottom: 0px !important">
-            <h3 style="text-align: center; font-weight: normal; margin-bottom: 0;"> FACULTE DES SCIENCES</h3>
+        <section id="section 0"
+                 class="w-100 d-flex flex-column align-items-center py-4"
+                 style="padding-bottom: 0px !important">
+            <h3 style="text-align: center; font-weight: normal; margin-bottom: -5;"> FACULTE DES SCIENCES</h3>
             <p style="text-align: center;">
                 PB/P.O. Box 812 Yaoundé CAMEROUN : Tel: 222-234-496
                 /
@@ -392,8 +409,14 @@
                 <br>
 
                 <span class="fs-2"> RELEVE DE NOTES/TRANSCRIPT
-                                                                </span>
+                                                               <br> </span>
+                <span id=""class="fs-6 fw-bolder bold_part align-items-center ">
+                                                                                   <strong>N° : </strong>
+                                                                                   {{ isset($releve) ? $releve->id_releve : '' }}
+                                                                                   </span>
+
             </p>
+
 
         </section>
 
@@ -407,11 +430,8 @@
 
                     <div class="d-flex form-item">
 
-                        <div class="d-flex flex-column">
-                        <span class="fs-5 fw-bolder bold_part">
-                                                                                   <strong>N° : </strong>
-                                                                                   {{ isset($releve) ? $releve->id_releve : '' }}
-                                                                                   </span><br>
+                        <div id=""class="d-flex flex-column">
+
 
                             <span class="fs-5 fw-bolder bold_part">
                                                                                    <strong> Noms et Prénoms: </strong>{{ isset($etudiant) ? $etudiant->nom : '' }}
@@ -769,17 +789,18 @@
                             </tr>
                             </tbody>
                         </table>
+                        <div id="con" >Yaounde le : {{ \Carbon\Carbon::now()->toDateString() }}</div>
 
-                        <br><br>
-                        <div style="font-size: medium;"></div>
-                        <div   style="font-size: medium;"></div>
+
+                        <div id="contentDiv8"
+                             class="Qrcode" >
+
+                            <img src="data:image/png;base64,{{ base64_encode(\SimpleSoftwareIO\QrCode\Facades\QrCode::size(150)->generate($hmacInfo)) }}" alt="QR Code">
+                        </div>
 
                     </div>
 
-                    <div id="contentDiv8"
-                         class="Qrcode" >
-                        <img src="data:image/png;base64,{{ base64_encode(\SimpleSoftwareIO\QrCode\Facades\QrCode::size(150)->generate($hmacInfo)) }}" alt="QR Code">
-                    </div>
+
                 </div>
 
                 {{--                <div id="contentDiv8">--}}
@@ -789,7 +810,7 @@
                 {{--                </div>--}}
 
 
-                {{--                <div style="font-size: medium;text-align: center;">NB:il n'est delivre qu'un seulexemplaire de releve de notes.Le titulaire peut etablir et faire certifier des copies conformes <br>Only one transcriptshall be delivered.It is the owner's interest to make certified true copies</div>--}}
+                <div style="font-size: medium;">NB:il n'est delivre qu'un seul exemplaire de releve de notes.Le titulaire peut etablir et faire certifier des copies conformes.Only one transcript shall be delivered.It is the owner's interest to make certified true copies</div>
 
 
             </section>

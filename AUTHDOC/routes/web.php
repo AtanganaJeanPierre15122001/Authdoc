@@ -29,6 +29,7 @@ Route::post('/remplir_releve',[\App\Http\Controllers\admincontroller::class, 're
 Route::post('/import_excel',[\App\Http\Controllers\admincontroller::class, 'import_excel'])->name('admin.import_excel');
 Route::post('/generate_ocr',[\App\Http\Controllers\admincontroller::class, 'ocr'])->name('admin.ocr');
 Route::post('/generate_ocr2',[\App\Http\Controllers\admincontroller::class, 'ocr2'])->name('admin.ocr2');
+Route::get('/scan_releve',[\App\Http\Controllers\admincontroller::class, 'scan'])->name('admin.scan');
 Route::post('/qr',[\App\Http\Controllers\admincontroller::class, 'qr'])->name('admin.qr');
 //Route::post('/admin',[\App\Http\Controllers\admincontroller::class, 'adminUpdate'])->name('admin.main.update');
 Route::get('/releve',[\App\Http\Controllers\Relevecontroller::class, 'releve'])->name('admin.releve');
