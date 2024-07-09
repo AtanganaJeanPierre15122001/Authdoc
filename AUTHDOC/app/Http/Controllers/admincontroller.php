@@ -38,10 +38,11 @@ class admincontroller extends Controller
     {
         $request1 = $request->validated();
 
+
         $utilisateur = new Utilisateur();
         $utilisateur->nom = $request1['first_name'];
         $utilisateur->prenom = $request1['last_name'];
-        $utilisateur->email = $request1['email'];
+        $utilisateur->email = $request1['email2'];
         $utilisateur->password = Hash::make($request1['password']);
         $utilisateur->fonction = 'adm';
 
@@ -50,20 +51,54 @@ class admincontroller extends Controller
         return to_route('admin.main')->with('success','administrateur ajouté');
     }
 
-    public function adminUpdate(Request $request, string $id)
+    public function adminUpdate(Request $request)
     {
-        $utilisateur = Utilisateur::findOrFail($id);
-
-        $utilisateur->nom  = $request->first_name;
-        $utilisateur->prenom  = $request->last_name;
-        $utilisateur->email  = $request->email;
-
-        $utilisateur->save();
+        $requestData = $request->all();
 
 
-        return to_route('admin.main')->with('success','administrateur mis a jour');
+        $id = $requestData['adminId'];
+        $nom = $requestData['nom'];
+        $prenom = $requestData['prenom'];
+        $email = $requestData['email'];
+
+
+        if ($id) {
+            $utilisateur = Utilisateur::find($id);
+
+            $utilisateur->nom = $nom;
+            $utilisateur->prenom = $prenom;
+            $utilisateur->email = $email;
+
+            $utilisateur->save();
+
+            return response()->json(['statut' => 200, 'message' => 'Success', 'data' => 'ok']);
+        }else{
+            return response()->json(['statut'=>408,'message'=>'Admin non ajouté']);
+
+        }
 
     }
+
+    function adminDelete(Request $request){
+        $requestData = $request->all();
+
+
+        $id = $requestData['adminId'];
+
+        if ($id) {
+            $utilisateur = Utilisateur::find($id);
+
+            $utilisateur->delete();
+
+            return response()->json(['statut' => 200, 'message' => 'Success', 'data' => 'Admin  supprimé']);
+        }else{
+            return response()->json(['statut'=>408,'message'=>'Admin non supprimé']);
+
+        }
+
+    }
+
+
 
 
     public function ajout_manuel()
@@ -512,6 +547,11 @@ class admincontroller extends Controller
 
         $encodedData = $requestData['data'];
 
+        session()->put('encodedData', $encodedData);
+
+
+
+
 //        $encryptedData = base64_decode(trim($encodedData));
 
         $datas=explode("?",$encodedData);
@@ -560,6 +600,8 @@ class admincontroller extends Controller
 
                     $etudiant=etudiant::where(['matricule'=>$matricule])->first();
 
+
+
                     $DataSend=(['niv'=>$niv,'resultats'=>$resultats,'etudiant'=>$etudiant,'releve'=>$releve,'matricule'=>$matricule]);
 
 
@@ -576,6 +618,381 @@ class admincontroller extends Controller
             return response()->json(['statut'=>408,'message'=>'Informations du QR non valide']);
         }
     }
+    public  function verification1(Request $request)
+    {
+
+        $hmacKey = env('HMAC_KEY');
+        $requestData = $request->all();
+//        $encodedData = '458447?Atangana?jean pierre?Licence 3?ADMIS?ICT4D?3.4?authdoc2.0?21Q2529';
+        $encodedData = session()->get('encodedData');
+        $datas = explode("?", $encodedData);
+
+        $id_rel = $datas[0];
+        $nom = $datas[1];
+        $prenom = $datas[2];
+        $niveau = $datas[3];
+        $decision = $datas[4];
+        $filiere = $datas[5];
+        $mgp = $datas[6];
+        $matricule = $datas[8];
+        $secondText = '';
+
+        // Vérification des informations du QR code dans la base de données
+        $rel = releve::where(['id_releve' => $id_rel])->first();
+        $name = etudiant::where(['nom' => $nom])->first();
+        $surname = etudiant::where(['prenom' => $prenom])->first();
+        $level = niveau::where(['nom_niveau' => $niveau])->first();
+        $dec = releve::where(['decision_rel' => $decision])->first();
+        $fil = releve::where(['filiere' => $filiere])->first();
+        $moy = releve::where(['moy_gen_pon' => $mgp])->first();
+        $mat = etudiant::where(['matricule' => $matricule])->first();
+
+        if ($rel && $name && $surname && $level && $dec && $fil && $moy && $mat) {
+            if (!empty($id_rel) && !empty($nom) && !empty($prenom) && !empty($niveau) && !empty($decision) && !empty($filiere) && !empty($mgp) && !empty($matricule)) {
+                $releve = releve::where(['matricule' => $matricule])->first();
+                $resultats = appartenir::join('ues', 'appartenirs.ue', '=', 'ues.id_ue')
+                    ->join('notes', 'appartenirs.id_note', '=', 'notes.id')
+                    ->select('appartenirs.ue', 'ues.nom_ue', 'ues.credit', 'ues.semestre', 'notes.moyenne', 'notes.mention', 'notes.decision_note')
+                    ->where('appartenirs.matricule', $matricule)
+                    ->get();
+                $niv = niveau::select('niveaux.nom_niveau')
+                    ->join('regroupes', 'niveaux.id_niveau', '=', 'regroupes.niveau')
+                    ->join('fileres', 'regroupes.filiere', '=', 'fileres.id_filiere')
+                    ->join('releves', 'fileres.id_filiere', '=', 'releves.filiere')
+                    ->join('etudiants', 'releves.matricule', '=', 'etudiants.matricule')
+                    ->where('etudiants.matricule', $matricule)
+                    ->first();
+                $etudiant = etudiant::where(['matricule' => $matricule])->first();
+
+                $DataSend = (['niv' => $niv, 'resultats' => $resultats, 'etudiant' => $etudiant, 'releve' => $releve, 'matricule' => $matricule]);
+
+
+                $path = session()->get('image');
+
+                if ($path) {
+
+                    $filePath = storage_path('app/' . $path);
+                    // Configuration du client Textract
+                    $textract = new TextractClient([
+                        'version' => 'latest',
+                        'region' => env('AWS_REGION'),
+                        'credentials' => [
+                            'key' => env('AWS_ACCESS_KEY_ID'),
+                            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+                        ],
+                    ]);
+
+                    // Lire le contenu de l'image
+                    $fileContent = file_get_contents($filePath);
+
+
+                        // Appel à Textract pour extraire le texte de l'image
+                        $result = $textract->detectDocumentText([
+                            'Document' => [
+                                'Bytes' => $fileContent,
+                            ],
+                        ]);
+
+                        // Récupérer le texte extrait
+                        $extractedText = '';
+                        foreach ($result['Blocks'] as $block) {
+                            if ($block['BlockType'] == 'LINE') {
+                                $extractedText .= $block['Text'] . PHP_EOL;
+                            }
+
+
+                        }
+
+
+//                    dd($extractedText);
+                        $studentInfo = [];
+
+
+                        if (preg_match('/Noms et Prénoms:\s*(.*?)\s*Matricule/', $extractedText, $matches)) {
+                            $studentInfo['nom_prenom'] = trim($matches[1]);
+
+                        }
+
+
+                        if (preg_match('/N° :\s*(.*?)\s*Noms et Prénoms:/', $extractedText, $matches)) {
+                            $studentInfo['Id_releve'] = trim($matches[1]);
+                        }
+
+                        if (preg_match('/Matricule: \s*(.*?)\s*Surname and Name/', $extractedText, $matches)) {
+                            $studentInfo['matricule'] = trim($matches[1]);
+                        }
+
+                        if (preg_match('/le: \s*(.*?)\s* A:/', $extractedText, $matches)) {
+                            $studentInfo['Date_de_naissance'] = trim($matches[1]);
+                        }
+
+                        if (preg_match('/Filiere:\s*(.*?)\s*Niveau :/', $extractedText, $matches)) {
+                            $studentInfo['Filiere'] = trim($matches[1]);
+                        }
+
+                        if (preg_match('/Spécialité:\s*(.*?)\s*Academic Year/', $extractedText, $matches)) {
+                            $studentInfo['Specialite'] = trim($matches[1]);
+                        }
+
+                        if (preg_match('/: \s*(.*?)\s*Decision:/', $extractedText, $matches)) {
+                            $studentInfo['mgp'] = trim($matches[1]);
+                        }
+
+                        if (preg_match('/Decision:\s*(.*?)\s*Yaounde le/', $extractedText, $matches)) {
+                            $studentInfo['decision'] = trim($matches[1]);
+                        }
+
+                        $pattern = '/
+                            (?P<code_ue>\w+)\s+                                 # Code UE
+                            (?P<intitule>.*?)\s{2,}                             # Intitulé de l\'UE
+                            (?P<credit>\d+)\s+                                  # Crédit
+                            (?P<note>\d+\.\d+|\d+)\s+                           # Note
+                            (?P<mention>[A-Za-z\+\-]+)\s+                       # Mention
+                            (?P<semestre>S\d+)\s+                               # Semestre
+                            (?P<annee>\d+)\s+                                   # Année
+                            (?P<decision>[A-Z]+)                                # Décision
+                        /x';
+
+                        preg_match_all($pattern, $extractedText, $matches, PREG_SET_ORDER);
+
+                        $image_results = [];
+                        foreach ($matches as $match) {
+                            $image_results[] = [
+                                'code_ue' => $match['code_ue'],
+                                'intitule' => trim($match['intitule']),
+                                'credit' => $match['credit'],
+                                'note' => $match['note'],
+                                'mention' => $match['mention'],
+                                'semestre' => $match['semestre'],
+                                'annee' => $match['annee'],
+                                'decision' => $match['decision']
+                            ];
+                        }
+
+
+//                dd($resultats,$pdf_results);
+                        // Comparaison des informations
+                        $is_valid = true;
+                        $a = 0;
+                        foreach ($resultats as $result) {
+                            $match_found = false;
+                            foreach ($image_results as $image_result) {
+                                if ($result->ue = $image_result['code_ue'] &&
+                                    $result->nom_ue = $image_result['intitule'] &&
+                                        $result->credit = $image_result['credit'] &&
+                                            $result->moyenne = $image_result['note'] &&
+                                                $result->mention = $image_result['mention'] &&
+                                                    $result->semestre = $image_result['semestre'] &&
+                                                        $result->decision_note = $image_result['decision']) {
+                                    $match_found = true;
+                                    break;
+                                }
+
+                            }
+
+                            if (!$match_found) {
+                                $is_valid = false;
+                                break;
+                            }
+                        }
+
+                        if ($studentInfo['matricule'] == $etudiant->matricule) {
+                            $is_valid2 = true;
+                        }
+
+                        if ($is_valid && $is_valid2) {
+                            return response()->json(['statut' => 200, 'message' => 'Success', 'data' => $DataSend]);
+                        } else {
+                            return response()->json(['statut' => 408, 'message' => 'Les informations du PDF et du QR code ne correspondent pas']);
+                        }
+
+
+
+
+            }else {
+                return response()->json(['statut' => 408, 'message' => 'Informations du QR non valide']);
+            }
+        }
+        }
+    }
+
+    public  function verification2(Request $request)
+    {
+
+        $hmacKey = env('HMAC_KEY');
+        $requestData = $request->all();
+//        $encodedData = '458447?Atangana?jean pierre?Licence 3?ADMIS?ICT4D?3.4?authdoc2.0?21Q2529';
+        $encodedData = session()->get('encodedData');
+        $datas = explode("?", $encodedData);
+
+        $id_rel = $datas[0];
+        $nom = $datas[1];
+        $prenom = $datas[2];
+        $niveau = $datas[3];
+        $decision = $datas[4];
+        $filiere = $datas[5];
+        $mgp = $datas[6];
+        $matricule = $datas[8];
+        $secondText ='';
+
+        // Vérification des informations du QR code dans la base de données
+        $rel = releve::where(['id_releve' => $id_rel])->first();
+        $name = etudiant::where(['nom' => $nom])->first();
+        $surname = etudiant::where(['prenom' => $prenom])->first();
+        $level = niveau::where(['nom_niveau' => $niveau])->first();
+        $dec = releve::where(['decision_rel' => $decision])->first();
+        $fil = releve::where(['filiere' => $filiere])->first();
+        $moy = releve::where(['moy_gen_pon' => $mgp])->first();
+        $mat = etudiant::where(['matricule' => $matricule])->first();
+
+        if ($rel && $name && $surname && $level && $dec && $fil && $moy && $mat) {
+            if (!empty($id_rel) && !empty($nom) && !empty($prenom) && !empty($niveau) && !empty($decision) && !empty($filiere) && !empty($mgp) && !empty($matricule)) {
+                $releve = releve::where(['matricule' => $matricule])->first();
+                $resultats = appartenir::join('ues', 'appartenirs.ue', '=', 'ues.id_ue')
+                    ->join('notes', 'appartenirs.id_note', '=', 'notes.id')
+                    ->select('appartenirs.ue', 'ues.nom_ue', 'ues.credit', 'ues.semestre', 'notes.moyenne', 'notes.mention', 'notes.decision_note')
+                    ->where('appartenirs.matricule', $matricule)
+                    ->get();
+                $niv = niveau::select('niveaux.nom_niveau')
+                    ->join('regroupes', 'niveaux.id_niveau', '=', 'regroupes.niveau')
+                    ->join('fileres', 'regroupes.filiere', '=', 'fileres.id_filiere')
+                    ->join('releves', 'fileres.id_filiere', '=', 'releves.filiere')
+                    ->join('etudiants', 'releves.matricule', '=', 'etudiants.matricule')
+                    ->where('etudiants.matricule', $matricule)
+                    ->first();
+                $etudiant = etudiant::where(['matricule' => $matricule])->first();
+
+                $DataSend = (['niv' => $niv, 'resultats' => $resultats, 'etudiant' => $etudiant, 'releve' => $releve, 'matricule' => $matricule]);
+
+
+                $parser = new Parser();
+
+                $file = session()->get('file');
+
+//                dd($file);
+
+                // Extraire le texte du fichier PDF
+                $pdf = $parser->parseFile(storage_path('app/' . $file));
+
+
+                // Récupérer le texte extrait
+                $extractedText = $pdf->getText();
+                $hello = 'hello';
+
+//                    dd($extractedText);
+                session()->put('extractedText', $extractedText);
+                $studentInfo = [];
+
+
+                if (preg_match('/N° :\s*(.*?)\s*Noms et Prénoms:/', $extractedText, $matches)) {
+                    $studentInfo['nom_prenom'] = trim($matches[1]);
+
+                }
+
+
+
+                if (preg_match('/TRANSCRIPT\s*(.*?)\s*N° :/', $extractedText, $matches)) {
+                    $studentInfo['Id_releve'] = trim($matches[1]);
+                }
+
+                if (preg_match('/Surname and Name\s*(.*?)\s*Matricule:/', $extractedText, $matches)) {
+                    $studentInfo['matricule'] = trim($matches[1]);
+
+                }
+
+
+                if (preg_match('/N° \s*(.*?)\s*Né/', $extractedText, $matches)) {
+                    $studentInfo['Date_de_naissance'] = trim($matches[1]);
+                }
+
+                if (preg_match('/Level \s*(.*?)\s*Filiere:/', $extractedText, $matches)) {
+                    $studentInfo['Filiere'] = trim($matches[1]);
+                }
+
+                if (preg_match('/Discipline\s*(.*?)\s*Spécialité:/', $extractedText, $matches)) {
+                    $studentInfo['Specialite'] = trim($matches[1]);
+                }
+
+                if (preg_match('/:\s*(.*?)\s*Decision:/', $extractedText, $matches)) {
+                    $studentInfo['mgp'] = trim($matches[1]);
+                }
+
+                if (preg_match('/Decision:\s*(.*?)\s*Légende:/', $extractedText, $matches)) {
+                    $studentInfo['decision'] = trim($matches[1]);
+                }
+
+
+                $pattern = '/
+                           (?P<code_ue>\w+)\t                                # Code UE
+                            (?P<intitule>[^\t]+)\t                            # Intitulé de l\'UE (capture tout jusqu\'à la prochaine tabulation)
+                            (?P<credit>\d+)\t                                 # Crédit
+                            (?P<note>\d+\.\d+|\d+)\t                          # Note (peut être un nombre décimal ou entier)
+                            (?P<mention>[A-Za-z\+\-]+)\t                      # Mention
+                            (?P<semestre>S\d+)\t                              # Semestre
+                            (?P<annee>\d+)\t                                  # Année
+                            (?P<decision>[A-Z]+)                              # Décision
+                        /x';
+
+                preg_match_all($pattern, $extractedText, $matches, PREG_SET_ORDER);
+
+
+                $pdf_results = [];
+                foreach ($matches as $match) {
+                    $pdf_results[] = [
+                        'code_ue' => $match['code_ue'],
+                        'intitule' => trim($match['intitule']),
+                        'credit' => $match['credit'],
+                        'note' => $match['note'],
+                        'mention' => $match['mention'],
+                        'semestre' => $match['semestre'],
+                        'annee' => $match['annee'],
+                        'decision' => $match['decision']
+                    ];
+                }
+
+
+//                dd($resultats,$pdf_results);
+                // Comparaison des informations
+                $is_valid = true;
+                $a=0;
+                foreach ($resultats as $result) {
+                    $match_found = false;
+                    foreach ($pdf_results as $pdf_result) {
+                        if ($result->ue = $pdf_result['code_ue'] &&
+                            $result->nom_ue = $pdf_result['intitule'] &&
+                            $result->credit = $pdf_result['credit'] &&
+                            $result->moyenne = $pdf_result['note'] &&
+                            $result->mention = $pdf_result['mention'] &&
+                            $result->semestre = $pdf_result['semestre'] &&
+                            $result->decision_note = $pdf_result['decision']) {
+                            $match_found = true;
+                            break;
+                        }
+
+                    }
+
+                    if (!$match_found) {
+                        $is_valid = false;
+                        break;
+                    }
+                }
+
+                if ($studentInfo['matricule'] == $etudiant->matricule){
+                    $is_valid2 = true;
+                }
+
+                if ($is_valid && $is_valid2) {
+                    return response()->json(['statut' => 200, 'message' => 'Success', 'data' => $DataSend]);
+                } else {
+                    return response()->json(['statut' => 408, 'message' => 'Les informations du PDF et du QR code ne correspondent pas']);
+                }
+            } else {
+                return response()->json(['statut' => 400, 'message' => 'Mauvais format du QR code']);
+            }
+        } else {
+            return response()->json(['statut' => 408, 'message' => 'Informations du QR non valide']);
+        }
+    }
 
 
     /**
@@ -583,11 +1000,15 @@ class admincontroller extends Controller
      */
     public function ocr(Request $request)
     {
-
+        $ver = 'one';
+        $method = 'continue';
 
 
         // Récupérer le fichier image du formulaire
         $image = $request->file('image');
+
+        $path = $image->store('temp');
+        session()->put('image', $path);
 
         // Vérifiez si une image a été téléchargée
         if (!$image) {
@@ -606,6 +1027,7 @@ class admincontroller extends Controller
             ],
         ]);
 
+        
         // Lire le contenu de l'image
         $fileContent = file_get_contents($filePath);
 
@@ -624,11 +1046,8 @@ class admincontroller extends Controller
                     $extractedText .= $block['Text'] . PHP_EOL;
                 }
             }
-//            dd($extractedText);
-//            session()->put('extractedText', $extractedText);
+        //    dd($extractedText);
 
-
-//            session()->put('extractedText', $extractedText);
             $studentInfo = [];
 
 
@@ -647,7 +1066,7 @@ class admincontroller extends Controller
                 $studentInfo['matricule'] = trim($matches[1]);
             }
 
-            if (preg_match('/le: \s*(.*?)\s* A:/', $extractedText, $matches) ){
+            if (preg_match('/le: \s*(.*?)\s*A:/', $extractedText, $matches) ){
                 $studentInfo['Date_de_naissance'] = trim($matches[1]);
             }
 
@@ -655,7 +1074,7 @@ class admincontroller extends Controller
                 $studentInfo['Filiere'] = trim($matches[1]);
             }
 
-            if (preg_match('/Spécialité: \s*(.*?)\s*Academic Year/', $extractedText, $matches) ){
+            if (preg_match('/Spécialité:\s*(.*?)\s*Academic Year/', $extractedText, $matches) ){
                 $studentInfo['Specialite'] = trim($matches[1]);
             }
 
@@ -667,40 +1086,50 @@ class admincontroller extends Controller
                 $studentInfo['decision'] = trim($matches[1]);
             }
 
+            $pattern = '/
+                            (?P<code_ue>\w+)\s+                                 # Code UE
+                            (?P<intitule>.*?)\s{2,}                             # Intitulé de l\'UE
+                            (?P<credit>\d+)\s+                                  # Crédit
+                            (?P<note>\d+\.\d+|\d+)\s+                           # Note
+                            (?P<mention>[A-Za-z\+\-]+)\s+                       # Mention
+                            (?P<semestre>S\d+)\s+                               # Semestre
+                            (?P<annee>\d+)\s+                                   # Année
+                            (?P<decision>[A-Z]+)                                # Décision
+                        /x';
 
-            $pattern = '/Noms et Prénoms:\s*([\w\s-]+)\s+Matricule:\s*([\w\d]+)\s+Filiere:\s*([\w\s-]+)\s+Niveau\s*:\s*(\w+\s*\d+)\s+Annee Academic:\s*([\d\/]+)\s+Spécialité:\s*([\w\s-]+)\s+Code UE\s+Intitulé De L\'UE \/ UE Title\s+Crédit\s+Moy\s+Mention\s+Semestre\s+Année\s+Décision\s+Credit\s*\/\s*100\s+Grade\s+Semester\s+Year\s+Decision:\s*([\w\s]+)\s*Crédit\s+Capitalisés:\s*[\d\/]+\s+\(([\d.]+)%\)/s';
             preg_match_all($pattern, $extractedText, $matches, PREG_SET_ORDER);
 
-            $studentInfo['info'] = [];
+
 
             foreach ($matches as $match) {
-                $studentInfo['info'][] = [
-                    'discipline' => trim($match[1]),
-                    'niveau' => trim($match[2]),
-                    'code_ue' => trim($match[3]),
-                    'intitule_ue' => trim($match[14]),
-                    'credit' => trim($match[5]),
-                    'moyenne' => $match[6],
-                    'mention' => $match[7],
-                    'semestre' => $match[8],
-                    'annee' => $match[9],
-                    'decision' => $match[10],
+                $results[] = [
+                    'code_ue' => $match['code_ue'],
+                    'intitule' => $match['intitule'],
+                    'credit' => $match['credit'],
+                    'note' => $match['note'],
+                    'mention' => $match['mention'],
+                    'semestre' => $match['semestre'],
+                    'annee' => $match['annee'],
+                    'decision' => $match['decision']
                 ];
             }
 
 
-            //session()->put('extractedText', $extractedText);
-           //dd($studentInfo);
+
+
+          
+
 
             if ($studentInfo['nom_prenom'] && $studentInfo['Id_releve'] && $studentInfo['matricule'] && $studentInfo['Date_de_naissance'] && $studentInfo['Filiere'] && $studentInfo['Specialite'] && $studentInfo['mgp'] && $studentInfo['decision'] ){
-                return view('admin.scanqr',compact('studentInfo'));
+                return view('admin.scanqr',compact('studentInfo','results','extractedText','ver','method'));
             }
 
             // Afficher le texte extrait
 
 
         } catch (\Exception $e) {
-            return view('admin.scanqr')->with('error', 'Une erreur s\'est produite lors de l\'extraction du texte Cela peut etre Due a cause de la mauvaise qualité de l\'image ou d\'un mauvais fichier entré en paramètre ' );
+        //    dd($studentInfo);
+            return redirect()->back()->with('error', 'Une erreur s\'est produite lors de l\'extraction du texte Cela peut etre Due a cause de la mauvaise qualité de l\'image ou d\'un mauvais fichier entré en paramètre selectionner une autre image ou utiliser un pdf ' );
         }
     }
 
@@ -710,7 +1139,12 @@ class admincontroller extends Controller
 
     public function ocr2( Request $request)
     {
+
+        $ver = 'two';
+        $method ='continue';
         $file = $request->file('file');
+        $path = $file->store('temp');
+        session()->put('file', $path);
 
         if ($file) {
 
@@ -734,37 +1168,81 @@ class admincontroller extends Controller
                     $studentInfo = [];
 
 
-                    if (preg_match('/Noms et Prénoms:\s*(.*?)\s*Matricule/', $extractedText, $matches)) {
+                    if (preg_match('/N° :\s*(.*?)\s*Noms et Prénoms:/', $extractedText, $matches) ){
                         $studentInfo['nom_prenom'] = trim($matches[1]);
-//                $studentInfo['matiere'] = trim($matches[2]);
+
                     }
 
 
-                    $pattern = '/^([\w\s]+)\s+Licence (\d)\s+Niveau :\s*[\w\s]+Filiere:\s*[\w\s]+\s*(\w{6}\d{3})\s+([\w\s]+)\s+(\d)\s+([\d.]+)\s+([A-Z+-]+)\s+(S\d)\s+(\d{4})\s+(CA|CANT)\s*$/m';
+
+                    if (preg_match('/TRANSCRIPT\s*(.*?)\s*N° :/', $extractedText, $matches) ){
+                        $studentInfo['Id_releve'] = trim($matches[1]);
+                    }
+
+                    if (preg_match('/Surname and Name\s*(.*?)\s*Matricule:/', $extractedText, $matches) ){
+                        $studentInfo['matricule'] = trim($matches[1]);
+                    }
+
+                    if (preg_match('/N° \s*(.*?)\s*Né/', $extractedText, $matches) ){
+                        $studentInfo['Date_de_naissance'] = trim($matches[1]);
+                    }
+
+                    if (preg_match('/Level \s*(.*?)\s*Filiere:/', $extractedText, $matches) ){
+                        $studentInfo['Filiere'] = trim($matches[1]);
+                    }
+
+                    if (preg_match('/Discipline\s*(.*?)\s*Spécialité:/', $extractedText, $matches) ){
+                        $studentInfo['Specialite'] = trim($matches[1]);
+                    }
+
+                    if (preg_match('/:\s*(.*?)\s*Decision:/', $extractedText, $matches) ){
+                        $studentInfo['mgp'] = trim($matches[1]);
+                    }
+
+                    if (preg_match('/Decision:\s*(.*?)\s*Légende:/', $extractedText, $matches) ){
+                        $studentInfo['decision'] = trim($matches[1]);
+                    }
+
+                    $pattern = '/
+                           (?P<code_ue>\w+)\t                                # Code UE
+                            (?P<intitule>[^\t]+)\t                            # Intitulé de l\'UE (capture tout jusqu\'à la prochaine tabulation)
+                            (?P<credit>\d+)\t                                 # Crédit
+                            (?P<note>\d+\.\d+|\d+)\t                          # Note (peut être un nombre décimal ou entier)
+                            (?P<mention>[A-Za-z\+\-]+)\t                      # Mention
+                            (?P<semestre>S\d+)\t                              # Semestre
+                            (?P<annee>\d+)\t                                  # Année
+                            (?P<decision>[A-Z]+)                              # Décision
+                        /x';
+
                     preg_match_all($pattern, $extractedText, $matches, PREG_SET_ORDER);
 
-                    $studentInfo['info'] = [];
+
+                    $results = [];
 
                     foreach ($matches as $match) {
-                        $studentInfo['info'][] = [
-                            'discipline' => trim($match[1]),
-                            'niveau' => trim($match[2]),
-                            'code_ue' => trim($match[3]),
-                            'intitule_ue' => trim($match[14]),
-                            'credit' => trim($match[5]),
-                            'moyenne' => $match[6],
-                            'mention' => $match[7],
-                            'semestre' => $match[8],
-                            'annee' => $match[9],
-                            'decision' => $match[10],
+                        $results[] = [
+                            'code_ue' => $match['code_ue'],
+                            'intitule' => trim($match['intitule']),
+                            'credit' => $match['credit'],
+                            'note' => $match['note'],
+                            'mention' => $match['mention'],
+                            'semestre' => $match['semestre'],
+                            'annee' => $match['annee'],
+                            'decision' => $match['decision']
                         ];
                     }
+//                    dd($results);
 
-
-                    session()->put('extractedText', $extractedText);
 //                    dd($studentInfo);
 
-                    return view ('admin.scanqr', compact('extractedText'));
+
+                    //session()->put('extractedText', $extractedText);
+
+
+                    if ($studentInfo['nom_prenom'] && $studentInfo['Id_releve'] && $studentInfo['matricule'] && $studentInfo['Date_de_naissance'] && $studentInfo['Filiere'] && $studentInfo['Specialite'] && $studentInfo['mgp'] && $studentInfo['decision'] ){
+
+                        return view('admin.scanqr',compact('studentInfo','results','extractedText','method','ver'));
+                    }
 
                 } else {
                     return redirect()->route('admin.scan')->with('error', 'Le fichier doit etre sous format pdf');
@@ -785,11 +1263,25 @@ class admincontroller extends Controller
 
     public function scan(){
 
+            $method=null;
+            $ver= null;
 
-            return view('admin.scanqr');
+
+            return view('admin.scanqr', compact('method','ver'));
 
 
     }
+
+    public function continuescan(){
+
+        $method='continue';
+        $ver= null;
+
+        return view('admin.scanqr', compact('method','ver'));
+
+
+    }
+
 
 
 

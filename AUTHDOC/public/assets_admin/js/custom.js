@@ -4,7 +4,6 @@
  * because it will make it harder for you to update.
  *
  */
-
 document.getElementById('dynamicCombo').addEventListener('change', function() {
     var currentValue = this.value;
     var optionExists = false;
@@ -41,56 +40,16 @@ document.getElementById('dynamicCombo1').addEventListener('change', function() {
 });
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    var downloadButton = document.getElementById('downloadButton');
 
-    downloadButton.addEventListener('click', function() {
-        var content = document.querySelector('.contents').innerHTML;
-        console.log('ok');
 
-        var printWindow = window.open('', 'Auth.doc');
-        printWindow.document.write('<html><head><title>Auth.doc</title>');
-        printWindow.document.write(
-            '<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />');
-        printWindow.document.write(
-            '<link href="assets/css/card.css" rel="stylesheet" type="text/css" />');
-        printWindow.document.write(
-            '<style> @page { size: A4; margin: 0; } body { margin: 1cm; }</style>');
-        printWindow.document.write('</head><body>');
-        printWindow.document.write('<div class="print-page">' + content + '</div>');
-        printWindow.document.write('</body></html>');
 
-        printWindow.document.close();
 
-        // Attendre que le contenu soit chargé dans la fenêtre d'impression
-        printWindow.onload = function() {
-            var printDocument = printWindow.document.documentElement;
-            var printPage = printDocument.querySelector('.print-page');
-
-            // Calculer la hauteur maximale d'une page A4
-            var pageHeight = 11.7 * 96; // Hauteur en pixels
-
-            // Réduire la hauteur des éléments pour s'adapter à une seule page
-            var elements = printPage.querySelectorAll('*');
-            for (var i = 0; i < elements.length; i++) {
-                var element = elements[i];
-                var elementHeight = element.offsetHeight;
-                if (elementHeight > pageHeight) {
-                    element.style.height = pageHeight + 'px';
-                }
-            }
-
-            // Appeler la fonction d'impression de la fenêtre d'impression
-            printWindow.print();
-        };
-    });
-});
-
-// $('#result').val('test');
+var decodeT;
 function onScanSuccess(decodedText, decodedResult) {
+    $('#continue').prop('disabled', true);
     // alert(decodedText);
     $('#result').val(decodedText);
-    let id = decodedText;
+    decodeT = decodedText;
     console.log(decodedText);
 
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -105,14 +64,14 @@ function onScanSuccess(decodedText, decodedResult) {
             method: "POST",
             dataType: 'json',
             data: {
-                data: id
+                data: decodeT
             },
             success: function(response) {
                 console.log(' Donnees recues: ' + response['statut']);
                 if (response['statut'] === 200) {
                     swal({
-                        title: "QR Code Scanné avec Succès releve authentique!",
-                        text: `Id releve: ${response.data.releve.id_releve}\nNom: ${response.data.etudiant.nom}\nPrénom: ${response.data.etudiant.prenom}\nMatricule: ${response.data.matricule}\nNiveau: ${response.data.niv.nom_niveau}\nMgp: ${response.data.releve.moy_gen_pon}\nFiliere: ${response.data.releve.filiere}\nDecision releve: ${response.data.releve.decision_rel}\nVeuillez passer a la 2eme partie  `,
+                        title: "QR Code authentique! Veillez passer a la prochaine étape",
+                        text: `Id releve: ${response.data.releve.id_releve}\nNom: ${response.data.etudiant.nom}\nPrénom: ${response.data.etudiant.prenom}\nMatricule: ${response.data.matricule}\nNiveau: ${response.data.niv.nom_niveau}\nMgp: ${response.data.releve.moy_gen_pon}\nFiliere: ${response.data.releve.filiere}\nDecision releve: ${response.data.releve.decision_rel}\nVeuillez passer a la 2eme partie   `,
                         icon: "success",
                         buttons: {
                             confirm: {
@@ -121,6 +80,10 @@ function onScanSuccess(decodedText, decodedResult) {
                                 visible: true,
                                 className: "btn btn-primary"
                             }
+                        }
+                    }).then((willContinue) => {
+                        if (willContinue) {
+                            $('#continue').prop('disabled', false); // Activer le bouton "Continuer"
                         }
                     });
 
@@ -140,26 +103,29 @@ function onScanSuccess(decodedText, decodedResult) {
                     swal("Erreur", "Une erreur s'est produite lors du traitement du QR code.", "error");
                 }
 
+
+
+
         });
+    $('#continue').on('click', function() {
+        var url = $(this).data('url');
+        window.location.href = url; // Rediriger vers la page suivante
+    });
 
 
 
 }
+
+
+
 function onScanFailure(error) {
-    // handle scan failure, usually better to ignore and keep scanning.
-    // for example:
-    // console.warn(`Code scan error = ${error}`);
+
+    console.warn(`Code scan error = ${error}`);
 }
 
-function fermerFenetreModale() {
-    // Fermer la fenêtre modale en utilisant la méthode 'modal' de Bootstrap avec l'argument 'hide'
-    $('#exampleModal').modal('hide');
-}
 
-function fermerFenetreModaleAuthentique() {
-    // Fermer la fenêtre modale en utilisant la méthode 'modal' de Bootstrap avec l'argument 'hide'
-    $('#modalAuthentique').modal('hide');
-}
+
+
 
 let html5QrcodeScanner = new Html5QrcodeScanner(
     "reader", {
@@ -202,6 +168,173 @@ var htmlContent = '<html><body><h1>Exemple de Document PDF</h1><p>Ceci est un ex
 //     var url = URL.createObjectURL(blob);
 //     window.open(url);
 // });
+
+
+
+
+
+function verification1(encodedData) {
+    swal({
+        title: "Confirmer la vérification",
+        text: "Êtes-vous sûr que les informations recuperées sont valides?",
+        icon: "warning",
+        buttons: {
+            cancel: {
+                text: "Annuler",
+                value: null,
+                visible: true,
+                className: "btn btn-danger"
+            },
+            confirm: {
+                text: "Confirmer",
+                value: true,
+                visible: true,
+                className: "btn btn-primary"
+            }
+        }
+    }).then((isConfirm) => {
+        if (isConfirm) {
+            $('#loader').show();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: "/ver1",
+                method: "POST",
+                dataType: 'json',
+                data: {
+                    data: encodedData
+                },
+                success: function(response) {
+                    $('#loader').hide();
+
+                    if (response.statut === 200) {
+                        // let releve = response.data.releve;
+                        // let etudiant = response.data.etudiant;
+                        // let resultats = response.data.resultats;
+                        // let niv = response.data.niv;
+                        //
+                        // let resultText = `Id releve: ${releve.id_releve}\nNom: ${etudiant.nom}\nPrénom: ${etudiant.prenom}\nMatricule: ${response.data.matricule}\nNiveau: ${niv.nom_niveau}\nMgp: ${releve.moy_gen_pon}\nFiliere: ${releve.filiere}\nDecision releve: ${releve.decision_rel}\nMatières:`;
+                        //
+                        // resultats.forEach(result => {
+                        //     resultText += `\n\nCode UE: ${result.ue}\nIntitulé: ${result.nom_ue}\nCrédit: ${result.credit}\nMoyenne: ${result.moyenne}\nMention: ${result.mention}\nSemestre: ${result.semestre}\nDecision: ${result.decision_note}`;
+                        // });
+
+                        swal({
+                            title: "Verification terminée, relevé authentique!",
+                            text: 'relevé authentique!',
+                            icon: "success",
+                            buttons: {
+                                confirm: {
+                                    text: "OK",
+                                    value: true,
+                                    visible: true,
+                                    className: "btn btn-primary"
+                                }
+                            }
+                        });
+                    } else if (response.statut === 400) {
+                        swal("Erreur", "Format du QR code invalide", "error");
+                    } else if (response.statut === 408) {
+                        swal("Erreur", "Les informations du PDF et du QR code ne correspondent pas", "error");
+                    } else {
+                        swal("Erreur", "Une erreur s'est produite lors du traitement du QR code.", "error");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    $('#loader').hide();
+                    swal("Erreur", "Une erreur s'est produite lors du traitement du QR code.", "error");
+                }
+            });
+        }
+    });
+}
+
+function verification2(encodedData) {
+    swal({
+        title: "Confirmer la vérification",
+        text: "Êtes-vous sûr que les informations recuperées sont valides?",
+        icon: "warning",
+        buttons: {
+            cancel: {
+                text: "Annuler",
+                value: null,
+                visible: true,
+                className: "btn btn-danger"
+            },
+            confirm: {
+                text: "Confirmer",
+                value: true,
+                visible: true,
+                className: "btn btn-primary"
+            }
+        }
+    }).then((isConfirm) => {
+        if (isConfirm) {
+            $('#loader').show();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: "/ver2",
+                method: "POST",
+                dataType: 'json',
+                data: {
+                    data: encodedData
+                },
+                success: function(response) {
+                    $('#loader').hide();
+
+                    if (response.statut === 200) {
+                        // let releve = response.data.releve;
+                        // let etudiant = response.data.etudiant;
+                        // let resultats = response.data.resultats;
+                        // let niv = response.data.niv;
+                        //
+                        // let resultText = `Id releve: ${releve.id_releve}\nNom: ${etudiant.nom}\nPrénom: ${etudiant.prenom}\nMatricule: ${response.data.matricule}\nNiveau: ${niv.nom_niveau}\nMgp: ${releve.moy_gen_pon}\nFiliere: ${releve.filiere}\nDecision releve: ${releve.decision_rel}\nMatières:`;
+                        //
+                        // resultats.forEach(result => {
+                        //     resultText += `\n\nCode UE: ${result.ue}\nIntitulé: ${result.nom_ue}\nCrédit: ${result.credit}\nMoyenne: ${result.moyenne}\nMention: ${result.mention}\nSemestre: ${result.semestre}\nDecision: ${result.decision_note}`;
+                        // });
+
+                        swal({
+                            title: "Verification terminée, relevé authentique!",
+                            text: 'relevé authentique!',
+                            icon: "success",
+                            buttons: {
+                                confirm: {
+                                    text: "OK",
+                                    value: true,
+                                    visible: true,
+                                    className: "btn btn-primary"
+                                }
+                            }
+                        });
+                    } else if (response.statut === 400) {
+                        swal("Erreur", "Format du QR code invalide", "error");
+                    } else if (response.statut === 408) {
+                        swal("Erreur", "Les informations du PDF et du QR code ne correspondent pas", "error");
+                    } else {
+                        swal("Erreur", "Une erreur s'est produite lors du traitement du QR code.", "error");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    $('#loader').hide();
+                    swal("Erreur", "Une erreur s'est produite lors du traitement du QR code.", "error");
+                }
+            });
+        }
+    });
+}
+
 
 
 

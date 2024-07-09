@@ -7,6 +7,8 @@
 <!-- Custom JS File -->
 <script src="{{asset('assets_admin/js/custom.js')}}"></script>
 
+<script src="{{asset('assets_admin/js/updmoddel.js')}}"></script>
+
 <script src="{{asset('assets_admin/bundles/sweetalert/sweetalert.min.js')}}"></script>
 <!-- Page Specific JS File -->
 <script src="{{asset('assets_admin/js/page/sweetalert.js')}}"></script>

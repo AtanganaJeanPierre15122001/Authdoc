@@ -43,7 +43,12 @@ class pdfController extends Controller
 
 
 
-        $datacont = trim($releve->id_releve) . '?' . trim($etudiant->nom) . '?' . trim($etudiant->prenom) . '?' . trim($niv->nom_niveau) . '?' . trim($releve->decision_rel) . '?' . trim($releve->filiere) . '?' . trim($releve->moy_gen_pon);
+        $resultatsFormatted = '';
+        foreach ($resultats as $resultat) {
+            $resultatsFormatted .= trim($resultat->ue) . ',' . trim($resultat->nom_ue) . ',' . trim($resultat->credit) . ',' . trim($resultat->moyenne) . ',' . trim($resultat->mention) . ',' . trim($resultat->semestre) . ',' . trim($resultat->decision_note) . ';';
+        }
+
+        $datacont = trim($releve->id_releve) . '?' . trim($etudiant->nom) . '?' . trim($etudiant->prenom) . '?' . trim($niv->nom_niveau) . '?' . trim($releve->decision_rel) . '?' . trim($releve->filiere) . '?' . trim($releve->moy_gen_pon) ;
 //        $hmac = hash_hmac('sha256', $datacont, $hmackey);
         $encryptedData =$datacont . '?' . $hmackey . '?' . $matricule;
         $hmacInfo = trim($encryptedData);

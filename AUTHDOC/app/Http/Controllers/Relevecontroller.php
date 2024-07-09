@@ -14,20 +14,25 @@ class   Relevecontroller extends Controller
     public function releve()
     {
         $method=null;
-        $etudiants= releve::all();
+        $etudiants= etudiant::all();
+        $releves = releve::join('etudiants', 'releves.matricule', '=', 'etudiants.matricule')
+            ->select('releves.id_releve', 'releves.matricule', 'etudiants.nom', 'etudiants.prenom')
+            ->get();
+            
+           
 
-
-        return view('admin.releve' ,compact('etudiants','method'));
+        return view('admin.releve' ,compact('releves','method'));
     }
 
-    public function view_releve(Request $request)
+    public function view_releve(Request $request,string $mat)
     {
 
         $hmackey=env('HMAC_KEY');
         $method='afficherel';
 
 
-        $matricule =   $request->input('matricule');
+
+        $matricule =   $mat;
 
         session()->put('matricule',$matricule);
 
@@ -52,7 +57,12 @@ class   Relevecontroller extends Controller
 
 
 
-        $datacont = trim($releve->id_releve) . '?' . trim($etudiant->nom) . '?' . trim($etudiant->prenom) . '?' . trim($niv->nom_niveau) . '?' . trim($releve->decision_rel) . '?' . trim($releve->filiere) . '?' . trim($releve->moy_gen_pon);
+        $resultatsFormatted = '';
+        foreach ($resultats as $resultat) {
+            $resultatsFormatted .= trim($resultat->ue) . ',' . trim($resultat->nom_ue) . ',' . trim($resultat->credit) . ',' . trim($resultat->moyenne) . ',' . trim($resultat->mention) . ',' . trim($resultat->semestre) . ',' . trim($resultat->decision_note) . ';';
+        }
+
+        $datacont = trim($releve->id_releve) . '?' . trim($etudiant->nom) . '?' . trim($etudiant->prenom) . '?' . trim($niv->nom_niveau) . '?' . trim($releve->decision_rel) . '?' . trim($releve->filiere) . '?' . trim($releve->moy_gen_pon) ;
 //        $hmac = hash_hmac('sha256', $datacont, $hmackey);
         $encryptedData =$datacont . '?' . $hmackey . '?' . $matricule;
         $hmacInfo = trim($encryptedData);
@@ -101,7 +111,12 @@ class   Relevecontroller extends Controller
 
 
 
-        $datacont = trim($releve->id_releve) . '?' . trim($etudiant->nom) . '?' . trim($etudiant->prenom) . '?' . trim($niv->nom_niveau) . '?' . trim($releve->decision_rel) . '?' . trim($releve->filiere) . '?' . trim($releve->moy_gen_pon);
+        $resultatsFormatted = '';
+        foreach ($resultats as $resultat) {
+            $resultatsFormatted .= trim($resultat->ue) . ',' . trim($resultat->nom_ue) . ',' . trim($resultat->credit) . ',' . trim($resultat->moyenne) . ',' . trim($resultat->mention) . ',' . trim($resultat->semestre) . ',' . trim($resultat->decision_note) . ';';
+        }
+
+        $datacont = trim($releve->id_releve) . '?' . trim($etudiant->nom) . '?' . trim($etudiant->prenom) . '?' . trim($niv->nom_niveau) . '?' . trim($releve->decision_rel) . '?' . trim($releve->filiere) . '?' . trim($releve->moy_gen_pon) ;
 //        $hmac = hash_hmac('sha256', $datacont, $hmackey);
         $encryptedData =$datacont . '?' . $hmackey . '?' . $matricule;
         $hmacInfo = base64_encode(trim($encryptedData));
@@ -113,6 +128,26 @@ class   Relevecontroller extends Controller
 
 
 
+
+    }
+
+
+    function releve_delete(Request $request){
+        $requestData = $request->all();
+
+
+        $relId = $requestData['relId'];
+
+        if ($relId) {
+            $releve = releve::find($relId);
+
+            $releve->delete();
+
+            return response()->json(['statut' => 200, 'message' => 'Success', 'data' => 'Releve  supprimé']);
+        }else{
+            return response()->json(['statut'=>408,'message'=>'Releve non supprimé']);
+
+        }
 
     }
 

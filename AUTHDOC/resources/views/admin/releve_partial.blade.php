@@ -273,7 +273,7 @@
             left: 20px; /* Adjust as needed */
             line-height: 13px;
         }
-        #section 0 {
+        #section  {
 
         /* Adjust as needed */
             line-height: 12px;

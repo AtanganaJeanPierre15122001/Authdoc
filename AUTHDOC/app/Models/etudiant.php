@@ -29,4 +29,9 @@ class etudiant extends Model
     public function filere(){
         return $this->belongsTo(releve::class);
     }
+
+    public function releve()
+    {
+        return $this->hasMany(releve::class);
+    }
 }
