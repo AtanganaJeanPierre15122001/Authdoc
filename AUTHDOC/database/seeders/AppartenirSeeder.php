@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\appartenir;
 use App\Models\etudiant;
 use App\Models\note;
+use App\Models\releve;
 use App\Models\ue;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,11 +23,13 @@ class AppartenirSeeder extends Seeder
         $mat1=etudiant::where(['matricule'=>'21Q2529'])->firstOrFail()->matricule;
         $ue1=ue::where(['id_ue'=>'ENGL303'])->firstOrFail()->id_ue;
         $note1=note::where(['id'=> 5])->firstOrFail()->id;
+        $rel1=releve::where(['id_releve'=>'0000-AJP-21Q2529-L3-FS-ICT4D-2023-2024'])->firstOrFail()->id_releve;
         $app1=[
 
             'matricule' => $mat1,
             'ue' => $ue1,
             'id_note' => $note1,
+            'id_releve' => $rel1,
 
         ];
 
@@ -37,6 +40,8 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat1,
             'ue' => $ue2,
             'id_note' => $note2,
+            'id_releve' => $rel1,
+            
 
         ];
 
@@ -47,6 +52,7 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat1,
             'ue' => $ue3,
             'id_note' => $note3,
+            'id_releve' => $rel1,
 
         ];
 
@@ -57,6 +63,7 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat1,
             'ue' => $ue4,
             'id_note' => $note4,
+            'id_releve' => $rel1,
 
         ];
 
@@ -67,6 +74,7 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat1,
             'ue' => $ue5,
             'id_note' => $note5,
+            'id_releve' => $rel1,
 
         ];
 
@@ -77,6 +85,7 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat1,
             'ue' => $ue6,
             'id_note' => $note6,
+            'id_releve' => $rel1,
 
         ];
 
@@ -87,6 +96,7 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat1,
             'ue' => $ue7,
             'id_note' => $note7,
+            'id_releve' => $rel1,
 
         ];
 
@@ -97,6 +107,7 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat1,
             'ue' => $ue8,
             'id_note' => $note8,
+            'id_releve' => $rel1,
 
         ];
 
@@ -107,6 +118,7 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat1,
             'ue' => $ue9,
             'id_note' => $note9,
+            'id_releve' => $rel1,
 
         ];
 
@@ -117,6 +129,7 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat1,
             'ue' => $ue10,
             'id_note' => $note10,
+            'id_releve' => $rel1,
 
         ];
 
@@ -127,6 +140,7 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat1,
             'ue' => $ue11,
             'id_note' => $note11,
+            'id_releve' => $rel1,
 
         ];
 
@@ -137,6 +151,7 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat1,
             'ue' => $ue12,
             'id_note' => $note12,
+            'id_releve' => $rel1,
 
         ];
 
@@ -146,11 +161,13 @@ class AppartenirSeeder extends Seeder
         $mat2=etudiant::where(['matricule'=>'21Q2443'])->firstOrFail()->matricule;
         $ue1=ue::where(['id_ue'=>'ENGL303'])->firstOrFail()->id_ue;
         $note1=note::where(['id'=> 25])->firstOrFail()->id;
+        $rel2=releve::where(['id_releve'=>'0000-MTE-21Q2443-L3-FS-ICT4D-2023-2024'])->firstOrFail()->id_releve;
         $appp1=[
 
             'matricule' => $mat2,
             'ue' => $ue1,
             'id_note' => $note1,
+            'id_releve' => $rel2,
 
         ];
 
@@ -161,6 +178,7 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat2,
             'ue' => $ue2,
             'id_note' => $note2,
+            'id_releve' => $rel2,
 
         ];
 
@@ -171,6 +189,7 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat2,
             'ue' => $ue3,
             'id_note' => $note3,
+            'id_releve' => $rel2,
 
         ];
 
@@ -181,6 +200,7 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat2,
             'ue' => $ue4,
             'id_note' => $note4,
+            'id_releve' => $rel2,
 
         ];
 
@@ -191,6 +211,7 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat2,
             'ue' => $ue5,
             'id_note' => $note5,
+            'id_releve' => $rel2,
 
         ];
 
@@ -201,6 +222,7 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat2,
             'ue' => $ue6,
             'id_note' => $note6,
+            'id_releve' => $rel2,
 
         ];
 
@@ -211,6 +233,7 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat2,
             'ue' => $ue7,
             'id_note' => $note7,
+            'id_releve' => $rel2,
 
         ];
 
@@ -221,6 +244,7 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat2,
             'ue' => $ue8,
             'id_note' => $note8,
+            'id_releve' => $rel2,
 
         ];
 
@@ -231,6 +255,7 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat2,
             'ue' => $ue9,
             'id_note' => $note9,
+            'id_releve' => $rel2,
 
         ];
 
@@ -241,6 +266,7 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat2,
             'ue' => $ue10,
             'id_note' => $note10,
+            'id_releve' => $rel2,
 
         ];
 
@@ -251,6 +277,7 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat2,
             'ue' => $ue11,
             'id_note' => $note11,
+            'id_releve' => $rel2,
 
         ];
 
@@ -261,6 +288,7 @@ class AppartenirSeeder extends Seeder
             'matricule' => $mat2,
             'ue' => $ue12,
             'id_note' => $note12,
+            'id_releve' => $rel2,
 
         ];
 

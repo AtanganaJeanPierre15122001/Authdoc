@@ -9,6 +9,22 @@ class appartenir extends Model
 {
     use HasFactory;
 
+
+    protected $table='appartenirs';
+
+    protected $fillable = [
+        'id',
+        'matricule',
+        'ue',
+        'id_releve',
+        'id_note',
+       
+
+    ];
+   
+    protected $keyType = 'string';
+
+
     public function ues()
     {
         return $this->belongsTo(ue::class, 'id_ue');
@@ -18,4 +34,10 @@ class appartenir extends Model
     {
         return $this->belongsTo(note::class, 'id_note');
     }
+
+    public function appartenirs()
+    {
+        return $this->belongsTo(releve::class, 'id_releve');
+    }
+
 }

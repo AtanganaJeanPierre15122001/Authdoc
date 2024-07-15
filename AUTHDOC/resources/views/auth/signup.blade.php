@@ -45,7 +45,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input id="email" type="email" value="{{old('email')}}" class="form-control" name="email">
+                                        <input id="email" type="email" value="{{old('email')}}" class="form-control" name="email2">
                                         <div style="color: red">
                                             @error('email')
                                             {{$message}}

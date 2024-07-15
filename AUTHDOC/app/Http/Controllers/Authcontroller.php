@@ -30,7 +30,7 @@ class Authcontroller extends Controller
             $utilisateur = new Utilisateur();
             $utilisateur->nom = $request1['first_name'];
             $utilisateur->prenom = $request1['last_name'];
-            $utilisateur->email = $request1['email'];
+            $utilisateur->email = $request1['email2'];
             $utilisateur->password = Hash::make($request1['password']);
             $utilisateur->fonction = 'uti';
 

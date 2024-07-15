@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','adminpage')
+@section('title','Userpage')
 
 @section('content')
 
@@ -43,33 +43,12 @@
                         </a>
                     </div>
                     <ul class="sidebar-menu">
-                        <li class="menu-header">Gestion admin</li>
-                        <li>
-                            <a href="{{route('admin.main')}}" class="nav-link"><i data-feather="monitor"></i><span>liste admin</span></a>
-                        </li>
-                        {{-- <li class="dropdown">--}}
-                        {{-- <a href="#" class="menu-toggle nav-link has-dropdown"><i--}}
-                        {{-- data-feather="briefcase"></i><span>Widgets</span></a>--}}
-                        {{-- <ul class="dropdown-menu">--}}
-                        {{-- <li><a class="nav-link" href="widget-chart.html">Chart Widgets</a></li>--}}
-                        {{-- <li><a class="nav-link" href="widget-data.html">Data Widgets</a></li>--}}
-                        {{-- </ul>--}}
-                        {{-- </li>--}}
+                    
 
-                        <li class="menu-header">Gestion releve</li>
-                        <li class="dropdown">
-
-                        </li>
+                      
                         <li class="dropdown active"><a class="nav-link" href="{{route('admin.releve')}}"><i data-feather="file"></i><span>Generer le relevé</span></a></li>
                         <li class="dropdown">
-                            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Scan releve`</span></a>
-                            <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="{{route('admin.scan')}}">Avec Qr code</a></li>
-                                <li><a class="nav-link" href="{{route('admin.scanocr')}}">Avec OCR</a></li>
-
-                            </ul>
-                        </li>
-
+                            <a href="{{route('admin.scan')}}" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Scan relevé</span></a></li>
                     </ul>
                 </aside>
             </div>
@@ -82,7 +61,7 @@
                                 @if($method==null)
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4>Rechercher un étudiant</h4>
+                                        <h4>Resultat pour matricule</h4>
                                     </div>
                                     <div class="card-body">
                                         @if(Session::has('success'))
@@ -111,27 +90,15 @@
                                                         <td class="etu-nom">{{ $releve->nom }}</td>
                                                         <td class="etu-prenom">{{ $releve->prenom }}</td>
                                                         <td>
-                                                            <a href="{{ route('admin.view_releve', ['mat' => $releve->matricule,'idR' => $releve->id_releve]) }}" class="btn btn-primary">Voir relevé</a>
-                                                            <button type="button" class="btn btn-danger btn-delete2" data-rel-id="{{ $releve->id_releve }}">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </td>
+                                                            <a href="{{ route('user.vieWRelUti', ['mat' => $releve->matricule,'idR' => $releve->id_releve]) }}" class="btn btn-primary">Voir relevé</a>
+                                                           
                                                     </tr>
                                                     @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
 
-                                        <div class="row mt-3">
-                                            <div class="col-md-6">
-                                                <label class="mb-2">Ajouter un relevé via fichier Excel</label>
-                                                <a href="{{ route('admin.ajout_excel') }}" class="btn btn-primary mb-2">Excel</a>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="mb-2">Ajouter un relevé manuellement</label>
-                                                <a href="{{ route('admin.ajout_manuel') }}" class="btn btn-primary mb-2">Manuel</a>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                                 @endif

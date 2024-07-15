@@ -19,7 +19,7 @@ class ReleveSeeder extends Seeder
         $fil1=filere::where(['id_filiere'=>'ICT4D'])->firstOrFail()->id_filiere;
         $releve1=[
 
-            'id_releve' => 458447,
+            'id_releve' => '0000-AJP-21Q2529-L3-FS-ICT4D-2023-2024',
             'annee_academique' => '2023/2024',
             'credits_cap' => '60.00',
             'moy_gen_pon' => '3.40',
@@ -34,7 +34,7 @@ class ReleveSeeder extends Seeder
         $fil2=filere::where(['id_filiere'=>'ICT4D'])->firstOrFail()->id_filiere;
         $releve2=[
 
-            'id_releve' => 554244,
+            'id_releve' => '0000-MTE-21Q2443-L3-FS-ICT4D-2023-2024',
             'annee_academique' => '2023/2024',
             'credits_cap' => '60.00',
             'moy_gen_pon' => '2.40',

@@ -6,6 +6,7 @@ use App\Models\appartenir;
 use App\Models\etudiant;
 use App\Models\niveau;
 use App\Models\releve;
+use Dotenv\Util\Str;
 use Illuminate\Http\Request;
 
 class   Relevecontroller extends Controller
@@ -16,7 +17,9 @@ class   Relevecontroller extends Controller
         $method=null;
         $etudiants= etudiant::all();
         $releves = releve::join('etudiants', 'releves.matricule', '=', 'etudiants.matricule')
+            ->join('appartenirs', 'releves.id_releve', '=', 'appartenirs.id_releve')
             ->select('releves.id_releve', 'releves.matricule', 'etudiants.nom', 'etudiants.prenom')
+            ->distinct()
             ->get();
             
            
@@ -24,7 +27,7 @@ class   Relevecontroller extends Controller
         return view('admin.releve' ,compact('releves','method'));
     }
 
-    public function view_releve(Request $request,string $mat)
+    public function view_releve(Request $request,string $mat,string $idR)
     {
 
         $hmackey=env('HMAC_KEY');
@@ -33,6 +36,7 @@ class   Relevecontroller extends Controller
 
 
         $matricule =   $mat;
+        $id_releve = $idR;
 
         session()->put('matricule',$matricule);
 
@@ -43,6 +47,7 @@ class   Relevecontroller extends Controller
             ->join('notes', 'appartenirs.id_note', '=', 'notes.id')
             ->select('appartenirs.ue', 'ues.nom_ue', 'ues.credit', 'ues.semestre', 'notes.moyenne','notes.mention','notes.decision_note')
             ->where('appartenirs.matricule', $matricule)
+            ->where('appartenirs.id_releve', $id_releve)
             ->get();
         $niv = niveau::select('niveaux.nom_niveau')
             ->join('regroupes', 'niveaux.id_niveau', '=', 'regroupes.niveau')
@@ -50,6 +55,7 @@ class   Relevecontroller extends Controller
             ->join('releves', 'fileres.id_filiere', '=', 'releves.filiere')
             ->join('etudiants', 'releves.matricule', '=', 'etudiants.matricule')
             ->where('etudiants.matricule', $matricule)
+            ->distinct()
             ->first();
 
 
@@ -91,12 +97,14 @@ class   Relevecontroller extends Controller
 
 
         $matricule =  session()->get('matricule') ;
+        $id_releve =  session()->get('id_releve') ;
 
         $releve=releve::where(['matricule'=>$matricule])->first();
         $resultats = appartenir::join('ues', 'appartenirs.ue', '=', 'ues.id_ue')
             ->join('notes', 'appartenirs.id_note', '=', 'notes.id')
             ->select('appartenirs.ue', 'ues.nom_ue', 'ues.credit', 'ues.semestre', 'notes.moyenne','notes.mention','notes.decision_note')
             ->where('appartenirs.matricule', $matricule)
+            ->where('appartenirs.id_releve', $id_releve)
             ->get();
         $niv = niveau::select('niveaux.nom_niveau')
             ->join('regroupes', 'niveaux.id_niveau', '=', 'regroupes.niveau')

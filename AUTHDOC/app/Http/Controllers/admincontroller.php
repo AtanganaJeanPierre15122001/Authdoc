@@ -215,8 +215,11 @@ class admincontroller extends Controller
 
         $releve = new releve();
 
+        $idr = "000$sum-$initia2-$matricule-$niveau-FS-$id_fil-$annee";
 
-        $releve->id_releve = "000$sum/$initia2/$matricule/$niveau/FS/$id_fil/$annee";
+        session()->put('id_releve', $idr);
+
+        $releve->id_releve = $idr;
         $releve->matricule = session()->get('matricule');
         $releve->annee_academique = session()->get('annee');
         $releve->credits_cap = $request->input('credits_cap');
@@ -259,6 +262,8 @@ class admincontroller extends Controller
              $appartenir->matricule = session()->get('matricule');
              $appartenir->ue = $request->input('codeUE_'.$i);
              $appartenir->id_note = $note->id;
+             $appartenir->id_releve = $idr;
+
 
              $appartenir->save();
 
@@ -389,7 +394,7 @@ class admincontroller extends Controller
                     $specialite = $studentData[15];
                 }
                 if ($studentData[16] != ''){
-                    $annee = $studentData[16];
+                    $anneeAca = $studentData[16];
                 }
                 if ($studentData[17] != ''){
                     $filiere = $studentData[17];
@@ -428,7 +433,7 @@ class admincontroller extends Controller
                 }
 
 
-                if ($niveau && $annee && $filiere && $cre_cap && $dec_fin && $mgp){
+                if ($niveau && $anneeAca && $filiere && $cre_cap && $dec_fin && $mgp){
                     $nomSplitted = explode(' ', session()->get('nom'));
                     $initial1 = '';
                     foreach ($nomSplitted as $part) {
@@ -451,11 +456,12 @@ class admincontroller extends Controller
 
                     $sum = array_sum(str_split($birthDayDigits));
                     $niveau = $niveau;
-                    $annee = $annee;
                     $id_fil = $filiere;
                     $matricule = session()->get('matricule');
 
-                    $idr = "000$sum/$initia2/$matricule/$niveau/FS/$id_fil/$annee";
+                    $idr = "000$sum-$initia2-$matricule-$niveau-FS-$id_fil-$anneeAca";
+
+                    session()->put('id_releve',$idr);
 
 
                     $releveExist = releve::where(['id_releve' => $idr])->first();
@@ -466,7 +472,7 @@ class admincontroller extends Controller
 
 
 
-                        $releve->id_releve =  "000$sum/$initia2/$matricule/$niveau/FS/$id_fil/$annee";
+                        $releve->id_releve =  "000$sum-$initia2-$matricule-$niveau-FS-$id_fil-$anneeAca";
                         $releve->matricule = $matricule;
                         $releve->annee_academique = $annee;
                         $releve->credits_cap = $cre_cap;
@@ -511,6 +517,7 @@ class admincontroller extends Controller
                 $appartenir->matricule = $matricule;
                 $appartenir->ue = $codeue;
                 $appartenir->id_note = $note->id;
+                $appartenir->id_releve = $idr;
 
                 $appartenir->save();
 
@@ -525,6 +532,8 @@ class admincontroller extends Controller
 
 
             }
+
+         
 
 
             return to_route('admin.view_releve_remp');

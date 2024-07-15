@@ -38,11 +38,13 @@ Route::post('/adminUpd',[\App\Http\Controllers\admincontroller::class, 'adminUpd
 Route::post('/adminDel',[\App\Http\Controllers\admincontroller::class, 'adminDelete'])->name('admin.main.delete');
 Route::post('/relDel',[\App\Http\Controllers\Relevecontroller::class, 'releve_delete'])->name('admin.reldelete');
 Route::get('/releve',[\App\Http\Controllers\Relevecontroller::class, 'releve'])->name('admin.releve');
-Route::get('/view_releve/{mat}',[\App\Http\Controllers\Relevecontroller::class, 'view_releve'])->name('admin.view_releve');
+Route::get('/view_releve/{mat}/{idR}',[\App\Http\Controllers\Relevecontroller::class, 'view_releve'])->name('admin.view_releve');
 Route::get('/view_releve_remp',[\App\Http\Controllers\Relevecontroller::class, 'view_releve_remp'])->name('admin.view_releve_remp');
 Route::get('/downloadpdf',[\App\Http\Controllers\pdfController::class,'genererPDF'])->name('generatepdf');
 
 Route::get('/user',[\App\Http\Controllers\usercontroller::class, 'user'])->name('user.main');
+Route::post('/user',[\App\Http\Controllers\usercontroller::class, 'userPost']);
+Route::get('/user/vieWRelUti/{mat}/{idR}',[\App\Http\Controllers\usercontroller::class, 'vieWRelUti'])->name('user.vieWRelUti');
 
 
 Route::get('/scanqr',[\App\Http\Controllers\admincontroller::class, 'scanqr'])->name('admin.scanqr');
