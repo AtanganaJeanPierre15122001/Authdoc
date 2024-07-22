@@ -34,4 +34,9 @@ class etudiant extends Model
     {
         return $this->hasMany(releve::class);
     }
+
+    public function attestations()
+    {
+        return $this->hasMany(attestation::class, 'id_attestation');
+    }
 }

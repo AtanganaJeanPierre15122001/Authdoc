@@ -56,7 +56,7 @@
                         {{-- </ul>--}}
                         {{-- </li>--}}
 
-                        <li class="menu-header">Gestion</li>
+                        <li class="menu-header">Gestion releve</li>
                         <li class="dropdown">
 
                         </li>
@@ -145,14 +145,7 @@
                                     </div>
                                 </div>
                                 <!--end col-->
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationCustom02">Domaine</label>
-                                    <input name="domaine" type="text" class="form-control" id="domaine" placeholder="Sciences et technologies" value="" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                </div>
-                                <!--end col-->
+                                
                             </div>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
@@ -181,17 +174,6 @@
                                     <div class="input-group">
 
                                         <input name="annee" type="text" class="form-control" id="validationCustomUsername" placeholder="2021/2022" aria-describedby="inputGroupPrepend" required>
-                                        <div class="invalid-feedback">
-                                            Please choose a year.
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationCustomUsername">MGP</label>
-                                    <div class="input-group">
-
-                                        <input name="annee" type="text" class="form-control" id="validationCustomUsername" placeholder="." aria-describedby="inputGroupPrepend" required>
                                         <div class="invalid-feedback">
                                             Please choose a year.
                                         </div>
@@ -235,12 +217,20 @@
                                 </div>
                                 <!--end col-->
 
-                              
+                                <div class="col-md-3 mb-3">
+                                    <label for="validationCustom05">Nombre d'UEs</label>
+                                    <input type="numerics" class="form-control" id="validationCustom05" placeholder="12" name="nbUe" required style="font-weight: bold;">
+                                    <div class="invalid-feedback">
+                                        Please provide a valid number.
+                                    </div>
+                                </div>
+                                <!--end col-->
+
 
 
                                 <!--end col-->
                             </div>
-                            <button class="btn btn-primary" type="submit">Enregistrer l'attestation</button>
+                            <button class="btn btn-primary" type="submit">Enregistrer les notes</button>
                             <!--end form-row-->
                         </form>
 

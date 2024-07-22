@@ -60,12 +60,21 @@
                         <li class="dropdown">
 
                         </li>
-                        <li class="dropdown active"><a class="nav-link" href="{{route('admin.releve')}}"><i data-feather="file"></i><span>Generer le relevé</span></a></li>
-                        <li class="dropdown">
-                            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Scan releve`</span></a>
+                        {{-- <li class="dropdown active"><a class="nav-link" href="{{route('admin.releve')}}"><i data-feather="file"></i><span>Generer le Document</span></a></li> --}}
+                        <li class="dropdown active">
+                            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="file"></i><span>Generer Document</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="{{route('admin.scan')}}">Avec Qr code</a></li>
-                                <li><a class="nav-link" href="{{route('admin.scanocr')}}">Avec OCR</a></li>
+                                <li class="dropdown active"><a class="nav-link" href="{{route('admin.releve')}}">Relevé</a></li>
+                                <li><a class="nav-link" href="{{route('admin.attestation')}}">Attestation</a></li>
+
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Scan Document</span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link" href="{{route('admin.scan')}}">Relevé</a></li>
+                                <li><a class="nav-link" href="{{route('admin.scanAttestation')}}">Attestation</a></li>
 
                             </ul>
                         </li>
@@ -79,6 +88,71 @@
                     <div class="section-body">
                         <div class="row">
                             <div class="col-12">
+
+                                @if ($method=='search')
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Informations du relevé à chercher</h4>
+                                        </div>
+                                        <div class="card-body bootstrap-select-1">
+                                            @if(Session::has('error'))
+                                            <div class="alert alert-danger" role="alert">
+                                                {{Session::get('error')}}
+                                            </div>
+                                            @endif
+                        
+                                            <form id="hidden_form" method="POST" action="{{route('admin.releve')}}" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="form-row">
+                                                    <div class="col-md-12 mb-3">
+                                                        <label for="validationCustomUsername">Matricule</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text" id="inputGroupPrepend">#00A</span>
+                                                            </div>
+                                                            <input name="matricule" type="text" class="form-control" id="validationCustomUsername" placeholder="Matricule" aria-describedby="inputGroupPrepend" required>
+                                                            <div class="invalid-feedback">
+                                                                Please choose a Matricule.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 d-flex justify-content-center">
+                                                        <button class="btn btn-primary w-100" type="submit" id="submit_btn">Rechercher relevé</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <div class="col-md-12 text-center my-4">
+                                    <h4>ou</h4>
+                                </div>
+                        
+                               
+                            <div class="col-md-5 ">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Ajouter un relevé</h4>
+                                    </div>
+                                    <!--end card-header-->
+                                    <div class="card-body bootstrap-select-1">
+                                        <div class="row">
+                                            <div class="col-md-12 mb-3">
+                                                <label class="mb-2">Ajouter un relevé via fichier Excel</label>
+                                                <a href="{{ route('admin.ajout_excel') }}" class="btn btn-primary w-100 mb-2">Excel</a>
+                                            </div>
+                                            <div class="col-md-12 mb-3">
+                                                <label class="mb-2">Ajouter un relevé manuellement</label>
+                                                <a href="{{ route('admin.ajout_manuel') }}" class="btn btn-primary w-100 mb-2">Manuel</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end card-body-->
+                                </div>
+                            
+                                @endif
                                 @if($method==null)
                                 <div class="card">
                                     <div class="card-header">
@@ -103,35 +177,32 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($releves as $releve)
-                                                    <input type="hidden" id="relMat" name="relMat" value="{{ $releve->id_releve }}">
-                                                    <tr id="releveRow-{{ $releve->id_releve }}">
-                                                        <td class="etu-idRel">{{ $releve->id_releve }}</td>
-                                                        <td class="etu-mat">{{ $releve->matricule }}</td>
-                                                        <td class="etu-nom">{{ $releve->nom }}</td>
-                                                        <td class="etu-prenom">{{ $releve->prenom }}</td>
-                                                        <td>
-                                                            <a href="{{ route('admin.view_releve', ['mat' => $releve->matricule,'idR' => $releve->id_releve]) }}" class="btn btn-primary">Voir relevé</a>
-                                                            <button type="button" class="btn btn-danger btn-delete2" data-rel-id="{{ $releve->id_releve }}">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    @endforeach
+                                                    @if ($releves->isEmpty())
+                                                        <tr>
+                                                            <td colspan="5" class="text-center text-danger">Aucun relevé disponible pour ce matricule</td>
+                                                        </tr>
+                                                    @else
+                                                        @foreach($releves as $releve)
+                                                            <input type="hidden" id="relMat" name="relMat" value="{{ $releve->id_releve }}">
+                                                            <tr id="releveRow-{{ $releve->id_releve }}">
+                                                                <td class="etu-idRel">{{ $releve->id_releve }}</td>
+                                                                <td class="etu-mat">{{ $releve->matricule }}</td>
+                                                                <td class="etu-nom">{{ $releve->nom }}</td>
+                                                                <td class="etu-prenom">{{ $releve->prenom }}</td>
+                                                                <td>
+                                                                    <a href="{{ route('admin.view_releve', ['mat' => $releve->matricule, 'idR' => $releve->id_releve]) }}" class="btn btn-primary">Voir relevé</a>
+                                                                    <button type="button" class="btn btn-danger btn-delete2" data-rel-id="{{ $releve->id_releve }}">
+                                                                        <i class="fas fa-trash"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
                                                 </tbody>
                                             </table>
                                         </div>
-
-                                        <div class="row mt-3">
-                                            <div class="col-md-6">
-                                                <label class="mb-2">Ajouter un relevé via fichier Excel</label>
-                                                <a href="{{ route('admin.ajout_excel') }}" class="btn btn-primary mb-2">Excel</a>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="mb-2">Ajouter un relevé manuellement</label>
-                                                <a href="{{ route('admin.ajout_manuel') }}" class="btn btn-primary mb-2">Manuel</a>
-                                            </div>
-                                        </div>
+                                        
+                                        
                                     </div>
                                 </div>
                                 @endif
@@ -874,55 +945,10 @@
 
 
 
-    {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>--}}
-    {{-- <script>--}}
-
-    {{-- $(document).ready(function() {--}}
-    {{-- $('#downloadButton').click(function() {--}}
-    {{-- var content = $('.contents').html();--}}
-
-    {{-- var printWindow = window.open('', 'Auth.doc');--}}
-    {{-- printWindow.document.write('<html><head><title>Auth.doc</title>');--}}
-    {{-- printWindow.document.write(--}}
-    {{-- '<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />');--}}
-    {{-- printWindow.document.write(--}}
-    {{-- '<link href="assets/css/card.css" rel="stylesheet" type="text/css" />');--}}
-    {{-- printWindow.document.write(--}}
-    {{-- '<style> @page { size: A4; margin: 0; } body { margin: 1cm; }</style>');--}}
-    {{-- printWindow.document.write('</head><body>');--}}
-    {{-- printWindow.document.write('<div class="print-page">' + content + '</div>');--}}
-    {{-- printWindow.document.write('</body></html>');--}}
-
-    {{-- printWindow.document.close();--}}
-
-    {{-- // Attendre que le contenu soit chargé dans la fenêtre d'impression--}}
-    {{-- printWindow.onload = function() {--}}
-    {{-- var printDocument = printWindow.document.documentElement;--}}
-    {{-- var printPage = printDocument.querySelector('.print-page');--}}
-
-    {{-- // Calculer la hauteur maximale d'une page A4--}}
-    {{-- var pageHeight = 11.7 * 96; // Hauteur en pixels--}}
-
-    {{-- // Réduire la hauteur des éléments pour s'adapter à une seule page--}}
-    {{-- var elements = printPage.querySelectorAll('*');--}}
-    {{-- for (var i = 0; i < elements.length; i++) {--}}
-    {{-- var element = elements[i];--}}
-    {{-- var elementHeight = element.offsetHeight;--}}
-    {{-- if (elementHeight > pageHeight) {--}}
-    {{-- element.style.height = pageHeight + 'px';--}}
-    {{-- }--}}
-    {{-- }--}}
-
-    {{-- // Appeler la fonction d'impression de la fenêtre d'impression--}}
-    {{-- printWindow.print();--}}
-    {{-- };--}}
-    {{-- });--}}
-    {{-- });--}}
-    {{-- </script>--}}
 
 </body>
 
 
 
 
-@endsection('content')
+@endsection

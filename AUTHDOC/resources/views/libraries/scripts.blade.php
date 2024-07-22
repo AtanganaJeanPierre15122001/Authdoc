@@ -2,6 +2,14 @@
 <script src="{{asset('assets_admin/js/app.min.js')}}"></script>
 <!-- JS Libraies -->
 <!-- Page Specific JS File -->
+<script src="{{asset('assets_admin/bundles/datatables/datatables.min.js')}}"></script>
+<script src="{{asset('assets_admin/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('assets_admin/bundles/datatables/export-tables/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('assets_admin/bundles/datatables/export-tables/buttons.flash.min.js')}}"></script>
+<script src="{{asset('assets_admin/bundles/datatables/export-tables/jszip.min.js')}}"></script>
+<script src="{{asset('assets_admin/bundles/datatables/export-tables/pdfmake.min.js')}}"></script>
+<script src="{{asset('assets_admin/bundles/datatables/export-tables/vfs_fonts.js')}}"></script>
+<script src="{{asset('assets_admin/bundles/datatables/export-tables/buttons.print.min.js')}}"></script>
 <!-- Template JS File -->
 <script src="{{asset('assets_admin/js/scripts.js')}}"></script>
 <!-- Custom JS File -->

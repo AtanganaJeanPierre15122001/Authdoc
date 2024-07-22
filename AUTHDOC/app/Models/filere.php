@@ -19,4 +19,11 @@ class filere extends Model
     protected $primaryKey = 'id_filere';
     protected $keyType = 'string';
     use HasFactory;
+
+
+
+    public function attestations()
+    {
+        return $this->hasMany(attestation::class, 'id_attestation');
+    }
 }

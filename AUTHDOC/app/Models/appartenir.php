@@ -35,7 +35,7 @@ class appartenir extends Model
         return $this->belongsTo(note::class, 'id_note');
     }
 
-    public function appartenirs()
+    public function releves()
     {
         return $this->belongsTo(releve::class, 'id_releve');
     }

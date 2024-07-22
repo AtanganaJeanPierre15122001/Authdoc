@@ -60,12 +60,21 @@
                         <li class="dropdown">
 
                         </li>
-                        <li><a class="nav-link" href="{{route('admin.releve')}}"><i data-feather="file"></i><span>Generer le relevé</span></a></li>
-                        <li class="dropdown active">
-                            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Scan releve`</span></a>
+                        {{-- <li class="dropdown active"><a class="nav-link" href="{{route('admin.releve')}}"><i data-feather="file"></i><span>Generer le Document</span></a></li> --}}
+                        <li class="dropdown">
+                            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="file"></i><span>Generer Document</span></a>
                             <ul class="dropdown-menu">
-                                <li class="dropdown active"><a class="nav-link" href="{{route('admin.scan')}}">Avec Qr code</a></li>
-                                <li><a class="nav-link" href="{{route('admin.scanocr')}}">Avec OCR</a></li>
+                                <li class="dropdown"><a class="nav-link" href="{{route('admin.releve')}}">Relevé</a></li>
+                                <li><a class="nav-link" href="{{route('admin.attestation')}}">Attestation</a></li>
+
+                            </ul>
+                        </li>
+
+                        <li class="dropdown active">
+                            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Scan Document</span></a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown active"><a class="nav-link" href="{{route('admin.scan')}}">Relevé</a></li>
+                                <li><a class="nav-link" href="{{route('admin.scanAttestation')}}">Attestation</a></li>
 
                             </ul>
                         </li>

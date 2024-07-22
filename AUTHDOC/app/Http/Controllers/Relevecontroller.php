@@ -14,18 +14,30 @@ class   Relevecontroller extends Controller
 
     public function releve()
     {
-        $method=null;
-        $etudiants= etudiant::all();
+        $method='search';
+        return view('admin.releve' ,compact('method'));
+    }
+
+
+    public function relevesSeach(Request $request)
+    {
+        $method = null;
+        $mat=$request->input('matricule');
+        session()->put('matricule',$mat);
         $releves = releve::join('etudiants', 'releves.matricule', '=', 'etudiants.matricule')
             ->join('appartenirs', 'releves.id_releve', '=', 'appartenirs.id_releve')
             ->select('releves.id_releve', 'releves.matricule', 'etudiants.nom', 'etudiants.prenom')
             ->distinct()
+            ->where('etudiants.matricule','=',$mat)
             ->get();
-            
-           
+        
 
         return view('admin.releve' ,compact('releves','method'));
     }
+
+
+
+
 
     public function view_releve(Request $request,string $mat,string $idR)
     {

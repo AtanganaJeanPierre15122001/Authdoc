@@ -15,7 +15,7 @@ class releve extends Model
     protected $keyType = 'string'; // Indique que la clé primaire est une chaîne de caractères
 
 
-    public function etudiant()
+    public function etudiants()
     {
         return $this->belongsTo(etudiant::class);
     }

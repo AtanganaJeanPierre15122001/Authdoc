@@ -116,6 +116,26 @@ class admincontroller extends Controller
     }
 
 
+    public function ajout_manuel_attest()
+    {
+
+        $filieres = filere::all();
+
+        return view('admin.ajout_manuel_attest')->with(['filieres' => $filieres]);
+    }
+
+
+    public function ajout_excel_attest()
+    {
+        $filieres = filere::all();
+        return view('admin.ajout_excel_attest')->with(['filieres' => $filieres]);
+    }
+
+
+
+    
+
+
     public function rempli(Request $request)
     {
 
@@ -1277,6 +1297,13 @@ class admincontroller extends Controller
 
 
             return view('admin.scanqr', compact('method','ver'));
+
+
+    }
+
+    public function scanAttestation(){
+
+       
 
 
     }

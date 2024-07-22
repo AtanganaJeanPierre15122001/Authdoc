@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             UeSeeder::class,
             AppartenirSeeder::class,
             RegroupeSeeder::class,
+            AttestationSeeder::class,
         ]);
     }
 }
