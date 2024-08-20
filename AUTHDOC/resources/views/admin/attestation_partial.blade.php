@@ -355,6 +355,8 @@
         }
 
 
+
+
     </style>
 </head>
 <body>
@@ -399,27 +401,7 @@
             </section>
             <div class="bottom-left">
                 <div class="form-value ps-4 pt-1 text-uppercase">
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp; &nbsp;
-
-
+                   
                     N° : {{ isset($attestations) ? $attestations->id_attestation : '' }}
                 </div>
                 <!--to change dans la table releve-->
@@ -590,75 +572,7 @@
                             <p><span class="underline">Information and Communication Technology</span></p>
                             <p><span class="bold">Le Doyen/The Dean</span></p>
                         </div>
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                        &nbsp;&nbsp;
+                        
 
                       
 

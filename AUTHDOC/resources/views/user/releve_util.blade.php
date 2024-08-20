@@ -5,6 +5,7 @@
 
 <body>
     <div class="loader"></div>
+    <div class="loader"></div>
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
             <div class="navbar-bg"></div>
@@ -13,23 +14,14 @@
                     <ul class="navbar-nav mr-3">
                         <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
 									collapse-btn"> <i data-feather="align-justify"></i></a></li>
-
                     </ul>
                 </div>
                 <ul class="navbar-nav navbar-right">
-
-                    <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="" class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
+                    <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <i data-feather="user"></i> <span class="d-sm-none d-lg-inline-block"></span></a>
                         <div class="dropdown-menu dropdown-menu-right pullDown">
-                            <div class="dropdown-title">Hello Sarah Smith</div>
-                            <a href="profile.html" class="dropdown-item has-icon"> <i class="far
-										fa-user"></i> Profile
-                            </a> <a href="timeline.html" class="dropdown-item has-icon"> <i class="fas fa-bolt"></i>
-                                Activities
-                            </a> <a href="#" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
-                                Settings
-                            </a>
+                            <div class="dropdown-title">Hello {{session('name')}}</div>
                             <div class="dropdown-divider"></div>
-                            <a href="auth-login.html" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
+                            <a href="{{ route('auth.logout') }}" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
                                 Logout
                             </a>
                         </div>
@@ -39,20 +31,38 @@
             <div class="main-sidebar sidebar-style-2">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
-                        <a href="index.html"> <img alt="image" src="assets_admin/img/logo.png" class="header-logo" /> <span class="logo-name">Authdoc</span>
+                        <a href="{{ route('home') }}"> <img alt="image" src="assets_admin/img/logo.png" class="header-logo" />
+                            <span class="logo-name">Authdoc</span>
                         </a>
                     </div>
                     <ul class="sidebar-menu">
-                    
-
-                      
-                        <li class="dropdown active"><a class="nav-link" href="{{route('admin.releve')}}"><i data-feather="file"></i><span>Generer le relevé</span></a></li>
+                        
+                        <li class="menu-header">Gestion Document</li>
                         <li class="dropdown">
-                            <a href="{{route('admin.scan')}}" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Scan relevé</span></a></li>
+
+                        </li>
+                        {{-- <li class="dropdown active"><a class="nav-link" href="{{route('admin.releve')}}"><i data-feather="file"></i><span>Generer le Document</span></a></li> --}}
+                        <li class="dropdown">
+                            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="file"></i><span>Generer Document</span></a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown"><a class="nav-link" href="{{route('admin.releve')}}">Relevé</a></li>
+                                <li><a class="nav-link" href="{{route('admin.attestation')}}">Attestation</a></li>
+
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Scan Document</span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link" href="{{route('admin.scan')}}">Relevé</a></li>
+                                <li><a class="nav-link" href="{{route('admin.scanAttestation')}}">Attestation</a></li>
+
+                            </ul>
+                        </li>
+
                     </ul>
                 </aside>
-            </div>
-            <!-- Main Content -->
+            </div>        <!-- Main Content -->
             <div class="main-content">
                 <section class="section">
                     <div class="section-body">

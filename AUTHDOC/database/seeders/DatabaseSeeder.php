@@ -21,11 +21,12 @@ class DatabaseSeeder extends Seeder
             SemestreSeeder::class,
             NiveauSeeder::class,
             NoteSeeder::class,
+            AttestationSeeder::class,
             ReleveSeeder::class,
             UeSeeder::class,
             AppartenirSeeder::class,
             RegroupeSeeder::class,
-            AttestationSeeder::class,
+           
         ]);
     }
 }

@@ -22,84 +22,72 @@ class RegroupeSeeder extends Seeder
         $ue1=ue::where(['id_ue'=>'ENGL303'])->firstOrFail()->id_ue;
         $reg1=[
             'filiere' => $fil1,
-            'niveau' => $niv,
             'ue' => $ue1,
         ];
 
         $ue2=ue::where(['id_ue'=>'ICT301'])->firstOrFail()->id_ue;
         $reg2=[
             'filiere' => $fil1,
-            'niveau' => $niv,
             'ue' => $ue2,
         ];
 
         $ue3=ue::where(['id_ue'=>'ICT302'])->firstOrFail()->id_ue;
         $reg3=[
             'filiere' => $fil1,
-            'niveau' => $niv,
             'ue' => $ue3,
         ];
 
         $ue4=ue::where(['id_ue'=>'ICT303'])->firstOrFail()->id_ue;
         $reg4=[
             'filiere' => $fil1,
-            'niveau' => $niv,
             'ue' => $ue4,
         ];
 
         $ue5=ue::where(['id_ue'=>'ICT304'])->firstOrFail()->id_ue;
         $reg5=[
             'filiere' => $fil1,
-            'niveau' => $niv,
             'ue' => $ue5,
         ];
 
         $ue6=ue::where(['id_ue'=>'ICT305'])->firstOrFail()->id_ue;
         $reg6=[
             'filiere' => $fil1,
-            'niveau' => $niv,
             'ue' => $ue6,
         ];
 
         $ue7=ue::where(['id_ue'=>'ICT306'])->firstOrFail()->id_ue;
         $reg7=[
             'filiere' => $fil1,
-            'niveau' => $niv,
             'ue' => $ue7,
         ];
 
         $ue8=ue::where(['id_ue'=>'ICT307'])->firstOrFail()->id_ue;
         $reg8=[
             'filiere' => $fil1,
-            'niveau' => $niv,
             'ue' => $ue8,
         ];
 
         $ue9=ue::where(['id_ue'=>'ICT308'])->firstOrFail()->id_ue;
         $reg9=[
             'filiere' => $fil1,
-            'niveau' => $niv,
             'ue' => $ue9,
         ];
 
         $ue10=ue::where(['id_ue'=>'ICT310'])->firstOrFail()->id_ue;
         $reg10=[
             'filiere' => $fil1,
-            'niveau' => $niv,
             'ue' => $ue10,
         ];
 
         $ue11=ue::where(['id_ue'=>'ICT317'])->firstOrFail()->id_ue;
         $reg11=[
             'filiere' => $fil1,
-            'niveau' => $niv,
             'ue' => $ue11,
         ];
 
         $ue12=ue::where(['id_ue'=>'ICT318'])->firstOrFail()->id_ue;
         $reg12=[
             'filiere' => $fil1,
-            'niveau' => $niv,
             'ue' => $ue12,
         ];
 

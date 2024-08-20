@@ -48,13 +48,13 @@
 
         <nav id="navbar" class="navbar">
             <ul>
-                <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-                <li><a class="nav-link scrollto" href="#about">About</a></li>
+                <li><a class="nav-link scrollto active" href="#hero">Accueil</a></li>
+                <li><a class="nav-link scrollto" href="#about">A Propos</a></li>
                 <li><a class="nav-link scrollto" href="#services">Services</a></li>
                 <!--<li><a class="nav-link   scrollto" href="#portfolio">Portfolio</a></li>-->
-                <li><a class="nav-link scrollto" href="#team">Team</a></li>
+                <li><a class="nav-link scrollto" href="#team">Equipe</a></li>
                 <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-                <li><a class="getstarted scrollto" href="#about">Get Started</a></li>
+                <li><a class="getstarted scrollto" href="{{route('auth.login')}}">Commencer</a></li>
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
@@ -68,10 +68,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-                <h1>A new solution for document authentification</h1>
-                <h2>AuthDoc,authentification made easy</h2>
+                <h1>Une nouvelle solution pour l'authentification</h1>
+                <h2>AuthDoc,l'authentification en un click</h2>
                 <div class="d-flex justify-content-center justify-content-lg-start">
-                    <a href="{{route('auth.login')}}" class="btn-get-started scrollto">Get Started</a>
+                    <a href="{{route('auth.login')}}" class="btn-get-started scrollto">Commencer</a>
 
                 </div>
             </div>
@@ -92,28 +92,27 @@
         <div class="container" data-aos="fade-up">
 
             <div class="section-title">
-                <h2>About Us</h2>
+                <h2>A Propos</h2>
             </div>
 
             <div class="row content">
                 <div class="col-lg-6">
                     <p>
-                        We are third year software engineering students at the university of Yaounde 1, with the aim of facilitating authentification of result slips in our university in particular.Authdoc does the following;
+                        Nous sommes des etudiants en licence 3 ICT4D a l'universite de  Yaounde 1, Avec le but de creer une application d'authentification des documents. l'application a les fonctionnalites suivantes;
                     </p>
                     <ul>
-                        <li><i class="ri-check-double-line"></i>Authentify a result slip delivered by the university of Yaounde</li>
-                        <li><i class="ri-check-double-line"></i> Verify the full integrity of a result slip delivered by the university </li>
-                        <li><i class="ri-check-double-line"></i> Certify a result slip delivered by the university of Yaounde</li>
+                        <li><i class="ri-check-double-line"></i>Authentifier les releves de notes delivre a l'universite de Yaounde 1</li>
+                        <li><i class="ri-check-double-line"></i> Authentifier les attestations de reussite delivre a l'universite de Yaounde 1 </li>
+                        <li><i class="ri-check-double-line"></i> Telecharger un releve de note et une attestation de reussite</li>
                     </ul>
                 </div>
                 <div class="col-lg-6 pt-4 pt-lg-0">
                     <p>
-                        In a world where the integrity of documents is shaken so often,an app to verify the authenticity and
-                        integrity of important documents is more than welcome.
-                        Our case study here is the case of result slips delivered by the university of Yaounde each year
+                        Dans un monde ou l'authenticite des documents est frequemment secouer ,une application d'authentification des documents est plus que la bienvenue.
+                        Notre cas d'etude ici ce sont les releves de notes et attestations de reussite delivre a l'universite de yaounde 1
 
                     </p>
-                    <a href="#" class="btn-learn-more">Learn More</a>
+                    <a href="#" class="btn-learn-more">Apprendre plus</a>
                 </div>
             </div>
 
@@ -126,32 +125,32 @@
 
             <div class="section-title">
                 <h2>Services</h2>
-                <p>We are here as solution providers to the problem of corrupt or altered result slips at the university of Yaounde 1 coupled with the problem of a long, hideaous and not so efficient manual method of authentification</p>
+                <p>Nous nous proposons comme apporteurs de solution pour le probleme de faux documents et utilisation de faux a l' universite de Yaounde 1 ,ajoute a la longue procedure manuel d'authentification actuel</p>
             </div>
 
             <div class="row">
                 <div class="col-xl-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                     <div class="icon-box">
                         <div class="icon"><i class="bx bxl-dribbble"></i></div>
-                        <h4><a href="">Authentification through QR code</a></h4>
-                        <p>Simply scanning the QR code of the document to be authentified in our app</p>
+                        <h4><a href="">Authentification avec QR code</a></h4>
+                        <p>Scannez le QR code sur votre document dans notre plateforme pour authentifier</p>
                     </div>
                 </div>
 
                 <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
                     <div class="icon-box">
                         <div class="icon"><i class="bx bx-file"></i></div>
-                        <h4><a href="">Authentification through OCR</a></h4>
-                        <p>Scanning the document to be authentified in our app and our algorithme do the rest</p>
+                        <h4><a href="">Authentification a l'aide de l'OCR</a></h4>
+                        <p>Scannez le document dans notre plateforme et laissez les algorithmes faire le reste</p>
                     </div>
                 </div>
 
                 <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="300">
                     <div class="icon-box">
                         <div class="icon"><i class="bx bx-tachometer"></i></div>
-                        <h4><a href="">Certification of result slip</a></h4>
+                        <h4><a href="">Telechargement des documents</a></h4>
                         <p>
-                            upload a document whose integrity would be checked and certified
+                            Telecharger un releve de note et une attestation de reussite
                         </p>
                     </div>
                 </div>
@@ -159,8 +158,8 @@
                 <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="400">
                     <div class="icon-box">
                         <div class="icon"><i class="bx bx-layer"></i></div>
-                        <h4><a href="">Download of certified documents</a></h4>
-                        <p>after  certification of your document you can download as pdf</p>
+                        <h4><a href="">Gestion des Administrateurs</a></h4>
+                        <p>Ajout des administrateurs pour generer les documents authentique</p>
                     </div>
                 </div>
 
@@ -176,8 +175,8 @@
         <div class="container" data-aos="fade-up">
 
             <div class="section-title">
-                <h2>Team</h2>
-                <p>We are a team of two young dynamique software engineering students determined to bring automated solutions to real life problems in our immediate environment in particular and the world in general.We are passionate and believe in a job either well done or not done!</p>
+                <h2>Equipe</h2>
+                <p>Nous sommes deux jeunes etudiants en informatique determine a apporter des solutions automatise  au problems de la vie quotidienne dans notre environment immediat en particuliier et le monde en generale</p>
             </div>
 
             <div class="row">
@@ -188,7 +187,7 @@
                         <div class="member-info">
                             <h4>JEAN PIERRE</h4>
                             <span>Developer</span>
-                            <p>And a good project manager, get in touch with him through his social media handles</p>
+                            <p> Et un bon project manager rejoignez le sur ses plateformes sociales</p>
                             <div class="social">
                                 <a href=""><i class="ri-twitter-fill"></i></a>
                                 <a href=""><i class="ri-facebook-fill"></i></a>
@@ -205,7 +204,7 @@
                         <div class="member-info">
                             <h4>MATAGA EMMA</h4>
                             <span>Developer</span>
-                            <p>And a time conscious worker,get in touch with her through his social media handles</p>
+                            <p>Et une personne creative et dynamique rejoignez la sur les plateformes sociales</p>
                             <div class="social">
                                 <a href=""><i class="ri-twitter-fill"></i></a>
                                 <a href=""><i class="ri-facebook-fill"></i></a>
@@ -229,7 +228,7 @@
 
             <div class="section-title">
                 <h2>Contact</h2>
-                <p>You can contact us underneath directly or you can get to us through our social networks for any problem encountered with our app ,simply for suggestions to ameliorate our processes or to talk about your overall user experience and need of our services.</p>
+                <p>Vous pouvez nous contacter a travers nos contactes en dessous ou sur nos comptes sur les medias sociaux pour nous apporter des suggestions paraports a notre solution</p>
             </div>
 
             <div class="row">

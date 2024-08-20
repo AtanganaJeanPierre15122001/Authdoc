@@ -254,4 +254,94 @@ $(document).ready(function() {
             }
         });
     });
+
+
+
+    $('.btn-delete3').click(function () {
+        var attId = $(this).data('att-id');
+        console.log(attId);
+
+        swal({
+            title: "Confirmer la suppresion",
+            text: "Êtes-vous sûr de vouloir supprimer?",
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: "Annuler",
+                    value: null,
+                    visible: true,
+                    className: "btn btn-danger"
+                },
+                confirm: {
+                    text: "Confirmer",
+                    value: true,
+                    visible: true,
+                    className: "btn btn-primary"
+                }
+            }
+        }).then((isConfirm) => {
+            if (isConfirm) {
+                $('#loader').show();
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    url: "/attDel",
+                    method: "POST",
+                    dataType: 'json',
+                    data: {
+                        attId: attId,
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        if (response.statut === 200) {
+                            swal({
+                                title: "Succès",
+                                text: "L'attestation a été supprimé  avec succès.",
+                                icon: "success",
+                                buttons: {
+                                    confirm: {
+                                        text: "OK",
+                                        value: true,
+                                        visible: true,
+                                        className: "btn btn-primary"
+                                    }
+                                }
+                            }).then(() => {
+                                // Actualiser la liste des attestations ou effectuer d'autres actions nécessaires
+                                $('#AttestationRow-' + attId).remove();
+
+                            });
+                        }else {
+                            swal({
+                                title: "Erreur",
+                                text: "Une erreur s'est produite lors de la suppression de l'attestation.",
+                                icon: "error",
+                                buttons: {
+                                    confirm: {
+                                        text: "OK",
+                                        value: true,
+                                        visible: true,
+                                        className: "btn btn-primary"
+                                    }
+                                }
+                            });
+                        }
+
+                    },
+                    error: function (xhr, status, error) {
+
+                        swal("Erreur", "Une erreur s'est produite lors de la suppression.", "error");
+                    }
+                });
+            }
+        });
+    });
+
+
+    
 })

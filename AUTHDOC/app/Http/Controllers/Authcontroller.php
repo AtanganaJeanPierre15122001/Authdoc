@@ -49,9 +49,11 @@ class Authcontroller extends Controller
             $utilisateur = Utilisateur::where([
                 'email' => $credentials['email'],
             ])->first();
+           
             if ($utilisateur && Hash::check($credentials['password'],$utilisateur->password))
             {
 //                $user = Auth::user();
+                session()->put('fonction',$utilisateur->fonction);
                 if ($utilisateur->fonction === 'adm') {
                     $request->session()->regenerate();
                     return redirect()->intended(route('admin.main'));
@@ -63,6 +65,19 @@ class Authcontroller extends Controller
             return redirect()->route('auth.login')->with('error', 'Adresse e-mail ou mot de passe incorrect.');
 
 
+        }
+
+
+        public function logout(Request $request)
+        {
+            // Clear all session data
+            session()->flush();
+    
+            // Optionally, you can regenerate the session ID
+            $request->session()->regenerate();
+    
+            // Redirect to login page or home page
+            return redirect()->route('auth.login');
         }
 
 

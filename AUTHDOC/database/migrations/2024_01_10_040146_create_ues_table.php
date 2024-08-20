@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nom_ue');
             $table->float('credit');
             $table->string('semestre');
+            $table->string('annee');
             $table->foreign('semestre')->references('id_semestre')->on('semestres')->onDelete('cascade');
 
             $table->timestamps();

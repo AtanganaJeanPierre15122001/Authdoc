@@ -17,6 +17,12 @@ class usercontroller extends Controller
         return view('user.main');
     }
 
+
+    public function userAttestation()
+    {
+        return view('user.user_attestation');
+    }
+
     public function userPost(Request $request)
     {
         $method= null;

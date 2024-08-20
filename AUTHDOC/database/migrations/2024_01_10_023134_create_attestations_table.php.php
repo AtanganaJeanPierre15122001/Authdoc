@@ -18,9 +18,9 @@ return new class extends Migration
             $table->float('moy_gen_pon');
             $table->string('filiere');
             $table->string('matricule');
-//            $table->longBlob('image')->nullable();
-            $table->foreign('filiere')->references('id_filiere')->on('fileres')->onDelete('cascade');
-            $table->foreign('matricule')->references('matricule')->on('etudiants')->onDelete('cascade');
+
+
+            $table->timestamps();
 
         });
     }

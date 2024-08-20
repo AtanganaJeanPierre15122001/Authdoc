@@ -19,9 +19,13 @@ return new class extends Migration
             $table->string('decision_rel');
             $table->string('filiere');
             $table->string('matricule');
+            $table->string('attestation');
+            $table->string('niveau');
 //            $table->longBlob('image')->nullable();
             $table->foreign('filiere')->references('id_filiere')->on('fileres')->onDelete('cascade');
             $table->foreign('matricule')->references('matricule')->on('etudiants')->onDelete('cascade');
+            $table->foreign('attestation')->references('id_attestation')->on('attestations')->onDelete('cascade');
+            $table->foreign('niveau')->references('id_niveau')->on('niveaux')->onDelete('cascade');
 
             $table->timestamps();
         });

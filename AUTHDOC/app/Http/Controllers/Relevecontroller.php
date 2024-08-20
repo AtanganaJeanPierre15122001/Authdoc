@@ -51,22 +51,25 @@ class   Relevecontroller extends Controller
         $id_releve = $idR;
 
         session()->put('matricule',$matricule);
+        session()->put('id_releve',$id_releve);
 
 
 
-        $releve=releve::where(['matricule'=>$matricule])->first();
+        $releve=releve::select('releves.id_releve','releves.annee_academique','releves.credits_cap','releves.moy_gen_pon','releves.decision_rel','releves.filiere','releves.matricule')
+        ->where('releves.matricule', $matricule)
+        ->where('releves.id_releve', $id_releve)
+        ->first();
         $resultats = appartenir::join('ues', 'appartenirs.ue', '=', 'ues.id_ue')
             ->join('notes', 'appartenirs.id_note', '=', 'notes.id')
-            ->select('appartenirs.ue', 'ues.nom_ue', 'ues.credit', 'ues.semestre', 'notes.moyenne','notes.mention','notes.decision_note')
+            ->select('appartenirs.ue', 'ues.nom_ue', 'ues.credit', 'ues.semestre','ues.annee', 'notes.moyenne','notes.mention','notes.decision_note')
             ->where('appartenirs.matricule', $matricule)
             ->where('appartenirs.id_releve', $id_releve)
             ->get();
         $niv = niveau::select('niveaux.nom_niveau')
-            ->join('regroupes', 'niveaux.id_niveau', '=', 'regroupes.niveau')
-            ->join('fileres', 'regroupes.filiere', '=', 'fileres.id_filiere')
-            ->join('releves', 'fileres.id_filiere', '=', 'releves.filiere')
+            ->join('releves', 'niveaux.id_niveau', '=', 'releves.niveau')
             ->join('etudiants', 'releves.matricule', '=', 'etudiants.matricule')
             ->where('etudiants.matricule', $matricule)
+            ->where('releves.id_releve', $id_releve)
             ->distinct()
             ->first();
 
@@ -77,13 +80,16 @@ class   Relevecontroller extends Controller
 
         $resultatsFormatted = '';
         foreach ($resultats as $resultat) {
-            $resultatsFormatted .= trim($resultat->ue) . ',' . trim($resultat->nom_ue) . ',' . trim($resultat->credit) . ',' . trim($resultat->moyenne) . ',' . trim($resultat->mention) . ',' . trim($resultat->semestre) . ',' . trim($resultat->decision_note) . ';';
+            $resultatsFormatted .= trim($resultat->ue) . ',' . trim($resultat->nom_ue) . ',' . trim($resultat->credit) . ',' . trim($resultat->moyenne) . ',' . trim($resultat->mention) . ',' . trim($resultat->semestre) . ',' . trim($resultat->annee) . ',' . trim($resultat->decision_note) . ';';
         }
 
-        $datacont = trim($releve->id_releve) . '?' . trim($etudiant->nom) . '?' . trim($etudiant->prenom) . '?' . trim($niv->nom_niveau) . '?' . trim($releve->decision_rel) . '?' . trim($releve->filiere) . '?' . trim($releve->moy_gen_pon) ;
-//        $hmac = hash_hmac('sha256', $datacont, $hmackey);
-        $encryptedData =$datacont . '?' . $hmackey . '?' . $matricule;
-        $hmacInfo = trim($encryptedData);
+        $datacont = trim($releve->id_releve) . '?' . trim($etudiant->nom) . ' ' . trim($etudiant->prenom) . '?' . trim($niv->nom_niveau) . '?' . trim($releve->decision_rel) . '?' . trim($releve->filiere) . '?' . trim($releve->moy_gen_pon) . '?' . trim($resultatsFormatted) ;
+        // dd($datacont);
+        $hmac = hash_hmac('sha256', $datacont, $hmackey);
+       
+        $encryptedData = $hmac . '?' . $matricule . '?' . $releve->id_releve;
+        // dd($encryptedData);
+        $hmacInfo = base64_encode(trim($encryptedData));
             session()->put('hmacInfo',$hmacInfo);
 
             session()->put('hm',$hmacInfo);
@@ -111,19 +117,22 @@ class   Relevecontroller extends Controller
         $matricule =  session()->get('matricule') ;
         $id_releve =  session()->get('id_releve') ;
 
-        $releve=releve::where(['matricule'=>$matricule])->first();
+        $releve=releve::select('releves.id_releve','releves.annee_academique','releves.credits_cap','releves.moy_gen_pon','releves.decision_rel','releves.filiere','releves.matricule')
+        ->where('releves.matricule', $matricule)
+        ->where('releves.id_releve', $id_releve)
+        ->first();
         $resultats = appartenir::join('ues', 'appartenirs.ue', '=', 'ues.id_ue')
             ->join('notes', 'appartenirs.id_note', '=', 'notes.id')
-            ->select('appartenirs.ue', 'ues.nom_ue', 'ues.credit', 'ues.semestre', 'notes.moyenne','notes.mention','notes.decision_note')
+            ->select('appartenirs.ue', 'ues.nom_ue', 'ues.credit', 'ues.semestre', 'ues.annee', 'notes.moyenne','notes.mention','notes.decision_note')
             ->where('appartenirs.matricule', $matricule)
             ->where('appartenirs.id_releve', $id_releve)
             ->get();
-        $niv = niveau::select('niveaux.nom_niveau')
-            ->join('regroupes', 'niveaux.id_niveau', '=', 'regroupes.niveau')
-            ->join('fileres', 'regroupes.filiere', '=', 'fileres.id_filiere')
-            ->join('releves', 'fileres.id_filiere', '=', 'releves.filiere')
+            $niv = niveau::select('niveaux.nom_niveau')
+            ->join('releves', 'niveaux.id_niveau', '=', 'releves.niveau')
             ->join('etudiants', 'releves.matricule', '=', 'etudiants.matricule')
             ->where('etudiants.matricule', $matricule)
+            ->where('releves.id_releve', $id_releve)
+            ->distinct()
             ->first();
 
 
@@ -133,16 +142,23 @@ class   Relevecontroller extends Controller
 
         $resultatsFormatted = '';
         foreach ($resultats as $resultat) {
-            $resultatsFormatted .= trim($resultat->ue) . ',' . trim($resultat->nom_ue) . ',' . trim($resultat->credit) . ',' . trim($resultat->moyenne) . ',' . trim($resultat->mention) . ',' . trim($resultat->semestre) . ',' . trim($resultat->decision_note) . ';';
+            $resultatsFormatted .= trim($resultat->ue) . ',' . trim($resultat->nom_ue) . ',' . trim($resultat->credit) . ',' . trim($resultat->moyenne) . ',' . trim($resultat->mention) . ',' . trim($resultat->semestre) . ',' . trim($resultat->annee) . ',' . trim($resultat->decision_note) . ';';
         }
 
-        $datacont = trim($releve->id_releve) . '?' . trim($etudiant->nom) . '?' . trim($etudiant->prenom) . '?' . trim($niv->nom_niveau) . '?' . trim($releve->decision_rel) . '?' . trim($releve->filiere) . '?' . trim($releve->moy_gen_pon) ;
-//        $hmac = hash_hmac('sha256', $datacont, $hmackey);
-        $encryptedData =$datacont . '?' . $hmackey . '?' . $matricule;
+        $datacont = trim($releve->id_releve) . '?' . trim($etudiant->nom) . ' ' . trim($etudiant->prenom) . '?' . trim($niv->nom_niveau) . '?' . trim($releve->decision_rel) . '?' . trim($releve->filiere) . '?' . trim($releve->moy_gen_pon) . '?' . trim($resultatsFormatted) ;
+        // dd($datacont);
+        $hmac = hash_hmac('sha256', $datacont, $hmackey);
+       
+        $encryptedData = $hmac . '?' . $matricule . '?' . $releve->id_releve;
+        // dd($encryptedData);
         $hmacInfo = base64_encode(trim($encryptedData));
+            session()->put('hmacInfo',$hmacInfo);
+
+            session()->put('hm',$hmacInfo);
+            session()->put('rs',$resultats);
 
 
-        return view('admin.releve', compact('hmacInfo',  'method','resultats','releve','etudiant','niv'));
+            return view('admin.releve', compact('hmacInfo',  'method','resultats','releve','etudiant','niv'));
 
 
 

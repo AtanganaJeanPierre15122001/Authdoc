@@ -14,10 +14,8 @@ return new class extends Migration
         Schema::create('regroupes', function (Blueprint $table) {
             $table->id();
             $table->string('filiere');
-            $table->string('niveau');
             $table->string('ue');
             $table->foreign('filiere')->references('id_filiere')->on('fileres')->onDelete('cascade');
-            $table->foreign('niveau')->references('id_niveau')->on('niveaux')->onDelete('cascade');
             $table->foreign('ue')->references('id_ue')->on('ues')->onDelete('cascade');
             $table->timestamps();
         });

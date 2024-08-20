@@ -56,7 +56,7 @@
                         {{-- </ul>--}}
                         {{-- </li>--}}
 
-                        <li class="menu-header">Gestion releve</li>
+                        <li class="menu-header">Gestion</li>
                         <li class="dropdown">
 
                         </li>
@@ -90,10 +90,15 @@
                         <p class="text-muted mb-0"> <code class="highlighter-rouge"></code>
                         </p>
                     </div>
+                    @if(Session::has('error'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ Session::get('error') }}
+                    </div>
+                    @endif
                     <!--end card-header-->
                     <div class="card-body bootstrap-select-1">
 
-                        <form id="hidden_form" method="POST" action="{{route('admin.rempli')}}">
+                        <form id="hidden_form" method="POST" action="{{route('admin.save_attestation')}}">
                             @csrf
 
                             <div class="form-row">
@@ -115,15 +120,14 @@
                                 <!--end col-->
                                 <div class="col-md-4 mb-3">
                                     <label for="validationCustomUsername">Matricule</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroupPrepend">#00A</span>
-                                        </div>
-                                        <input name="matricule" type="text" class="form-control" id="validationCustomUsername" placeholder="Matricule" aria-describedby="inputGroupPrepend" required>
-                                        <div class="invalid-feedback">
-                                            Please choose a Matricule.
-                                        </div>
-                                    </div>
+                                    <input list="dynamicOptions" id="dynamicCombo" name="matricule" class="form-control">
+                                    <datalist id="dynamicOptions">
+                                        @foreach($etudiants as $key => $etudiant )
+                                        <option value="{{$etudiant->matricule}}">
+                                            {{$etudiant->matricule}}
+                                        </option>
+                                        @endforeach
+                                    </datalist>
                                 </div>
                                 <!--end col-->
                             </div>
@@ -145,7 +149,14 @@
                                     </div>
                                 </div>
                                 <!--end col-->
-                                
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom02">Domaine</label>
+                                    <input name="domaine" type="text" class="form-control" id="domaine" placeholder="Sciences et technologies" value="" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                                <!--end col-->
                             </div>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
@@ -180,6 +191,25 @@
                                     </div>
                                 </div>
                                 <!--end col-->
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustomUsername">MGP</label>
+                                    <div class="input-group">
+
+                                        <input name="mgp" type="text" class="form-control" id="validationCustomUsername" placeholder="." aria-describedby="inputGroupPrepend" required>
+                                        <div class="invalid-feedback">
+                                            Please choose a year.
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-3 mb-3">
+                                    <label for="validationCustom05">Mention</label>
+                                    <input type="numerics" class="form-control" id="validationCustom05" placeholder="" name="mention" required style="font-weight: bold;">
+                                    <div class="invalid-feedback">
+                                        Please provide a valid number.
+                                    </div>
+                                </div>
+                                
                             </div>
                             <!--end form-row-->
                             <div class="form-row">
@@ -216,21 +246,14 @@
 
                                 </div>
                                 <!--end col-->
+                                
 
-                                <div class="col-md-3 mb-3">
-                                    <label for="validationCustom05">Nombre d'UEs</label>
-                                    <input type="numerics" class="form-control" id="validationCustom05" placeholder="12" name="nbUe" required style="font-weight: bold;">
-                                    <div class="invalid-feedback">
-                                        Please provide a valid number.
-                                    </div>
-                                </div>
-                                <!--end col-->
-
+                              
 
 
                                 <!--end col-->
                             </div>
-                            <button class="btn btn-primary" type="submit">Enregistrer les notes</button>
+                            <button class="btn btn-primary" type="submit">Enregistrer l'attestation</button>
                             <!--end form-row-->
                         </form>
 

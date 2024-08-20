@@ -70,8 +70,8 @@ function onScanSuccess(decodedText, decodedResult) {
                 console.log(' Donnees recues: ' + response['statut']);
                 if (response['statut'] === 200) {
                     swal({
-                        title: "QR Code authentique! Veillez passer a la prochaine étape",
-                        text: `Id releve: ${response.data.releve.id_releve}\nNom: ${response.data.etudiant.nom}\nPrénom: ${response.data.etudiant.prenom}\nMatricule: ${response.data.matricule}\nNiveau: ${response.data.niv.nom_niveau}\nMgp: ${response.data.releve.moy_gen_pon}\nFiliere: ${response.data.releve.filiere}\nDecision releve: ${response.data.releve.decision_rel}\nVeuillez passer a la 2eme partie   `,
+                        title: "QR Code authentique le haché correspond! Veillez passer a la prochaine étape",
+                        text: `hache du QR: ${response.data.hmac}\nhaché en BD: ${response.data.hmacInfo2}\n\nVeuillez passer a la 2eme partie   `,
                         icon: "success",
                         buttons: {
                             confirm: {
@@ -89,18 +89,18 @@ function onScanSuccess(decodedText, decodedResult) {
 
                 } else if (response['statut'] === 400) {
                     // Affichage d'un message d'erreur dans une SweetAlert
-                    swal("Erreur", "Format du QR code invalide", "error");
-                }else if (response['statut'] === 408) {
+                    swal("Erreur", "le hache ne correspond pas", "error");
+                }else if (response['statut'] === 402) {
                     // Affichage d'un message d'erreur dans une SweetAlert
                     swal("Erreur", "Informations du QR non valide");
                 }
                 else {
                     // Affichage d'un message d'erreur dans une SweetAlert
-                    swal("Erreur", "Une erreur s'est produite lors du traitement du QR code.", "error");
+                    swal("Erreur", " QR code inexacte.", "error");
                 }
             },
                 error: function(xhr, status, error) {
-                    swal("Erreur", "Une erreur s'est produite lors du traitement du QR code.", "error");
+                    swal("Erreur", "QR code inexacte.", "error");
                 }
 
 
@@ -120,7 +120,7 @@ function onScanSuccess(decodedText, decodedResult) {
 
 function onScanFailure(error) {
 
-    console.warn(`Code scan error = ${error}`);
+   
 }
 
 
@@ -156,6 +156,123 @@ function scanner() {
     message.textContent = ""
     document.getElementById('info-etu').style.display = "none";
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var decodeT;
+function onScanSuccess2(decodedText, decodedResult) {
+    $('#continue').prop('disabled', true);
+    // alert(decodedText);
+    $('#result').val(decodedText);
+    decodeT = decodedText;
+    console.log(decodedText);
+
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "/qr2",
+            method: "POST",
+            dataType: 'json',
+            data: {
+                data: decodeT
+            },
+            success: function(response) {
+                console.log(' Donnees recues: ' + response['statut']);
+                if (response['statut'] === 200) {
+                    swal({
+                        title: "QR Code authentique le haché correspond! Veillez passer a la prochaine étape",
+                        text: `hache du QR: ${response.data.hmac}\nhaché en BD: ${response.data.hmacInfo2}\n\nVeuillez passer a la 2eme partie   `,
+                        icon: "success",
+                        buttons: {
+                            confirm: {
+                                text: "OK",
+                                value: true,
+                                visible: true,
+                                className: "btn btn-primary"
+                            }
+                        }
+                    }).then((willContinue) => {
+                        if (willContinue) {
+                            $('#continue').prop('disabled', false); // Activer le bouton "Continuer"
+                        }
+                    });
+
+                } else if (response['statut'] === 400) {
+                    // Affichage d'un message d'erreur dans une SweetAlert
+                    swal("Erreur", "le hache ne correspond pas", "error");
+                }else if (response['statut'] === 402) {
+                    // Affichage d'un message d'erreur dans une SweetAlert
+                    swal("Erreur", "Informations du QR non valide");
+                }
+                else {
+                    // Affichage d'un message d'erreur dans une SweetAlert
+                    swal("Erreur", "  QR code inexacte.", "error");
+                }
+            },
+                error: function(xhr, status, error) {
+                    swal("Erreur", "Une erreur s'est produite lors du traitement du QR code.", "error");
+                }
+
+
+
+
+        });
+    $('#continue').on('click', function() {
+        var url = $(this).data('url');
+        window.location.href = url; // Rediriger vers la page suivante
+    });
+
+
+
+}
+
+
+
+function onScanFailure(error) {
+
+   
+}
+
+
+
+
+
+
+
+function scanner2() {
+    // document.getElementById("mon-formulaire").style.display = "none";
+    let html5QrcodeScanner = new Html5QrcodeScanner(
+        "reader", {
+            fps: 10,
+            qrbox: {
+                width: 250,
+                height: 250
+            }
+        },
+        /* verbose= */
+        false);
+    html5QrcodeScanner.render(onScanSuccess2, onScanFailure);
+    let message = document.getElementById("message");
+    message.textContent = ""
+    document.getElementById('info-etu').style.display = "none";
+}
+
 
 
 pdfcrowd.enableLinks(false); // Optionnel : désactiver les liens dans le PDF
@@ -226,7 +343,7 @@ function verification1(encodedData) {
 
                         swal({
                             title: "Verification terminée, relevé authentique!",
-                            text: 'relevé authentique!',
+                            text: `hache du QR: ${response.data.hmac}\nhaché du OCR: ${response.data.hmacInfo2}\n\nReleve Authentique!!!!!!   `,
                             icon: "success",
                             buttons: {
                                 confirm: {
@@ -240,7 +357,7 @@ function verification1(encodedData) {
                     } else if (response.statut === 400) {
                         swal("Erreur", "Format du QR code invalide", "error");
                     } else if (response.statut === 408) {
-                        swal("Erreur", "Les informations du PDF et du QR code ne correspondent pas", "error");
+                        swal("Erreur", "Les informations de l\'image et du QR code ne correspondent pas", "error");
                     } else {
                         swal("Erreur", "Une erreur s'est produite lors du traitement du QR code.", "error");
                     }
@@ -292,7 +409,7 @@ function verification2(encodedData) {
                 },
                 success: function(response) {
                     $('#loader').hide();
-
+                    console.log(' Donnees recues: ' + response['statut']);
                     if (response.statut === 200) {
                         // let releve = response.data.releve;
                         // let etudiant = response.data.etudiant;
@@ -307,7 +424,7 @@ function verification2(encodedData) {
 
                         swal({
                             title: "Verification terminée, relevé authentique!",
-                            text: 'relevé authentique!',
+                            text: `hache du QR: ${response.data.hmac}\nhaché du OCR: ${response.data.hmacInfo2}\n\nReleve Authentique!!!!!!   `,
                             icon: "success",
                             buttons: {
                                 confirm: {

@@ -17,19 +17,11 @@
                     </ul>
                 </div>
                 <ul class="navbar-nav navbar-right">
-
-                    <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="" class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
+                    <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <i data-feather="user"></i> <span class="d-sm-none d-lg-inline-block"></span></a>
                         <div class="dropdown-menu dropdown-menu-right pullDown">
-                            <div class="dropdown-title">Hello Sarah Smith</div>
-                            <a href="profile.html" class="dropdown-item has-icon"> <i class="far
-										fa-user"></i> Profile
-                            </a> <a href="timeline.html" class="dropdown-item has-icon"> <i class="fas fa-bolt"></i>
-                                Activities
-                            </a> <a href="#" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
-                                Settings
-                            </a>
+                            <div class="dropdown-title">Hello {{session('name')}}</div>
                             <div class="dropdown-divider"></div>
-                            <a href="auth-login.html" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
+                            <a href="{{ route('auth.logout') }}" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
                                 Logout
                             </a>
                         </div>
@@ -39,7 +31,8 @@
             <div class="main-sidebar sidebar-style-2">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
-                        <a href="index.html"> <img alt="image" src="assets_admin/img/logo.png" class="header-logo" /> <span class="logo-name">Authdoc</span>
+                        <a href="{{ route('home') }}"> <img alt="image" src="assets_admin/img/logo.png" class="header-logo" />
+                            <span class="logo-name">Authdoc</span>
                         </a>
                     </div>
                     <ul class="sidebar-menu">
@@ -156,7 +149,7 @@
                                 @if($method==null)
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4>Rechercher un étudiant</h4>
+                                        <h4>Resultats pour le matricule {{ session()->get('matricule') }}</h4>
                                     </div>
                                     <div class="card-body">
                                         @if(Session::has('success'))
@@ -213,11 +206,13 @@
 
                                 @if($method=='afficherel')
                                 <div class="d-flex   container-lg flex-column py-5 px-5 default_option">
-                                    <div class="contents">
+                                    <div class="contents position-relative">
                                         <style>
                                             .Qrcode {
-                                                margin-top: 50px;
-                                                margin-left: -100px;
+                                                position: absolute;
+                                                bottom: 0;
+                                                right: 0;
+                                                margin: 20px; /* Ajustez la marge si nécessaire */
                                             }
 
                                             #downloadButton {
@@ -449,27 +444,9 @@
                                             </span>
 
                                         </section>
-                                        <div class="bottom-left">
-                                            <div class="form-value ps-4 pt-1 text-uppercase">
-                                                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                                                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
-                                                &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
-                                                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                &nbsp;&nbsp; &nbsp;
-                                                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                &nbsp;&nbsp; &nbsp;
-                                                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                &nbsp;&nbsp; &nbsp;
-                                                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                &nbsp;&nbsp; &nbsp;
-                                                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                &nbsp;&nbsp; &nbsp;
-                                                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                &nbsp;&nbsp; &nbsp;
-                                                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                &nbsp;&nbsp; &nbsp;
-                                                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                &nbsp;&nbsp; &nbsp;
+                                        <div class="container">
+                                            <div class="d-flex justify-content-center text-uppercase text-center">
+                                               
 
 
                                                 N° : {{ isset($releve) ? $releve->id_releve : '' }}
@@ -668,7 +645,7 @@
                                                             <td>{{ $resultat->mention }}</td>
                                                             <td>{{ $resultat->semestre }}</td>
                                                             <!--semestre de l ue A AJOUTER-->
-                                                            <td>2021</td>
+                                                            <td>{{ $resultat->annee }}</td>
                                                             <!--anne que tu compose la matiere  de l ue A AJOUTER-->
                                                             <td>{{ $resultat->decision_note }}</td>
                                                         </tr>
@@ -685,7 +662,7 @@
                                                     </tbody>
                                                 </table>
                                             </section>
-                                            <section class="w-100 d-flex flex-column align-items-center">
+                                            <section class="d-flex justify-content-center  text-center">
                                                 <span class="w-100 decision-data d-flex flex-column w-auto">
                                                     <span> Crédit Capitalisés: 60/60 (100.00%)
                                                     </span>
@@ -840,76 +817,7 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                                                    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                                                    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                                                    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                                                    &nbsp;&nbsp;
-
+                                                    
 
                                                     <div class="Qrcode">
                                                         {{\SimpleSoftwareIO\QrCode\Facades\QrCode::size(150)->generate($hmacInfo)}}

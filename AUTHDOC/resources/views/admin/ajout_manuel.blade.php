@@ -17,19 +17,11 @@
                     </ul>
                 </div>
                 <ul class="navbar-nav navbar-right">
-
-                    <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="" class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
+                    <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <i data-feather="user"></i> <span class="d-sm-none d-lg-inline-block"></span></a>
                         <div class="dropdown-menu dropdown-menu-right pullDown">
-                            <div class="dropdown-title">Hello Sarah Smith</div>
-                            <a href="profile.html" class="dropdown-item has-icon"> <i class="far
-										fa-user"></i> Profile
-                            </a> <a href="timeline.html" class="dropdown-item has-icon"> <i class="fas fa-bolt"></i>
-                                Activities
-                            </a> <a href="#" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
-                                Settings
-                            </a>
+                            <div class="dropdown-title">Hello {{session('name')}}</div>
                             <div class="dropdown-divider"></div>
-                            <a href="auth-login.html" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
+                            <a href="{{ route('auth.logout') }}" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
                                 Logout
                             </a>
                         </div>
@@ -39,7 +31,8 @@
             <div class="main-sidebar sidebar-style-2">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
-                        <a href="index.html"> <img alt="image" src="assets_admin/img/logo.png" class="header-logo" /> <span class="logo-name">Authdoc</span>
+                        <a href="{{ route('home') }}"> <img alt="image" src="assets_admin/img/logo.png" class="header-logo" />
+                            <span class="logo-name">Authdoc</span>
                         </a>
                     </div>
                     <ul class="sidebar-menu">
@@ -56,7 +49,7 @@
                         {{-- </ul>--}}
                         {{-- </li>--}}
 
-                        <li class="menu-header">Gestion</li>
+                        <li class="menu-header">Gestion releve</li>
                         <li class="dropdown">
 
                         </li>
@@ -145,14 +138,7 @@
                                     </div>
                                 </div>
                                 <!--end col-->
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationCustom02">Domaine</label>
-                                    <input name="domaine" type="text" class="form-control" id="domaine" placeholder="Sciences et technologies" value="" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                </div>
-                                <!--end col-->
+                                
                             </div>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
@@ -181,17 +167,6 @@
                                     <div class="input-group">
 
                                         <input name="annee" type="text" class="form-control" id="validationCustomUsername" placeholder="2021/2022" aria-describedby="inputGroupPrepend" required>
-                                        <div class="invalid-feedback">
-                                            Please choose a year.
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationCustomUsername">MGP</label>
-                                    <div class="input-group">
-
-                                        <input name="annee" type="text" class="form-control" id="validationCustomUsername" placeholder="." aria-describedby="inputGroupPrepend" required>
                                         <div class="invalid-feedback">
                                             Please choose a year.
                                         </div>
@@ -235,12 +210,20 @@
                                 </div>
                                 <!--end col-->
 
-                              
+                                <div class="col-md-3 mb-3">
+                                    <label for="validationCustom05">Nombre d'UEs</label>
+                                    <input type="numerics" class="form-control" id="validationCustom05" placeholder="12" name="nbUe" required style="font-weight: bold;">
+                                    <div class="invalid-feedback">
+                                        Please provide a valid number.
+                                    </div>
+                                </div>
+                                <!--end col-->
+
 
 
                                 <!--end col-->
                             </div>
-                            <button class="btn btn-primary" type="submit">Enregistrer l'attestation</button>
+                            <button class="btn btn-primary" type="submit">Enregistrer les notes</button>
                             <!--end form-row-->
                         </form>
 
