@@ -30,7 +30,7 @@ class Authcontroller extends Controller
             $utilisateur = new Utilisateur();
             $utilisateur->nom = $request1['first_name'];
             $utilisateur->prenom = $request1['last_name'];
-            $utilisateur->email = $request1['email'];
+            $utilisateur->email = $request1['email2'];
             $utilisateur->password = Hash::make($request1['password']);
             $utilisateur->fonction = 'uti';
 
@@ -49,9 +49,11 @@ class Authcontroller extends Controller
             $utilisateur = Utilisateur::where([
                 'email' => $credentials['email'],
             ])->first();
+           
             if ($utilisateur && Hash::check($credentials['password'],$utilisateur->password))
             {
 //                $user = Auth::user();
+                session()->put('fonction',$utilisateur->fonction);
                 if ($utilisateur->fonction === 'adm') {
                     $request->session()->regenerate();
                     return redirect()->intended(route('admin.main'));
@@ -64,5 +66,22 @@ class Authcontroller extends Controller
 
 
         }
+
+
+        public function logout(Request $request)
+        {
+            // Clear all session data
+            session()->flush();
+    
+            // Optionally, you can regenerate the session ID
+            $request->session()->regenerate();
+    
+            // Redirect to login page or home page
+            return redirect()->route('auth.login');
+        }
+
+
+
+
 
 }

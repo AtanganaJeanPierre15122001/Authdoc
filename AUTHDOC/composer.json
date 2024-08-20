@@ -6,10 +6,20 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
-        "guzzlehttp/guzzle": "^7.2",
+        "aws/aws-sdk-php": "^3.305",
+        "barryvdh/laravel-dompdf": "^2.0",
+        "barryvdh/laravel-snappy": "^1.0",
+        "google/cloud-vision": "^1.9",
+        "guzzlehttp/guzzle": "^7.8",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "pdfcrowd/pdfcrowd": "^5.18",
+        "phpoffice/phpspreadsheet": "1.18",
+        "simplesoftwareio/simple-qrcode": "^4.2",
+        "smalot/pdfparser": "^2.10",
+        "spatie/pdf-to-text": "^1.52",
+        "thiagoalessio/tesseract_ocr": "^2.13"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.9",
